@@ -1,0 +1,653 @@
+﻿Club,id,LeagueID
+FC Barcelona,1,4
+Juventus,2,0
+Paris Saint-Germain,3,0
+Manchester United,4,1
+Manchester City,5,1
+Chelsea,6,1
+Real Madrid,7,4
+Atlético Madrid,8,4
+FC Bayern München,9,0
+Tottenham Hotspur,10,1
+Liverpool,11,1
+Napoli,12,0
+Arsenal,13,1
+Milan,14,0
+Inter,15,0
+Lazio,16,0
+Borussia Dortmund,17,0
+Vissel Kobe,18,0
+Olympique Lyonnais,19,0
+Roma,20,0
+Valencia CF,21,4
+Guangzhou Evergrande Taobao FC,22,0
+FC Porto,23,0
+FC Schalke 04,24,0
+Beşiktaş JK,25,0
+LA Galaxy,26,0
+Sporting CP,27,0
+Real Betis,28,4
+Olympique de Marseille,29,0
+RC Celta,30,4
+Bayer 04 Leverkusen,31,0
+Real Sociedad,32,4
+Villarreal CF,33,4
+Sevilla FC,34,4
+SL Benfica,35,0
+AS Saint-Étienne,36,0
+AS Monaco,37,0
+Leicester City,38,1
+Atalanta,39,0
+Grêmio,40,0
+Atlético Mineiro,41,0
+RB Leipzig,42,0
+Ajax,43,0
+Dalian YiFang FC,44,0
+Everton,45,1
+West Ham United,46,1
+1. FC Köln,47,0
+TSG 1899 Hoffenheim,48,0
+Shanghai SIPG FC,49,0
+OGC Nice,50,0
+Al Nassr,51,0
+Wolverhampton Wanderers,52,1
+Borussia Mönchengladbach,53,0
+Hertha BSC,54,0
+SV Werder Bremen,55,0
+Cruzeiro,56,0
+Athletic Club de Bilbao,57,4
+Torino,58,0
+Medipol Başakşehir FK,59,0
+Beijing Sinobo Guoan FC,60,0
+Crystal Palace,61,1
+PFC CSKA Moscow,62,0
+VfL Wolfsburg,63,0
+Shakhtar Donetsk,64,0
+Toronto FC,65,0
+Lokomotiv Moscow,66,0
+Sassuolo,67,0
+New York City FC,68,0
+Fluminense,69,0
+PSV,70,0
+Levante UD,71,4
+Fulham,72,1
+Watford,73,1
+Atlanta United,74,0
+Montpellier HSC,75,0
+Galatasaray SK,76,0
+Fenerbahçe SK,77,0
+SD Eibar,78,4
+Los Angeles FC,79,0
+Sampdoria,80,0
+Al Hilal,81,0
+VfB Stuttgart,82,0
+SC Braga,83,0
+River Plate,84,0
+Deportivo Alavés,85,4
+null,86,0
+Eintracht Frankfurt,87,0
+Girona FC,88,4
+Guangzhou R&F; FC,89,0
+Burnley,90,1
+Stoke City,91,2
+Southampton,92,1
+Tianjin Quanjian FC,93,0
+Getafe CF,94,4
+Beijing Renhe FC,95,0
+Montreal Impact,96,0
+Chievo Verona,97,0
+Genoa,98,0
+Portland Timbers,99,0
+Tigres U.A.N.L.,100,0
+RCD Espanyol,101,4
+Hebei China Fortune FC,102,0
+Cagliari,103,0
+Chicago Fire,104,0
+DC United,105,0
+Sagan Tosu,106,0
+Dynamo Kyiv,107,0
+Santos,108,0
+Internacional,109,0
+América FC (Minas Gerais),110,0
+Independiente,111,0
+Boca Juniors,112,0
+Cruz Azul,113,0
+1. FSV Mainz 05,114,0
+Bournemouth,115,1
+Spartak Moscow,116,0
+Racing Club,117,0
+FC Augsburg,118,0
+Fiorentina,119,0
+FC Nantes,120,0
+Feyenoord,121,0
+Club Brugge KV,122,0
+Brighton & Hove Albion,123,1
+Al Ahli,124,0
+Jiangsu Suning FC,125,0
+SC Freiburg,126,0
+PAOK,127,0
+Stade Rennais FC,128,0
+Trabzonspor,129,0
+SPAL,130,0
+Portimonense SC,131,0
+Olympiacos CFP,132,0
+Club Atlético Huracán,133,0
+Kasimpaşa SK,134,0
+Newcastle United,135,1
+Frosinone,136,0
+Querétaro,137,0
+KRC Genk,138,0
+Hannover 96,139,0
+Stade Malherbe Caen,140,0
+Godoy Cruz,141,0
+Toulouse Football Club,142,0
+RSC Anderlecht,143,0
+Huddersfield Town,144,1
+CD Tondela,145,0
+Seattle Sounders FC,146,0
+Hamburger SV,147,0
+FC Red Bull Salzburg,148,0
+Rio Ave FC,149,0
+FC Girondins de Bordeaux,150,0
+Melbourne Victory,151,0
+Parma,152,0
+FC Basel 1893,153,0
+Al Wehda,154,0
+BSC Young Boys,155,0
+KAA Gent,156,0
+Al Ittihad,157,0
+Standard de Liège,158,0
+Shanghai Greenland Shenhua FC,159,0
+Colo-Colo,160,0
+Junior FC,161,0
+West Bromwich Albion,162,1
+RC Strasbourg Alsace,163,0
+Göztepe SK,164,0
+Deportivo Cali,165,0
+Deportivo Toluca,166,0
+Bologna,167,0
+Nagoya Grampus,168,0
+Amiens SC,169,0
+Changchun Yatai FC,170,0
+Club Atlético Lanús,171,0
+Botafogo,172,0
+Club América,173,0
+Udinese,174,0
+Real Valladolid CF,175,4
+CD Leganés,176,4
+Club Atlético Banfield,177,0
+Celtic,178,0
+Vitória Guimarães,179,0
+FC København,180,0
+UD Las Palmas,181,0
+Deportivo de La Coruña,182,0
+Universidad Católica,183,0
+San Lorenzo de Almagro,184,0
+Rayo Vallecano,185,4
+Monterrey,186,0
+Columbus Crew SC,187,0
+MKE Ankaragücü,188,0
+Guizhou Hengfeng FC,189,0
+Swansea City,190,2
+Tianjin TEDA FC,191,0
+Chongqing Dangdai Lifan FC SWM Team,192,0
+AEK Athens,193,0
+Al Taawoun,194,0
+Melbourne City FC,195,0
+En Avant de Guingamp,196,0
+Akhisar Belediyespor,197,0
+Foggia,198,0
+LOSC Lille,199,0
+1. FC Nürnberg,200,0
+Clube Sport Marítimo,201,0
+Real Sporting de Gijón,202,0
+BB Erzurumspor,203,0
+Shandong Luneng TaiShan FC,204,0
+Club Atlético Colón,205,0
+Bahia,206,0
+Once Caldas,207,0
+FC Groningen,208,0
+Angers SCO,209,0
+Paraná,210,0
+Antalyaspor,211,0
+Minnesota United FC,212,0
+Club León,213,0
+Empoli,214,0
+VVV-Venlo,215,0
+Leeds United,216,2
+Viktoria Plzeň,217,0
+Alanyaspor,218,0
+Atlético Paranaense,219,0
+Derby County,220,2
+Kawasaki Frontale,221,0
+Cardiff City,222,0
+Aston Villa,223,2
+Guadalajara,224,0
+Dijon FCO,225,0
+Santos Laguna,226,0
+Málaga CF,227,0
+Vitória,228,0
+Çaykur Rizespor,229,0
+U.N.A.M.,230,0
+Nottingham Forest,231,2
+Royal Antwerp FC,232,0
+Club Tijuana,233,0
+Sport Club do Recife,234,0
+Real Salt Lake,235,0
+AZ Alkmaar,236,0
+SK Slavia Praha,237,0
+Willem II,238,0
+Middlesbrough,239,2
+Dinamo Zagreb,240,0
+Club Atlas,241,0
+Granada CF,242,0
+Sydney FC,243,0
+Sporting Kansas City,244,0
+SV Zulte-Waregem,245,0
+Philadelphia Union,246,0
+Real Oviedo,247,0
+Pachuca,248,0
+Boavista FC,249,0
+Atiker Konyaspor,250,0
+Kaizer Chiefs,251,0
+GD Chaves,252,0
+Palermo,253,0
+Atlético Nacional,254,0
+Puebla FC,255,0
+Perth Glory,256,0
+Panathinaikos FC,257,0
+FC Sion,258,0
+Vitória de Setúbal,259,0
+New York Red Bulls,260,0
+Al Shabab,261,0
+Monarcas Morelia,262,0
+Albacete BP,263,0
+Rangers FC,264,0
+Sparta Praha,265,0
+Legia Warszawa,266,0
+Urawa Red Diamonds,267,0
+Rosario Central,268,0
+Stade de Reims,269,0
+ADO Den Haag,270,0
+Chapecoense,271,0
+FC Midtjylland,272,0
+San Jose Earthquakes,273,0
+Belgrano de Córdoba,274,0
+Brescia,275,0
+Kashima Antlers,276,0
+CD Everton de Viña del Mar,277,0
+Fortuna Düsseldorf,278,0
+SD Huesca,279,4
+Preston North End,280,2
+Club Atlético Talleres,281,0
+Benevento,282,0
+Vitesse,283,0
+Gimnasia y Esgrima La Plata,284,0
+Houston Dynamo,285,0
+Club Necaxa,286,0
+Norwich City,287,2
+Holstein Kiel,288,0
+Ettifaq FC,289,0
+Kayserispor,290,0
+1. FC Heidenheim 1846,291,0
+Brentford,292,2
+Yeni Malatyaspor,293,0
+Lobos BUAP,294,0
+Bursaspor,295,0
+Ceará Sporting Club,296,0
+Sheffield United,297,2
+FC Ingolstadt 04,298,0
+Estudiantes de La Plata,299,0
+AIK,300,0
+Queens Park Rangers,301,2
+Suwon Samsung Bluewings,302,0
+Heart of Midlothian,303,0
+Reading,304,2
+FC Dallas,305,0
+Heracles Almelo,306,0
+Venezia FC,307,0
+CD Lugo,308,0
+Henan Jianye FC,309,0
+Orlando City SC,310,0
+CA Osasuna,311,0
+NAC Breda,312,0
+Livorno,313,0
+Universidad de Chile,314,0
+Brøndby IF,315,0
+Aberdeen,316,0
+Defensa y Justicia,317,0
+Atlético Tucumán,318,0
+Blackburn Rovers,319,2
+SV Darmstadt 98,320,0
+Moreirense FC,321,0
+Sanfrecce Hiroshima,322,0
+CD Numancia,323,0
+KV Oostende,324,0
+FC Utrecht,325,0
+Vancouver Whitecaps FC,326,0
+Odense Boldklub,327,0
+SC Heerenveen,328,0
+Racing Club de Lens,329,0
+Independiente Santa Fe,330,0
+Sporting de Charleroi,331,0
+Millonarios FC,332,0
+Sheffield Wednesday,333,2
+Perugia,334,0
+Daegu FC,335,0
+Vélez Sarsfield,336,0
+Grasshopper Club Zürich,337,0
+Sivasspor,338,0
+Nîmes Olympique,339,0
+Rosenborg BK,340,0
+SK Sturm Graz,341,0
+FC Metz,342,0
+CD Universidad de Concepción,343,0
+Hellas Verona,344,0
+Brisbane Roar,345,0
+CD Feirense,346,0
+Hull City,347,2
+Waasland-Beveren,348,0
+Neuchâtel Xamax,349,0
+Real Zaragoza,350,0
+CD Aves,351,0
+Millwall,352,2
+Unión de Santa Fe,353,0
+KAS Eupen,354,0
+Cádiz CF,355,0
+FC Tokyo,356,0
+CD Tenerife,357,0
+1. FC Union Berlin,358,0
+Al Fayha,359,0
+AJ Auxerre,360,0
+Patriotas Boyacá FC,361,0
+Molde FK,362,0
+Bristol City,363,2
+CD Nacional,364,0
+Sporting Lokeren,365,0
+FC St. Pauli,366,0
+Deportes Iquique,367,0
+Al Qadisiyah,368,0
+Atlético Bucaramanga,369,0
+Club Atlético Tigre,370,0
+FK Austria Wien,371,0
+Patronato,372,0
+Malmö FF,373,0
+Kashiwa Reysol,374,0
+US Cremonese,375,0
+VfL Bochum 1848,376,0
+SK Rapid Wien,377,0
+KSV Cercle Brugge,378,0
+Rionegro Águilas,379,0
+Gimnàstic de Tarragona,380,0
+Lecce,381,0
+Santa Clara,382,0
+BK Häcken,383,0
+New England Revolution,384,0
+Orlando Pirates,385,0
+Atlético Huila,386,0
+Western Sydney Wanderers,387,0
+Kalmar FF,388,0
+Independiente Medellín,389,0
+Fortuna Sittard,390,0
+Lech Poznań,391,0
+Djurgårdens IF,392,0
+CF Reus Deportiu,393,0
+SK Brann,394,0
+Ulsan Hyundai FC,395,0
+Sint-Truidense VV,396,0
+Carpi,397,0
+Al Fateh,398,0
+Royal Excel Mouscron,399,0
+AC Ajaccio,400,0
+PEC Zwolle,401,0
+Sunderland,402,0
+Club Atlético Aldosivi,403,0
+US Salernitana 1919,404,0
+FC Lorient,405,0
+Argentinos Juniors,406,0
+AD Alcorcón,407,0
+Crotone,408,0
+Excelsior,409,0
+KV Kortrijk,410,0
+IFK Norrköping,411,0
+Adelaide United,412,0
+FC St. Gallen,413,0
+Tiburones Rojos de Veracruz,414,0
+CD Palestino,415,0
+Jeju United FC,416,0
+Deportes Tolima,417,0
+Jeonbuk Hyundai Motors,418,0
+Birmingham City,419,2
+América de Cali,420,0
+La Equidad,421,0
+Spezia,422,0
+Aalborg BK,423,0
+Le Havre AC,424,0
+Górnik Zabrze,425,0
+Central Coast Mariners,426,0
+Wigan Athletic,427,2
+Jagiellonia Białystok,428,0
+Cittadella,429,0
+Hibernian,430,0
+FC Lugano,431,0
+San Martín de San Juan,432,0
+Strømsgodset IF,433,0
+Júbilo Iwata,434,0
+Newell's Old Boys,435,0
+Al Faisaly,436,0
+Colorado Rapids,437,0
+IF Elfsborg,438,0
+SV Sandhausen,439,0
+Al Batin,440,0
+Stade Brestois 29,441,0
+UD Almería,442,0
+Gyeongnam FC,443,0
+Yokohama F. Marinos,444,0
+Kilmarnock,445,0
+Pescara,446,0
+Newcastle Jets,447,0
+Córdoba CF,448,0
+RCD Mallorca,449,0
+Hammarby IF,450,0
+Cerezo Osaka,451,0
+KFC Uerdingen 05,452,0
+Shimizu S-Pulse,453,0
+MSV Duisburg,454,0
+Os Belenenses,455,0
+DSC Arminia Bielefeld,456,0
+Ipswich Town,457,2
+FC Seoul,458,0
+Lechia Gdańsk,459,0
+Gamba Osaka,460,0
+CF Rayo Majadahonda,461,0
+LASK Linz,462,0
+Bolton Wanderers,463,2
+Al Raed,464,0
+Extremadura UD,465,0
+SC Paderborn 07,466,0
+Wellington Phoenix,467,0
+Unión Española,468,0
+Alianza Petrolera,469,0
+Cracovia,470,0
+Gangwon FC,471,0
+Elche CF,472,0
+ESTAC Troyes,473,0
+AS Béziers,474,0
+La Berrichonne de Châteauroux,475,0
+Clermont Foot 63,476,0
+1. FC Magdeburg,477,0
+Pohang Steelers,478,0
+Örebro SK,479,0
+Arka Gdynia,480,0
+SG Dynamo Dresden,481,0
+SpVgg Greuther Fürth,482,0
+CD Huachipato,483,0
+Wisła Kraków,484,0
+Stabæk Fotball,485,0
+Eintracht Braunschweig,486,0
+Valenciennes FC,487,0
+FC Thun,488,0
+San Luis de Quillota,489,0
+ SSV Jahn Regensburg,490,0
+Cosenza,491,0
+FC Nordsjælland,492,0
+FC Erzgebirge Aue,493,0
+Jeonnam Dragons,494,0
+Wolfsberger AC,495,0
+Chamois Niortais Football Club,496,0
+Club Deportes Temuco,497,0
+AS Nancy Lorraine,498,0
+Red Star FC,499,0
+Al Hazem,500,0
+Pogoń Szczecin,501,0
+Charlton Athletic,502,0
+Grenoble Foot 38,503,0
+FC Hansa Rostock,504,0
+San Martin de Tucumán,505,0
+Incheon United FC,506,0
+Śląsk Wrocław,507,0
+GFC Ajaccio,508,0
+1. FC Kaiserslautern,509,0
+Deportivo Pasto,510,0
+Lincoln City,511,0
+Motherwell,512,0
+Rotherham United,513,2
+Burton Albion,514,0
+Wisła Płock,515,0
+FC Wacker Innsbruck,516,0
+Peterborough United,517,0
+Ascoli,518,0
+FC Zürich,519,0
+Fleetwood Town,520,0
+Padova,521,0
+FC Sochaux-Montbéliard,522,0
+SV Wehen Wiesbaden,523,0
+Unión La Calera,524,0
+Scunthorpe United,525,0
+CD O'Higgins,526,0
+CD Antofagasta,527,0
+Plymouth Argyle,528,0
+Aarhus GF,529,0
+Lillestrøm SK,530,0
+Karlsruher SC,531,0
+GIF Sundsvall,532,0
+FC Emmen,533,0
+Barnsley,534,0
+Audax Italiano,535,0
+V-Varen Nagasaki,536,0
+Paris FC,537,0
+SpVgg Unterhaching,538,0
+Hobro IK,539,0
+De Graafschap,540,0
+Hokkaido Consadole Sapporo,541,0
+Tromsø IL,542,0
+FC Luzern,543,0
+FK Haugesund,544,0
+Zagłębie Lubin,545,0
+VfR Aalen,546,0
+Dundalk,547,0
+Oxford United,548,0
+Piast Gliwice,549,0
+Ohod Club,550,0
+Östersunds FK,551,0
+Vegalta Sendai,552,0
+Crawley Town,553,0
+FC Admira Wacker Mödling,554,0
+Vålerenga Fotball,555,0
+Dundee FC,556,0
+Portsmouth,557,0
+Envigado FC,558,0
+Miedź Legnica,559,0
+Odds BK,560,0
+SC Fortuna Köln,561,0
+US Orléans Loiret Football,562,0
+Sarpsborg 08 FF,563,0
+Jaguares de Córdoba,564,0
+Bradford City,565,0
+Accrington Stanley,566,0
+St. Johnstone FC,567,0
+Boyacá Chicó FC,568,0
+Luton Town,569,0
+SV Mattersburg,570,0
+Kristiansund BK,571,0
+Sangju Sangmu FC,572,0
+Rochdale,573,0
+Walsall,574,0
+Korona Kielce,575,0
+Shonan Bellmare,576,0
+FC Würzburger Kickers,577,0
+FSV Zwickau,578,0
+St. Mirren,579,0
+AC Horsens,580,0
+Esbjerg fB,581,0
+HJK Helsinki,582,0
+Southend United,583,0
+Bristol Rovers,584,0
+Hamilton Academical FC,585,0
+TSV 1860 München,586,0
+Curicó Unido,587,0
+SCR Altach,588,0
+Ranheim Fotball,589,0
+Stevenage,590,0
+SG Sonnenhof Großaspach,591,0
+Oldham Athletic,592,0
+Milton Keynes Dons,593,0
+FK Bodø/Glimt,594,0
+SC Preußen Münster,595,0
+Wycombe Wanderers,596,0
+Vejle Boldklub,597,0
+Bury,598,0
+Randers FC,599,0
+VfL Osnabrück,600,0
+SønderjyskE,601,0
+IFK Göteborg,602,0
+Mansfield Town,603,0
+Coventry City,604,0
+Waterford FC,605,0
+Shrewsbury,606,0
+IK Start,607,0
+Gillingham,608,0
+FC Energie Cottbus,609,0
+FC Carl Zeiss Jena,610,0
+Hallescher FC,611,0
+SV Meppen,612,0
+AFC Wimbledon,613,0
+Blackpool,614,0
+Doncaster Rovers,615,0
+Sandefjord Fotball,616,0
+VfL Sportfreunde Lotte,617,0
+Cheltenham Town,618,0
+IK Sirius,619,0
+Vendsyssel FF,620,0
+Swindon Town,621,0
+Notts County,622,0
+SKN St. Pölten,623,0
+Exeter City,624,0
+Northampton Town,625,0
+Shamrock Rovers,626,0
+Colchester United,627,0
+Livingston FC,628,0
+TSV Hartberg,629,0
+Tranmere Rovers,630,0
+Cambridge United,631,0
+Grimsby Town,632,0
+Port Vale,633,0
+Itagüí Leones FC,634,0
+Forest Green Rovers,635,0
+Dalkurd FF,636,0
+Zagłębie Sosnowiec,637,0
+Carlisle United,638,0
+Trelleborgs FF,639,0
+St. Patrick's Athletic,640,0
+Morecambe,641,0
+Cork City,642,0
+IF Brommapojkarna,643,0
+Crewe Alexandra,644,0
+Yeovil Town,645,0
+Bohemian FC,646,0
+Macclesfield Town,647,0
+Newport County,648,0
+Sligo Rovers,649,0
+Derry City,650,0
+Limerick FC,651,0
+Bray Wanderers,652,0
