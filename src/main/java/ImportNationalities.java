@@ -27,6 +27,7 @@ public class ImportNationalities {
                 session.save(nationalityEntity);
         }
         session.getTransaction().commit();
+        session.close();
         rs.close();
 
 

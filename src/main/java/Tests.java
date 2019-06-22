@@ -1,9 +1,13 @@
 import algorithms.BestTeamFormation;
 import algorithms.BestTeamSheet;
 import entities.PlayersEntity;
+import entities.TeamsEntity;
 import org.hibernate.Session;
 import utils.SessionStore;
+import utils.Utils;
+import workers.Team;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -17,22 +21,53 @@ public class Tests {
         startTime = System.currentTimeMillis();
 
         Session session = SessionStore.getSession();
-        List<PlayersEntity> players = session.createQuery("from PlayersEntity where team.id = 5 or team.id = 11",PlayersEntity.class).list();
+        List<TeamsEntity> teamsEntities = session.createQuery("from TeamsEntity where leagueid = 1",TeamsEntity.class).list();
+        session.close();
 
-        System.out.println("Player base: "+players.size());
+//        List<PlayersEntity> players = session.createQuery("from PlayersEntity where teamId = 1",PlayersEntity.class).list();
+//
+//        System.out.print(Utils.logger.getLevel().toString());
+//        Utils.logger.info("Player base: "+players.size());
+//        BestTeamFormation btf = new BestTeamFormation(players,0.3);
+//        BestTeamSheet ts = btf.getBestTeamSheet();
+//        Utils.logger.debug("Best Formation: "+ts.getFormation().getFormation()+" - Rated: "+ts.getRating()+" - Weight: "+ts.getWeight());
+//
+//
+//        final double[] totalAttackWeight = {0};
+//        final double[] totalDefenceWeight = {0};
+//
+//        ts.getPlayerPositions().forEach((playersEntity, positionsEntity) -> {
+//            try {
+//                double attackWeight = Utils.getAttackRating(playersEntity,positionsEntity);
+//                double defenceWeight = Utils.getDefenceRating(playersEntity,positionsEntity);
+//                totalAttackWeight[0] += attackWeight;
+//                totalDefenceWeight[0] += defenceWeight;
+//                Utils.logger.info(playersEntity.getName()+" at "+positionsEntity.getPosition()+" rated: "+ Utils.getPosRating(playersEntity,positionsEntity)+" pos type: "+positionsEntity.getPositiontype().getPosition()+" attack rating: "+attackWeight);
+//            } catch (NoSuchFieldException e) {
+//                e.printStackTrace();
+//            } catch (IllegalAccessException e) {
+//                e.printStackTrace();
+//            }
+//        });
+//
+//        Utils.logger.info("Attacking Weight Average: "+totalAttackWeight[0]/11);
+//        Utils.logger.info("Defence Weight Average: "+totalDefenceWeight[0]/11);
 
-        BestTeamFormation btf = new BestTeamFormation(players,0.33);
+        List<Team> teams = new ArrayList<>();
 
-        BestTeamSheet ts = btf.getBestTeamSheet();
-        System.out.println("Best Formation: "+ts.getFormation().getFormation()+" - Rated: "+ts.getRating()+" - Weight: "+ts.getWeight());
+        for(TeamsEntity teamsEntity : teamsEntities){
+            Team team = new Team(teamsEntity);
+            team.init();
+            team.printInfo();
+            team.printFormation();
+            teams.add(team);
+        }
 
-        ts.getPlayerPositions().forEach((playersEntity, positionsEntity) -> {
-            System.out.println(playersEntity.getName()+" at "+positionsEntity.getPosition());
-        });
+
 
         endTime = System.currentTimeMillis();
 
-        System.out.println("Time taken: "+(endTime-startTime)/1000+"s");
+        Utils.logger.debug("Time taken: "+(endTime-startTime)/1000+"s");
 
     }
 }

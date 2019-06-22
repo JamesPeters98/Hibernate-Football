@@ -1,21 +1,92 @@
 package utils;
 
+import entities.AttackWeightsEntity;
+import entities.DefenceWeightsEntity;
 import entities.PositionsEntity;
+import entities.PositiontypeEntity;
+import org.hibernate.Session;
 
 import java.util.List;
 
 public class DBUtil {
 
-    public static List<PositionsEntity> getPositions(int... ids){
-        return SessionStore.getSession().byMultipleIds(PositionsEntity.class).multiLoad(ids);
+    private Session session;
+
+    public DBUtil(){
+        createSession();
     }
 
-    public static List<PositionsEntity> getPositions(List<Integer> ids){
-        return SessionStore.getSession().byMultipleIds(PositionsEntity.class).multiLoad(ids);
+    private void createSession(){
+        session = SessionStore.getSession();
     }
 
-    public static PositionsEntity getPosition(int id){
-        return SessionStore.getSession().byId(PositionsEntity.class).load(id);
+    public void closeConnection(){
+        session.close();
+    }
+
+    public List<PositionsEntity> getPositions(int... ids){
+        try{
+//            createSession();
+            return session.byMultipleIds(PositionsEntity.class).multiLoad(ids);
+        } finally {
+            session.clear();
+//            closeConnection();
+        }
+    }
+
+    public List<PositionsEntity> getPositions(List<Integer> ids){
+        try {
+//            createSession();
+            return session.byMultipleIds(PositionsEntity.class).multiLoad(ids);
+        } finally {
+            session.clear();
+//            closeConnection();
+        }
+
+    }
+
+    public PositionsEntity getPosition(int id){
+        try {
+//            createSession();
+            return session.byId(PositionsEntity.class).load(id);
+        } finally {
+            session.clear();
+//        closeConnection();
+    }
+    }
+
+    public List<PositiontypeEntity> getPositiontypes(){
+        try {
+//            createSession();
+            return session.createQuery("from PositiontypeEntity", PositiontypeEntity.class).list();
+        } finally {
+            session.clear();
+//            closeConnection();
+        }
+    }
+
+    //Returns attacking weight for player based on their playing position in a certain positionType
+    public double getPositionAttackWeight(int positionId, int positionType){
+        try {
+//            createSession();
+            AttackWeightsEntity weightsEntity = session.createQuery("from AttackWeightsEntity where id = "+positionId+" and positiontype ="+positionType,AttackWeightsEntity.class).getSingleResult();
+            return weightsEntity.getWeight();
+        } finally {
+            session.clear();
+//            closeConnection();
+        }
+    }
+
+    //Returns defensive weight for player based on their playing position in a certain positionType
+    public double getPositionDefenceWeight(int positionId, int positionType){
+        try {
+//            createSession();
+            DefenceWeightsEntity weightsEntity = session.createQuery("from DefenceWeightsEntity where id = "+positionId+" and positiontype ="+positionType, DefenceWeightsEntity.class).getSingleResult();
+            return weightsEntity.getWeight();
+        } finally {
+            session.clear();
+//            closeConnection();
+        }
     }
 
 }

@@ -44,6 +44,8 @@ public class PositionsEntity {
     private Double gkPositioning;
     private Double gkReflexes;
     private List<PlayersEntity> player;
+    private RatingWeightsEntity ratingWeights;
+    private PositiontypeEntity positiontype;
 
     @Id
     @Column(name = "ID")
@@ -461,4 +463,26 @@ public class PositionsEntity {
     public void setPlayer(List<PlayersEntity> player) {
         this.player = player;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "ID", nullable = false, insertable = false, updatable = false)
+    public RatingWeightsEntity getRatingWeights() {
+        return ratingWeights;
+    }
+
+    public void setRatingWeights(RatingWeightsEntity ratingWeights) {
+        this.ratingWeights = ratingWeights;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "POSITIONTYPE", referencedColumnName = "ID")
+    public PositiontypeEntity getPositiontype() {
+        return positiontype;
+    }
+
+    public void setPositiontype(PositiontypeEntity positiontype) {
+        this.positiontype = positiontype;
+    }
+
+
 }

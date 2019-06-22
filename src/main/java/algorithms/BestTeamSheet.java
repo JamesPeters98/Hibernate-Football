@@ -6,6 +6,7 @@ import entities.PlayersEntity;
 import entities.PositionsEntity;
 import utils.DBUtil;
 import utils.RelatedPositions;
+import utils.Utils;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -44,37 +45,13 @@ public class BestTeamSheet implements Callable<BestTeamSheet> {
         return -weight/11;
     }
 
-    private double getPosRating(PlayersEntity player, PositionsEntity pos) throws NoSuchFieldException, IllegalAccessException {
-        PlayerStatsEntity stats = player.getStats();
 
-        double overall = 0;
-        for(Field field : stats.getClass().getDeclaredFields()){
-            if(field.getName() == "id") continue;
-
-            field.setAccessible(true);
-            Field posF = pos.getClass().getDeclaredField(field.getName());
-            posF.setAccessible(true);
-
-            int stat = 0;
-            double coef = 0;
-
-            Object coefO = posF.get(pos);
-            Object statO = field.get(stats);
-
-            if(coefO != null) coef = (double) coefO;
-            if(statO != null) stat = (int) statO;
-
-            overall += stat*coef;
-        }
-
-        return overall;
-    }
 
     private double getWeight(PlayersEntity player, PositionsEntity position) throws NoSuchFieldException, IllegalAccessException {
         double preferredPos = -1;
         double potentialWeight = player.getGrowth()*potentialFactor;
         if(RelatedPositions.isRelatedPos(player,position)) preferredPos = 1;
-        return -getPosRating(player,position)-preferredPos-potentialWeight;
+        return -Utils.getAttackRating(player,position)-Utils.getDefenceRating(player,position)-preferredPos-potentialWeight;
     }
 
     @Override
@@ -109,10 +86,10 @@ public class BestTeamSheet implements Callable<BestTeamSheet> {
             PositionsEntity pos = positionMap.get(result[p]);
             playerPosition.put(player,pos);
             weight += weights[p][posIndex];
-            rating += getPosRating(player,pos);
+            rating += Utils.getPosRating(player,pos);
 //            System.out.println(player.getName()
 //                    +" playing at "+pos.getPosition()
-//                    +" rated: "+Math.round(getPosRating(player,pos)));
+//                    +" rated: "+Math.round(Utils.getPosRating(player,pos)));
         }
 
 

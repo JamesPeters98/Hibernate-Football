@@ -1,6 +1,7 @@
 package entities;
 
 import javax.persistence.*;
+import java.util.Map;
 
 @Entity
 @Table(name = "PLAYERS", schema = "PUBLIC", catalog = "SAVE")
@@ -18,6 +19,7 @@ public class PlayersEntity {
     private PlayerStatsEntity stats;
     private Integer positionId;
     private PositionsEntity position;
+    private Map<Object, PlayerRatingsEntity> positionRatings;
 
     @Id
     @Column(name = "ID")
@@ -177,5 +179,15 @@ public class PlayersEntity {
 
     public void setPosition(PositionsEntity position) {
         this.position = position;
+    }
+
+    @MapKey(name = "positionId")
+    @OneToMany
+    public Map<Object, PlayerRatingsEntity> getPositionRatings() {
+        return positionRatings;
+    }
+
+    public void setPositionRatings(Map<Object, PlayerRatingsEntity> positionRatings) {
+        this.positionRatings = positionRatings;
     }
 }

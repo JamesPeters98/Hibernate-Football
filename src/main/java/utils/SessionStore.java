@@ -1,6 +1,7 @@
 package utils;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -32,7 +33,8 @@ public class SessionStore {
         }
     }
 
-    public static org.hibernate.Session getSession() throws HibernateException {
+    public static Session getSession() throws HibernateException {
         return ourSessionFactory.openSession();
     }
+
 }
