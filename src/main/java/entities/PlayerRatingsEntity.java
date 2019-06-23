@@ -12,6 +12,7 @@ public class PlayerRatingsEntity {
     private Double rating;
     private Double attackrating;
     private Double defencerating;
+    private PlayersEntity player;
 
     @Id
     @Column(name = "ID")
@@ -76,5 +77,15 @@ public class PlayerRatingsEntity {
 
     public void setDefencerating(Double defencerating) {
         this.defencerating = defencerating;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
+    public PlayersEntity getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(PlayersEntity player) {
+        this.player = player;
     }
 }

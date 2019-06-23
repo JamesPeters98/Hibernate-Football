@@ -3,7 +3,6 @@ package algorithms;
 import entities.FormationsEntity;
 import entities.PlayersEntity;
 import entities.PositionsEntity;
-import javafx.geometry.Pos;
 import org.hibernate.Session;
 import utils.DBUtil;
 import utils.SessionStore;
@@ -21,11 +20,13 @@ public class BestTeamFormation {
     private ExecutorService executor;
     private DBUtil db;
 
+    private long startTime;
+    private long endTime;
 
-    public BestTeamFormation(List<PlayersEntity> players, double potentialFactor) throws NoSuchFieldException, IllegalAccessException, InterruptedException, ExecutionException {
-        session = SessionStore.getSession();
+    public BestTeamFormation(Session session, List<PlayersEntity> players, double potentialFactor) throws NoSuchFieldException, IllegalAccessException, InterruptedException, ExecutionException {
+//        startTime = System.currentTimeMillis();
         formations = session.createQuery("from FormationsEntity", FormationsEntity.class).list();
-        session.close();
+        session.clear();
 
         executor = Executors.newCachedThreadPool();
         db = new DBUtil();
@@ -56,6 +57,9 @@ public class BestTeamFormation {
 
         db.closeConnection();
         executor.shutdown();
+
+//        endTime = System.currentTimeMillis();
+//        Utils.logger.debug("Best Team Formation Time: "+(endTime-startTime)+"ms");
 
     }
 

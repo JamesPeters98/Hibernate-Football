@@ -4,7 +4,9 @@ import entities.FormationsEntity;
 import entities.PlayerStatsEntity;
 import entities.PlayersEntity;
 import entities.PositionsEntity;
+import org.hibernate.Session;
 import utils.DBUtil;
+import utils.PlayerRatingsUtil;
 import utils.RelatedPositions;
 import utils.Utils;
 
@@ -22,6 +24,10 @@ public class BestTeamSheet implements Callable<BestTeamSheet> {
     private double potentialFactor;
     private HashMap<PlayersEntity, PositionsEntity> playerPosition;
     private FormationsEntity formation;
+
+    private long startTime;
+    private long endTime;
+
 
     /**
      * Calculates the Best Team sheet given a list of players and a list of positions.
@@ -51,11 +57,12 @@ public class BestTeamSheet implements Callable<BestTeamSheet> {
         double preferredPos = -1;
         double potentialWeight = player.getGrowth()*potentialFactor;
         if(RelatedPositions.isRelatedPos(player,position)) preferredPos = 1;
-        return -Utils.getAttackRating(player,position)-Utils.getDefenceRating(player,position)-preferredPos-potentialWeight;
+        return -player.getRatings().get(position.getId()).getAttackrating()-player.getRatings().get(position.getId()).getDefencerating()-preferredPos-potentialWeight;
     }
 
     @Override
     public BestTeamSheet call() throws Exception {
+        //startTime = System.currentTimeMillis();
         HashMap<Integer,PlayersEntity> playerMap = new HashMap<>();
         HashMap<Integer,PositionsEntity> positionMap = new HashMap<>();
         double[][] weights = new double[players.size()][positions.size()];
@@ -86,7 +93,7 @@ public class BestTeamSheet implements Callable<BestTeamSheet> {
             PositionsEntity pos = positionMap.get(result[p]);
             playerPosition.put(player,pos);
             weight += weights[p][posIndex];
-            rating += Utils.getPosRating(player,pos);
+            rating += player.getRatings().get(pos.getId()).getRating();
 //            System.out.println(player.getName()
 //                    +" playing at "+pos.getPosition()
 //                    +" rated: "+Math.round(Utils.getPosRating(player,pos)));
@@ -94,6 +101,11 @@ public class BestTeamSheet implements Callable<BestTeamSheet> {
 
 
         rating/= positions.size();
+
+
+        //endTime = System.currentTimeMillis();
+
+        //Utils.logger.debug("Best Team Sheet Time: "+(endTime-startTime)+"ms");
 
         return this;
     }

@@ -4,16 +4,13 @@ import algorithms.BestTeamFormation;
 import algorithms.BestTeamSheet;
 import entities.PlayersEntity;
 import entities.PositionsEntity;
-import entities.PositiontypeEntity;
 import entities.TeamsEntity;
 import org.hibernate.Session;
-import utils.SessionStore;
+import utils.PlayerRatingsUtil;
 import utils.Utils;
 
-import javax.rmi.CORBA.Util;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 
 public class Team {
@@ -22,24 +19,25 @@ public class Team {
     private List<PlayersEntity> players;
     private BestTeamFormation btf;
     private BestTeamSheet ts;
+    private Session session;
 
     private double attackCoeff;
     private double defenceCoeff;
 
-    public Team(TeamsEntity team){
-        Session session = SessionStore.getSession();
+    public Team(Session session, TeamsEntity team){
         players = session.createQuery("from PlayersEntity where team.id = "+team.getId(),PlayersEntity.class).list();
         this.team = team;
-        session.close();
+        this.session = session;
+        session.clear();
     }
 
     public void init() throws InterruptedException, ExecutionException, NoSuchFieldException, IllegalAccessException {
-        double startTime = System.currentTimeMillis();
+        //double startTime = System.currentTimeMillis();
         calculateBestTeam();
-        Utils.logger.debug(team.getName()+" calculated best team in "+(System.currentTimeMillis()-startTime)+" ms");
-        startTime = System.currentTimeMillis();
+        //Utils.logger.debug(team.getName()+" calculated best team in "+(System.currentTimeMillis()-startTime)+" ms");
+        //startTime = System.currentTimeMillis();
         calculateCoeffs();
-        Utils.logger.debug(team.getName()+" calculated coeffs in "+(System.currentTimeMillis()-startTime)+" ms");
+        //Utils.logger.debug(team.getName()+" calculated coeffs in "+(System.currentTimeMillis()-startTime)+" ms");
     }
 
     public void printInfo(){
@@ -62,7 +60,7 @@ public class Team {
 
     public void calculateBestTeam() throws InterruptedException, ExecutionException, IllegalAccessException, NoSuchFieldException {
         //Utils.logger.info("Player base: "+players.size());
-        btf = new BestTeamFormation(players,0);
+        btf = new BestTeamFormation(session,players,0);
         ts = btf.getBestTeamSheet();
         //Utils.logger.info("Best Formation: "+ts.getFormation().getFormation()+" - Rated: "+ts.getRating()+" - Weight: "+ts.getWeight());
     }
@@ -71,12 +69,14 @@ public class Team {
         double attackWeight = 0;
         double defenceWeight = 0;
 
+        //PlayerRatingsUtil prUtil = new PlayerRatingsUtil();
+
         for(Map.Entry<PlayersEntity, PositionsEntity> entry : ts.getPlayerPositions().entrySet()){
             PlayersEntity player = entry.getKey();
             PositionsEntity pos = entry.getValue();
 
-            double atk = Utils.getAttackRating(player,pos);
-            double def = Utils.getDefenceRating(player,pos);
+            double atk = player.getRatings().get(pos.getId()).getAttackrating();
+            double def = player.getRatings().get(pos.getId()).getDefencerating();
             attackWeight += atk;
             defenceWeight += def;
             //Utils.logger.info(player.getName()+" at "+pos.getPosition()+" rated: "+ Utils.getPosRating(player,pos)+" pos type: "+pos.getPositiontype().getPosition()+" attack rating: "+atk+" def weight: "+def);

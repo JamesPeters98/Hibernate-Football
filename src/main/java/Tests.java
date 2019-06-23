@@ -21,8 +21,7 @@ public class Tests {
         startTime = System.currentTimeMillis();
 
         Session session = SessionStore.getSession();
-        List<TeamsEntity> teamsEntities = session.createQuery("from TeamsEntity where leagueid = 1",TeamsEntity.class).list();
-        session.close();
+        List<TeamsEntity> teamsEntities = session.createQuery("from TeamsEntity where id < 100",TeamsEntity.class).list();
 
 //        List<PlayersEntity> players = session.createQuery("from PlayersEntity where teamId = 1",PlayersEntity.class).list();
 //
@@ -56,10 +55,10 @@ public class Tests {
         List<Team> teams = new ArrayList<>();
 
         for(TeamsEntity teamsEntity : teamsEntities){
-            Team team = new Team(teamsEntity);
+            Team team = new Team(session,teamsEntity);
             team.init();
             team.printInfo();
-            team.printFormation();
+            //team.printFormation();
             teams.add(team);
         }
 

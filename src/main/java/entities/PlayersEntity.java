@@ -19,7 +19,7 @@ public class PlayersEntity {
     private PlayerStatsEntity stats;
     private Integer positionId;
     private PositionsEntity position;
-    private Map<Object, PlayerRatingsEntity> positionRatings;
+    private Map<Object, PlayerRatingsEntity> ratings;
 
     @Id
     @Column(name = "ID")
@@ -182,12 +182,12 @@ public class PlayersEntity {
     }
 
     @MapKey(name = "positionId")
-    @OneToMany
-    public Map<Object, PlayerRatingsEntity> getPositionRatings() {
-        return positionRatings;
+    @OneToMany(mappedBy = "player",fetch = FetchType.EAGER)
+    public Map<Object, PlayerRatingsEntity> getRatings() {
+        return ratings;
     }
 
-    public void setPositionRatings(Map<Object, PlayerRatingsEntity> positionRatings) {
-        this.positionRatings = positionRatings;
+    public void setRatings(Map<Object, PlayerRatingsEntity> ratings) {
+        this.ratings = ratings;
     }
 }

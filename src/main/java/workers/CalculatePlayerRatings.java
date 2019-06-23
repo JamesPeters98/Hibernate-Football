@@ -4,6 +4,7 @@ import entities.PlayerRatingsEntity;
 import entities.PlayersEntity;
 import entities.PositionsEntity;
 import org.hibernate.Session;
+import utils.PlayerRatingsUtil;
 import utils.SessionStore;
 import utils.Utils;
 
@@ -15,49 +16,56 @@ public class CalculatePlayerRatings {
 
     static long startTime;
     static long endTime;
+    static Session session;
 
     private static ExecutorService executor;
 
     final static int LIMIT = 50;
 
+    static int n = 0;
+
     public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException, InterruptedException, ExecutionException {
         startTime = System.currentTimeMillis();
 
-        Session session = SessionStore.getSession();
+        session = SessionStore.getSession();
 
-        executor = Executors.newCachedThreadPool();
+        executor = Executors.newFixedThreadPool(8);
 
         List<PositionsEntity> positionsEntities = session.createQuery("from PositionsEntity",PositionsEntity.class).list();
-        List<PlayersEntity> players = session.createQuery("from PlayersEntity where team.leagueid > 0",PlayersEntity.class).list();
+        List<PlayersEntity> players = session.createQuery("from PlayersEntity where team.id < 100",PlayersEntity.class).list();
 
-        session.close();
+        //session.close();
 
         List<Callable<PlayerRatingsEntity>> callables = new ArrayList<>();
 
+        //session.beginTransaction();
         Utils.logger.debug("Player base: "+players.size());
         for(PlayersEntity playersEntity : players){
             //Utils.logger.debug("Calculating ratings for "+playersEntity.getName());
             for(PositionsEntity positionsEntity : positionsEntities){
 
-                Callable run = new Callable<PlayerRatingsEntity>() {
-                    @Override
-                    public PlayerRatingsEntity call() throws Exception {
-                        PlayerRatingsEntity ratingsEntity = new PlayerRatingsEntity();
-                        ratingsEntity.setId(playersEntity.getId());
-                        ratingsEntity.setPositionId(positionsEntity.getId());
+                Callable run = (Callable<PlayerRatingsEntity>) () -> {
+                    n++;
+                    PlayerRatingsEntity ratingsEntity = new PlayerRatingsEntity();
+                    ratingsEntity.setId(playersEntity.getId());
+                    ratingsEntity.setPositionId(positionsEntity.getId());
 
-                        double rating = Utils.getPosRating(playersEntity,positionsEntity);
-                        double atkRating = Utils.getAttackRating(playersEntity,positionsEntity);
-                        double defRating = Utils.getDefenceRating(playersEntity,positionsEntity);
+                    double rating = PlayerRatingsUtil.calculatePosRating(playersEntity,positionsEntity);
+                    double atkRating = PlayerRatingsUtil.calculateAttackRating(playersEntity,positionsEntity);
+                    double defRating = PlayerRatingsUtil.calculateDefenceRating(playersEntity,positionsEntity);
 
-                        ratingsEntity.setRating(rating);
-                        ratingsEntity.setAttackrating(atkRating);
-                        ratingsEntity.setDefencerating(defRating);
+                    ratingsEntity.setRating(rating);
+                    ratingsEntity.setAttackrating(atkRating);
+                    ratingsEntity.setDefencerating(defRating);
 
-                        Utils.logger.debug("Ratings for "+playersEntity.getName()+" at pos: "+positionsEntity.getPosition()+" is A:"+atkRating+" D: "+defRating);
+//                    session.beginTransaction();
+//                    session.saveOrUpdate(ratingsEntity);
+//                    session.getTransaction().commit();
 
-                        return ratingsEntity;
-                    }
+                    if((n % 50) == 0) Utils.logger.debug(n);
+                    //Utils.logger.debug("Ratings for "+playersEntity.getName()+" at pos: "+positionsEntity.getPosition()+" is A:"+atkRating+" D: "+defRating);
+
+                    return ratingsEntity;
                 };
                 callables.add(run);
             }
@@ -65,14 +73,17 @@ public class CalculatePlayerRatings {
 
         List<Future<PlayerRatingsEntity>> results = executor.invokeAll(callables);
 
-        session = SessionStore.getSession();
+        Utils.logger.debug("Completed calculations: "+(System.currentTimeMillis()-startTime)/1000+"s");
+
+//        session = SessionStore.getSession();
         session.beginTransaction();
         for(Future<PlayerRatingsEntity> rating : results){
-            Utils.logger.debug(rating.get().getId());
+            //Utils.logger.debug(rating.get().getId());
             session.saveOrUpdate(rating.get());
         }
         session.getTransaction().commit();
         session.close();
+        executor.shutdown();
 
         endTime = System.currentTimeMillis();
 
