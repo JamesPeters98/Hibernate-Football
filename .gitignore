@@ -1,3 +1,7 @@
 
 *.class
 /target
+/.idea
+.idea/dataSources.xml
+.idea/dataSources/7c0dc419-225b-429f-83f9-e87b36fe9b3b.xml
+.idea/workspace.xml
