@@ -1,9 +1,6 @@
 package algorithms;
 
-import entities.FormationsEntity;
-import entities.PlayerStatsEntity;
-import entities.PlayersEntity;
-import entities.PositionsEntity;
+import entities.*;
 import org.hibernate.Session;
 import utils.DBUtil;
 import utils.PlayerRatingsUtil;
@@ -57,7 +54,8 @@ public class BestTeamSheet implements Callable<BestTeamSheet> {
         double preferredPos = -1;
         double potentialWeight = player.getGrowth()*potentialFactor;
         if(RelatedPositions.isRelatedPos(player,position)) preferredPos = 1;
-        return -player.getRatings().get(position.getId()).getAttackrating()-player.getRatings().get(position.getId()).getDefencerating()-preferredPos-potentialWeight;
+        PlayerRatingsEntity ratingsEntity = player.getRating(position.getId());
+        return -ratingsEntity.getAttackrating()-ratingsEntity.getDefencerating()-preferredPos-potentialWeight;
     }
 
     @Override
@@ -93,7 +91,7 @@ public class BestTeamSheet implements Callable<BestTeamSheet> {
             PositionsEntity pos = positionMap.get(result[p]);
             playerPosition.put(player,pos);
             weight += weights[p][posIndex];
-            rating += player.getRatings().get(pos.getId()).getRating();
+            rating += player.getRating(pos.getId()).getRating();
 //            System.out.println(player.getName()
 //                    +" playing at "+pos.getPosition()
 //                    +" rated: "+Math.round(Utils.getPosRating(player,pos)));

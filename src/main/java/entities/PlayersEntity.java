@@ -1,5 +1,7 @@
 package entities;
 
+import utils.Utils;
+
 import javax.persistence.*;
 import java.util.Map;
 
@@ -185,6 +187,11 @@ public class PlayersEntity {
     @OneToMany(mappedBy = "player",fetch = FetchType.EAGER)
     public Map<Object, PlayerRatingsEntity> getRatings() {
         return ratings;
+    }
+
+    public PlayerRatingsEntity getRating(int positionId){
+        if(ratings.size() == 0) Utils.logger.error("Player ratings size = 0, player rating needs to be calculated");
+        return ratings.get(positionId);
     }
 
     public void setRatings(Map<Object, PlayerRatingsEntity> ratings) {

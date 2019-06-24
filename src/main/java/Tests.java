@@ -1,27 +1,33 @@
-import algorithms.BestTeamFormation;
-import algorithms.BestTeamSheet;
-import entities.PlayersEntity;
-import entities.TeamsEntity;
+import entities.NationalityEntity;
+import frameworks.Team;
 import org.hibernate.Session;
 import utils.SessionStore;
 import utils.Utils;
-import workers.Team;
+import frameworks.NationalTeam;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.*;
 
 public class Tests {
 
     static long startTime;
     static long endTime;
+    static int n = 0;
 
-    public static void main(String[] args) throws InterruptedException, ExecutionException, IllegalAccessException, NoSuchFieldException {
+
+    private static ExecutorService executor;
+
+    public static void main(String[] args) throws InterruptedException, ExecutionException, NoSuchFieldException, IllegalAccessException {
 
         startTime = System.currentTimeMillis();
 
+        executor = Executors.newSingleThreadExecutor();
+
         Session session = SessionStore.getSession();
-        List<TeamsEntity> teamsEntities = session.createQuery("from TeamsEntity where id < 100",TeamsEntity.class).list();
+        List<NationalityEntity> teamsEntities = session.createQuery("from NationalityEntity where id < 40 and id > 0",NationalityEntity.class).setMaxResults(200).list();
+
+        Utils.logger.debug("Teams: "+teamsEntities.size());
 
 //        List<PlayersEntity> players = session.createQuery("from PlayersEntity where teamId = 1",PlayersEntity.class).list();
 //
@@ -52,17 +58,44 @@ public class Tests {
 //        Utils.logger.info("Attacking Weight Average: "+totalAttackWeight[0]/11);
 //        Utils.logger.info("Defence Weight Average: "+totalDefenceWeight[0]/11);
 
-        List<Team> teams = new ArrayList<>();
+        List<Future<Team>> teams = new ArrayList<>();
 
-        for(TeamsEntity teamsEntity : teamsEntities){
-            Team team = new Team(session,teamsEntity);
-            team.init();
-            team.printInfo();
-            //team.printFormation();
-            teams.add(team);
+        List<Callable<Team>> callables = new ArrayList<>();
+
+
+//        Utils.logger.debug("Nationality: "+teamsEntities.get(0).getName());
+//            NationalTeam team1 = new NationalTeam(session,teamsEntities.get(0));
+//            team1.init();
+//            team1.printInfo();
+//            team1.printFormation();
+
+        for(NationalityEntity nationalityEntity : teamsEntities){
+        //for(TeamsEntity teamsEntity : teamsEntities){
+            //Utils.logger.debug("Adding "+teamsEntity.getName());
+            Callable run = (Callable<Team>) () -> {
+                //Utils.logger.debug("Creating team "+teamsEntity.getName());
+                NationalTeam team = new NationalTeam(session,nationalityEntity);
+                try{
+                    team.init();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                //team.printInfo();
+                //n++;
+                //Utils.logger.debug(teamsEntity.getName()+" n: "+n);
+                //team.printFormation();
+                return team;
+            };
+            callables.add(run);
         }
 
+        teams = executor.invokeAll(callables);
 
+        Utils.logger.debug("teams final size "+teams.size());
+
+        for(Future<Team> future : teams){
+            future.get().printInfo();
+        }
 
         endTime = System.currentTimeMillis();
 

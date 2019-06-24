@@ -12,6 +12,7 @@ import org.hibernate.Session;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Random;
 
 public class Utils {
 
@@ -23,6 +24,15 @@ public class Utils {
 
     public static void setLoggerLevel(Level level){
         Configurator.setLevel(Utils.class.getCanonicalName(),level);
+    }
+
+    public static int poisson(double a) {
+        Random random = new Random();
+        double limit = Math.exp(-a), prod = random.nextDouble();
+        int n;
+        for (n = 0; prod >= limit; n++)
+            prod *= random.nextDouble();
+        return n;
     }
 
 

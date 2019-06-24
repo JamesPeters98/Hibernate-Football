@@ -1,15 +1,9 @@
-import algorithms.BestTeamFormation;
-import algorithms.BestTeamSheet;
 import entities.PlayersEntity;
 import entities.PositionsEntity;
-import entities.TeamsEntity;
 import org.hibernate.Session;
-import utils.PlayerRatingsUtil;
 import utils.SessionStore;
 import utils.Utils;
-import workers.Team;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -32,8 +26,8 @@ public class Tests2 {
             for (PositionsEntity pos : positions){
 //                double atkRating = prUtil.getAttackRating(player,pos);
 //                double defRating = prUtil.getDefenceRating(player,pos);
-                double atkRating = player.getRatings().get(pos.getId()).getAttackrating();
-                double defRating = player.getRatings().get(pos.getId()).getDefencerating();
+                double atkRating = player.getRating(pos.getId()).getAttackrating();
+                double defRating = player.getRating(pos.getId()).getDefencerating();
                 Utils.logger.debug("Player: "+player.getName()+" A: "+atkRating+" D: "+defRating);
             }
         }

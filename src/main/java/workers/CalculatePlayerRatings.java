@@ -32,7 +32,7 @@ public class CalculatePlayerRatings {
         executor = Executors.newFixedThreadPool(8);
 
         List<PositionsEntity> positionsEntities = session.createQuery("from PositionsEntity",PositionsEntity.class).list();
-        List<PlayersEntity> players = session.createQuery("from PlayersEntity where team.id < 100",PlayersEntity.class).list();
+        List<PlayersEntity> players = session.createQuery("from PlayersEntity",PlayersEntity.class).list();
 
         //session.close();
 
@@ -62,7 +62,7 @@ public class CalculatePlayerRatings {
 //                    session.saveOrUpdate(ratingsEntity);
 //                    session.getTransaction().commit();
 
-                    if((n % 50) == 0) Utils.logger.debug(n);
+                    if((n % 500) == 0) Utils.logger.debug(n);
                     //Utils.logger.debug("Ratings for "+playersEntity.getName()+" at pos: "+positionsEntity.getPosition()+" is A:"+atkRating+" D: "+defRating);
 
                     return ratingsEntity;
