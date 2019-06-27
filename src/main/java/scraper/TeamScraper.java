@@ -10,17 +10,18 @@ import utils.Utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class TeamScraper extends Scraper {
 
-    List<TeamsEntity> teams = new ArrayList<>();
+    HashMap<Integer,TeamsEntity> teams = new HashMap<>();
 
     public TeamScraper(Session session) {
         super(session);
-        teams.add(getDefaultTeam());
+        teams.put(0,getDefaultTeam());
     }
 
     @Override
@@ -33,21 +34,27 @@ public class TeamScraper extends Scraper {
         for (Element rowBody : trBody) {
             Elements tdBody = rowBody.getElementsByTag("td");
 
-            String teamImage = tdBody.get(0).getElementsByTag("img").attr("data-src");
+            try {
 
-            Elements teamInfo = tdBody.get(1).getElementsByTag("div").get(0).getElementsByTag("a");
+                //String teamImage = tdBody.get(0).getElementsByTag("img").attr("data-src");
 
-            String countryId = teamInfo.get(0).attr("href").split("na=")[1];
-            String teamName = teamInfo.get(1).text();
-            int leagueId = Integer.parseInt(tdBody.get(1).getElementsByAttributeValueContaining("href","/teams?lg=").get(0).attr("href").split("lg=")[1]);
-            int id = Integer.parseInt(tdBody.get(2).text());
+                Elements teamInfo = tdBody.get(1).getElementsByTag("div").get(0).getElementsByTag("a");
 
-            TeamsEntity team = new TeamsEntity();
-            team.setId(id);
-            team.setName(teamName);
-            team.setLeagueid(leagueId);
+                //String countryId = teamInfo.get(0).attr("href").split("na=")[1];
+                String teamName = teamInfo.get(1).text();
+                int leagueId = Integer.parseInt(tdBody.get(1).getElementsByAttributeValueContaining("href", "/teams?lg=").get(0).attr("href").split("lg=")[1]);
+                int id = Integer.parseInt(tdBody.get(2).text());
 
-            teams.add(team);
+                TeamsEntity team = new TeamsEntity();
+                team.setId(id);
+                team.setName(teamName);
+                team.setLeagueid(leagueId);
+
+                if(team.getId() == 112791) Utils.logger.info("Found team 112791: "+team.getName());
+                addToMap(teams,team.getId(),team);
+            } catch (Exception e){
+                e.printStackTrace();
+            }
 
 //            LeaguesEntity entity = new LeaguesEntity();
         }
@@ -68,9 +75,7 @@ public class TeamScraper extends Scraper {
     @Override
     protected void insertToDatabase() {
         session.beginTransaction();
-        teams.forEach((teamsEntity -> {
-            session.saveOrUpdate(teamsEntity);
-        }));
+        teams.forEach((id,teamsEntity) -> session.saveOrUpdate(teamsEntity));
         session.getTransaction().commit();
     }
 

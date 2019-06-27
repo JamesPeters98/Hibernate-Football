@@ -6,6 +6,7 @@ import utils.Utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -36,7 +37,7 @@ public abstract class Scraper {
     }
 
     int getLimit(){
-        return (int) Math.floor(rows()/rowsPerPage());
+        return (int) Math.ceil(rows()/rowsPerPage());
     }
 
     public void execute(){
@@ -87,6 +88,15 @@ public abstract class Scraper {
 
     public int getExecutions(){
         return executions;
+    }
+
+    protected <T, E> E addToMap(HashMap<T, E> map, T key, E value){
+        if(map.containsKey(key)){
+            return map.get(key);
+        } else {
+            map.put(key,value);
+            return null;
+        }
     }
 
 }

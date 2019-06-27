@@ -8,6 +8,7 @@ import utils.PlayerRatingsUtil;
 import utils.SessionStore;
 import utils.Utils;
 
+import javax.persistence.NoResultException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
@@ -80,7 +81,12 @@ public class CalculatePlayerRatings {
         session.beginTransaction();
         for(Future<PlayerRatingsEntity> rating : results){
             //Utils.logger.debug(rating.get().getId());
-            session.saveOrUpdate(rating.get());
+            try {
+                session.saveOrUpdate(rating.get());
+            } catch(NoResultException e){
+                e.printStackTrace();
+                Utils.logger.error("Rating: "+rating.get().getId());
+            }
         }
         session.getTransaction().commit();
         session.close();

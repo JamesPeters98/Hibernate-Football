@@ -42,11 +42,11 @@ public class SessionStore {
 
     public static Session getSession() throws HibernateException {
         Session session = ourSessionFactory.openSession();
-        try {
-            Utils.logger.debug("Opening DB connection: "+ourSessionFactory.getSessionFactoryOptions().getServiceRegistry().getService(ConnectionProvider.class).getConnection().getMetaData().getURL());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Utils.logger.debug("Opening DB connection: "+ourSessionFactory.getSessionFactoryOptions().getServiceRegistry().getService(ConnectionProvider.class).getConnection().getMetaData().getURL());
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
         return session;
     }
 

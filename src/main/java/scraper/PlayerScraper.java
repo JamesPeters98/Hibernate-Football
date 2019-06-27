@@ -210,12 +210,5 @@ public class PlayerScraper extends Scraper {
         }
     }
 
-    private <T, E> E addToMap(HashMap<T, E> map, T key, E value){
-        if(map.containsKey(key)){
-            return map.get(key);
-        } else {
-            map.put(key,value);
-            return null;
-        }
-    }
+
 }
