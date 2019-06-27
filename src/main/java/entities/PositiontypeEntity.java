@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "POSITIONTYPE", schema = "PUBLIC", catalog = "SAVE")
+@Table(name = "POSITIONTYPE", schema = "PUBLIC")
 public class PositiontypeEntity {
     private int id;
     private String position;

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ATTACK_WEIGHTS", schema = "PUBLIC", catalog = "SAVE")
+@Table(name = "ATTACK_WEIGHTS", schema = "PUBLIC")
 public class AttackWeightsEntity {
     private int id;
     private int positiontype;

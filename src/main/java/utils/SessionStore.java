@@ -1,30 +1,37 @@
 package utils;
 
+import org.apache.commons.io.FileUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
+
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
 
 public class SessionStore {
 
-    private static final SessionFactory ourSessionFactory;
+    private static SessionFactory ourSessionFactory;
 
-    static String resourcePath;
+    private static String DB_NAME = "save";
+    private static Configuration configuration;
 
-    private static SessionStore sessionStore;
-
-    private SessionStore(){
-
+    public static void setDB(String dbName){
+        DB_NAME = dbName;
+        configure();
     }
 
     static {
+        configure();
+    }
+
+    private static void configure(){
+        checkDbFile(DB_NAME);
         try {
-            sessionStore = new SessionStore();
-            resourcePath = sessionStore.getClass().getResource("../").getPath();
-            System.out.println("Resource Path: "+resourcePath);
-            Configuration configuration = new Configuration();
-            //configuration.setProperty("hibernate.temp.use_jdbc_metadata_defaults","false");
-            //configuration.setProperty("connection.url","jdbc:h2:file:C:/Users/James/IdeaProjects/test");
+            configuration = new Configuration();
+            configuration.setProperty("hibernate.connection.url","jdbc:h2:file:./db/"+DB_NAME);
             configuration.configure();
 
             ourSessionFactory = configuration.buildSessionFactory();
@@ -34,7 +41,30 @@ public class SessionStore {
     }
 
     public static Session getSession() throws HibernateException {
-        return ourSessionFactory.openSession();
+        Session session = ourSessionFactory.openSession();
+        try {
+            Utils.logger.debug("Opening DB connection: "+ourSessionFactory.getSessionFactoryOptions().getServiceRegistry().getService(ConnectionProvider.class).getConnection().getMetaData().getURL());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return session;
+    }
+
+    public static Configuration getConfiguration(){
+        return configuration;
+    }
+
+    private static void checkDbFile(String dbName){
+        File dbFile = new File("db/"+dbName+".mv.db");
+        if(!dbFile.isFile()){
+            Utils.logger.info("DB: "+dbName+" did not exist! Copying default DB!");
+            File defaultFile = new File("db/default.mv.db");
+            try {
+                FileUtils.copyFile(defaultFile,dbFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

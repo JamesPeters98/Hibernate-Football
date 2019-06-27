@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "LEAGUES", schema = "PUBLIC", catalog = "SAVE")
+@Table(name = "LEAGUES", schema = "PUBLIC")
 public class LeaguesEntity {
     private int id;
     private String leaguename;
@@ -57,7 +57,7 @@ public class LeaguesEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "COUNTRY", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "COUNTRY", insertable = false, updatable = false)
     public NationalityEntity getCountry() {
         return country;
     }

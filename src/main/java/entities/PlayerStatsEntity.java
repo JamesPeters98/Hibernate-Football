@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "PLAYER_STATS", schema = "PUBLIC", catalog = "SAVE")
+@Table(name = "PLAYER_STATS", schema = "PUBLIC")
 public class PlayerStatsEntity {
     private int id;
     private Integer crossing;

@@ -4,13 +4,22 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "TEAMS", schema = "PUBLIC", catalog = "SAVE")
+@Table(name = "TEAMS", schema = "PUBLIC")
 public class TeamsEntity {
     private Integer id;
     private String name;
     private List<PlayersEntity> players;
     private Integer leagueid;
     private LeaguesEntity league;
+
+    @OneToMany(mappedBy = "team")
+    public List<PlayersEntity> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<PlayersEntity> players) {
+        this.players = players;
+    }
 
     @Id
     @Basic
@@ -53,14 +62,14 @@ public class TeamsEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "team")
-    public List<PlayersEntity> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(List<PlayersEntity> players) {
-        this.players = players;
-    }
+//    @OneToMany(mappedBy = "team")
+//    public List<PlayersEntity> getPlayers() {
+//        return players;
+//    }
+//
+//    public void setPlayers(List<PlayersEntity> players) {
+//        this.players = players;
+//    }
 
     @Basic
     @Column(name = "LEAGUEID")

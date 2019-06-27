@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 @Entity
-@Table(name = "NATIONALITY", schema = "PUBLIC", catalog = "SAVE")
+@Table(name = "NATIONALITY", schema = "PUBLIC")
 public class NationalityEntity {
     private Integer id;
     private String name;

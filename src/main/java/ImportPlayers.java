@@ -34,7 +34,7 @@ public class ImportPlayers {
                     player.setNationalityId(rs.getInt(4));
                     player.setOverall(rs.getInt(5));
                     player.setGrowth(rs.getInt(6));
-                    player.setTeamId(rs.getInt(7));
+                    player.setTeamid(rs.getInt(7));
                     player.setPositionId(rs.getInt(8));
                     session.save(player);
 

@@ -27,6 +27,7 @@ public class CalculatePlayerRatings {
     public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException, InterruptedException, ExecutionException {
         startTime = System.currentTimeMillis();
 
+        SessionStore.setDB("TEST");
         session = SessionStore.getSession();
 
         executor = Executors.newFixedThreadPool(8);

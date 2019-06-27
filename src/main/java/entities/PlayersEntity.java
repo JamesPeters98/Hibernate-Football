@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Map;
 
 @Entity
-@Table(name = "PLAYERS", schema = "PUBLIC", catalog = "SAVE")
+@Table(name = "PLAYERS", schema = "PUBLIC")
 public class PlayersEntity {
     private int id;
     private Integer age;
@@ -22,6 +22,17 @@ public class PlayersEntity {
     private Integer positionId;
     private PositionsEntity position;
     private Map<Object, PlayerRatingsEntity> ratings;
+    private Integer teamid;
+
+    @ManyToOne
+    @JoinColumn(name = "TEAMID", nullable = false, insertable = false, updatable = false)
+    public TeamsEntity getTeam() {
+        return team;
+    }
+
+    public void setTeam(TeamsEntity team) {
+        this.team = team;
+    }
 
     @Id
     @Column(name = "ID")
@@ -93,16 +104,6 @@ public class PlayersEntity {
         this.nationalityId = nationalityId;
     }
 
-    @Basic
-    @Column(name = "TEAMID")
-    public Integer getTeamId(){
-        return teamId;
-    }
-
-    public void setTeamId(Integer teamId){
-        this.teamId = teamId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -133,15 +134,6 @@ public class PlayersEntity {
         return result;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "TEAMID", nullable = false, insertable = false, updatable = false)
-    public TeamsEntity getTeam() {
-        return team;
-    }
-
-    public void setTeam(TeamsEntity team) {
-        this.team = team;
-    }
 
     @ManyToOne
     @JoinColumn(name = "NATIONALITY", nullable = false, insertable = false, updatable = false)
@@ -189,12 +181,24 @@ public class PlayersEntity {
         return ratings;
     }
 
+    public void setRatings(Map<Object, PlayerRatingsEntity> ratings) {
+        this.ratings = ratings;
+    }
+
     public PlayerRatingsEntity getRating(int positionId){
         if(ratings.size() == 0) Utils.logger.error("Player ratings size = 0, player rating needs to be calculated");
         return ratings.get(positionId);
     }
 
-    public void setRatings(Map<Object, PlayerRatingsEntity> ratings) {
-        this.ratings = ratings;
+    @Basic
+    @Column(name = "TEAMID")
+    public Integer getTeamid() {
+        return teamid;
     }
+
+    public void setTeamid(Integer teamid) {
+        this.teamid = teamid;
+    }
+
+
 }
