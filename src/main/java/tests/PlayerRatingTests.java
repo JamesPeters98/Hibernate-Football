@@ -1,3 +1,5 @@
+package tests;
+
 import Exceptions.NoDatabaseSelectedException;
 import entities.PlayerRatingsEntity;
 import org.hibernate.Session;

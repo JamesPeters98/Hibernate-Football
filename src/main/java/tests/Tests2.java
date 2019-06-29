@@ -1,3 +1,5 @@
+package tests;
+
 import Exceptions.NoDatabaseSelectedException;
 import entities.PlayersEntity;
 import entities.PositionsEntity;

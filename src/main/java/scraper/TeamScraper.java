@@ -6,6 +6,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import utils.CSVWriter;
 import utils.Utils;
 
 import java.io.IOException;
@@ -18,9 +19,12 @@ import java.util.concurrent.Executors;
 public class TeamScraper extends Scraper {
 
     HashMap<Integer,TeamsEntity> teams = new HashMap<>();
+    CSVWriter csv;
 
     public TeamScraper(Session session) {
         super(session);
+        csv = new CSVWriter("TeamRatings_Actual");
+        csv.setHeader("Team","Rating","Attack Rating","Midfield Rating","Defence Rating");
         teams.put(0,getDefaultTeam());
     }
 
@@ -37,20 +41,23 @@ public class TeamScraper extends Scraper {
             try {
 
                 //String teamImage = tdBody.get(0).getElementsByTag("img").attr("data-src");
-
                 Elements teamInfo = tdBody.get(1).getElementsByTag("div").get(0).getElementsByTag("a");
-
                 //String countryId = teamInfo.get(0).attr("href").split("na=")[1];
                 String teamName = teamInfo.get(1).text();
                 int leagueId = Integer.parseInt(tdBody.get(1).getElementsByAttributeValueContaining("href", "/teams?lg=").get(0).attr("href").split("lg=")[1]);
                 int id = Integer.parseInt(tdBody.get(2).text());
+                int overall = Integer.parseInt(tdBody.get(3).text());
+                int attack = Integer.parseInt(tdBody.get(4).text());
+                int mid = Integer.parseInt(tdBody.get(5).text());
+                int def = Integer.parseInt(tdBody.get(6).text());
+                Utils.logger.debug(overall+","+attack+","+mid+","+def);
+                csv.addRow(teamName,overall,attack,mid,def);
 
                 TeamsEntity team = new TeamsEntity();
                 team.setId(id);
                 team.setName(teamName);
                 team.setLeagueid(leagueId);
 
-                if(team.getId() == 112791) Utils.logger.info("Found team 112791: "+team.getName());
                 addToMap(teams,team.getId(),team);
             } catch (Exception e){
                 e.printStackTrace();
@@ -74,6 +81,11 @@ public class TeamScraper extends Scraper {
 
     @Override
     protected void insertToDatabase() {
+        try {
+            csv.write();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         session.beginTransaction();
         teams.forEach((id,teamsEntity) -> session.saveOrUpdate(teamsEntity));
         session.getTransaction().commit();

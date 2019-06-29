@@ -3,6 +3,7 @@ package entities;
 import utils.Utils;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.Map;
 
 @Entity
@@ -23,6 +24,16 @@ public class PlayersEntity {
     private PositionsEntity position;
     private Map<Object, PlayerRatingsEntity> ratings;
     private Integer teamid;
+
+    @MapKey(name = "positionId")
+    @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
+    public Map<Object, PlayerRatingsEntity> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(Map<Object, PlayerRatingsEntity> ratings) {
+        this.ratings = ratings;
+    }
 
     @ManyToOne
     @JoinColumn(name = "TEAMID", nullable = false, insertable = false, updatable = false)
@@ -175,15 +186,15 @@ public class PlayersEntity {
         this.position = position;
     }
 
-    @MapKey(name = "positionId")
-    @OneToMany(mappedBy = "player",fetch = FetchType.EAGER)
-    public Map<Object, PlayerRatingsEntity> getRatings() {
-        return ratings;
-    }
-
-    public void setRatings(Map<Object, PlayerRatingsEntity> ratings) {
-        this.ratings = ratings;
-    }
+//    @MapKey(name = "positionId")
+//    @OneToMany(mappedBy = "",fetch = FetchType.EAGER)
+//    public Map<Object, PlayerRatingsEntity> getRatings() {
+//        return ratings;
+//    }
+//
+//    public void setRatings(Map<Object, PlayerRatingsEntity> ratings) {
+//        this.ratings = ratings;
+//    }
 
     public PlayerRatingsEntity getRating(int positionId){
         if(ratings.size() == 0) Utils.logger.error("Player ratings size = 0, player rating needs to be calculated");

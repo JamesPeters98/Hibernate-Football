@@ -88,4 +88,9 @@ public class PlayerRatingsEntity {
     public void setPlayer(PlayersEntity player) {
         this.player = player;
     }
+
+    @Override
+    public String toString() {
+        return "Player: "+getPlayer().getName()+" OVR: "+getRating()+" ATK: "+getAttackrating()+" DEF: "+getDefencerating();
+    }
 }

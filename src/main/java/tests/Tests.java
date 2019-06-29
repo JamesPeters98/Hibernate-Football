@@ -1,3 +1,5 @@
+package tests;
+
 import Exceptions.NoDatabaseSelectedException;
 import entities.NationalityEntity;
 import entities.TeamsEntity;
@@ -29,7 +31,7 @@ public class Tests {
         SessionStore.setDB("TEST");
         Session session = SessionStore.getSession();
 //        List<NationalityEntity> teamsEntities = session.createQuery("from NationalityEntity where id < 40 and id > 0",NationalityEntity.class).setMaxResults(200).list();
-        List<TeamsEntity> teamsEntities = session.createQuery("from TeamsEntity",TeamsEntity.class).list();
+        List<TeamsEntity> teamsEntities = session.createQuery("from TeamsEntity where leagueid = 13",TeamsEntity.class).list();
 
         Utils.logger.debug("Teams: "+teamsEntities.size());
 

@@ -100,13 +100,4 @@ public class DBUtil {
         }
     }
 
-    //Returns defensive weight for player based on their playing position in a certain positionType
-    public PlayerRatingsEntity getPositionRating(int playerId, int posId){
-        try {
-            return session.createQuery("from PlayerRatingsEntity where id = "+playerId+" and positionId = "+posId,PlayerRatingsEntity.class).getSingleResult();
-        } finally {
-            session.clear();
-        }
-    }
-
 }

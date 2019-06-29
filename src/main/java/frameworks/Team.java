@@ -31,6 +31,8 @@ public class Team {
     private final static double AVG_RATING = 85;
     private final static double SKILL_GAP = 20;
 
+    private double POTENTIAL_FACTOR = 0;
+
     public Team(Session session, TeamsEntity team){
         this(session);
         this.team = team;
@@ -76,13 +78,14 @@ public class Team {
         for(Map.Entry<PlayersEntity,PositionsEntity> entry : ts.getPlayerPositions().entrySet()){
             PlayersEntity player = entry.getKey();
             PositionsEntity pos = entry.getValue();
-            Utils.logger.info(player.getName()+" at "+pos.getPosition()+" rating: "+db.getPositionRating(player.getId(),pos.getId()));
+            PlayerRatingsEntity rating = player.getRating(pos.getId());
+            Utils.logger.info(player.getName()+" at "+pos.getPosition()+" rating: "+rating.getRating()+" atk: "+rating.getAttackrating()+" def: "+rating.getDefencerating());
         }
     }
 
     public void calculateBestTeam() throws InterruptedException, ExecutionException, IllegalAccessException, NoSuchFieldException {
         //Utils.logger.info("Player base: "+players.size());
-        btf = new BestTeamFormation(session,players,0);
+        btf = new BestTeamFormation(session,players,POTENTIAL_FACTOR);
         ts = btf.getBestTeamSheet();
         //Utils.logger.info("Best Formation: "+ts.getFormation().getFormation()+" - Rated: "+ts.getRating()+" - Weight: "+ts.getWeight());
     }
@@ -127,5 +130,13 @@ public class Team {
 
     public double getDefCoeff() {
         return defCoeff;
+    }
+
+    public double getTeamRating(){
+        return btf.getBestTeamSheet().getRating();
+    }
+
+    public void setPotentialFactor(double potentialFactor){
+        POTENTIAL_FACTOR = potentialFactor;
     }
 }

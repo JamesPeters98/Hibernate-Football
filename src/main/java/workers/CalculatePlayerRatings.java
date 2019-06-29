@@ -28,6 +28,10 @@ public class CalculatePlayerRatings {
     static int n = 0;
 
     public static void main(String[] args) throws InterruptedException, ExecutionException, NoDatabaseSelectedException {
+        new CalculatePlayerRatings();
+    }
+
+    public CalculatePlayerRatings() throws InterruptedException, ExecutionException, NoDatabaseSelectedException {
         startTime = System.currentTimeMillis();
 
         SessionStore.setDB("TEST");
@@ -54,7 +58,7 @@ public class CalculatePlayerRatings {
                     ratingsEntity.setId(playersEntity.getId());
                     ratingsEntity.setPositionId(positionsEntity.getId());
 
-                    double rating = PlayerRatingsUtil.calculatePosRating(playersEntity,positionsEntity);
+                    double rating = PlayerRatingsUtil.calculateOverallRating(playersEntity,positionsEntity);
                     double atkRating = PlayerRatingsUtil.calculateAttackRating(playersEntity,positionsEntity);
                     double defRating = PlayerRatingsUtil.calculateDefenceRating(playersEntity,positionsEntity);
 
@@ -80,6 +84,7 @@ public class CalculatePlayerRatings {
         Utils.logger.debug("Completed calculations: "+(System.currentTimeMillis()-startTime)/1000+"s");
 
 //        session = SessionStore.getSession();
+        session.clear();
         session.beginTransaction();
         for(Future<PlayerRatingsEntity> rating : results){
             //Utils.logger.debug(rating.get().getId());
@@ -91,6 +96,8 @@ public class CalculatePlayerRatings {
             } catch (NonUniqueObjectException e){
                 e.printStackTrace();
                 Utils.logger.error("Non Unique Player Rating: "+rating.get().getId());
+            } catch (ExecutionException e) {
+                e.printStackTrace();
             }
         }
         session.getTransaction().commit();
