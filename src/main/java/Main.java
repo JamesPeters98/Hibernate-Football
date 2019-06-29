@@ -1,3 +1,4 @@
+import Exceptions.NoDatabaseSelectedException;
 import algorithms.BestTeamSheet;
 import entities.*;
 import org.hibernate.Session;
@@ -12,7 +13,7 @@ public class Main {
 
     static double teamRating;
 
-    public static void main(final String[] args) throws IllegalAccessException, InstantiationException, NoSuchFieldException {
+    public static void main(final String[] args) throws IllegalAccessException, InstantiationException, NoSuchFieldException, NoDatabaseSelectedException {
         final Session session = SessionStore.getSession();
 
         List<PlayersEntity> playersMain = session.createQuery("from PlayersEntity where team.leagueid = 1", PlayersEntity.class).list();

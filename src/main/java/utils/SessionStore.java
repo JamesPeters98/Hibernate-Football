@@ -1,5 +1,6 @@
 package utils;
 
+import Exceptions.NoDatabaseSelectedException;
 import org.apache.commons.io.FileUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -15,15 +16,11 @@ public class SessionStore {
 
     private static SessionFactory ourSessionFactory;
 
-    private static String DB_NAME = "save";
+    private static String DB_NAME;
     private static Configuration configuration;
 
     public static void setDB(String dbName){
         DB_NAME = dbName;
-        configure();
-    }
-
-    static {
         configure();
     }
 
@@ -40,7 +37,8 @@ public class SessionStore {
         }
     }
 
-    public static Session getSession() throws HibernateException {
+    public static Session getSession() throws NoDatabaseSelectedException {
+        if(DB_NAME == null) throw new NoDatabaseSelectedException();
         Session session = ourSessionFactory.openSession();
 //        try {
 //            Utils.logger.debug("Opening DB connection: "+ourSessionFactory.getSessionFactoryOptions().getServiceRegistry().getService(ConnectionProvider.class).getConnection().getMetaData().getURL());

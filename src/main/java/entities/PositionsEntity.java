@@ -484,5 +484,8 @@ public class PositionsEntity {
         this.positiontype = positiontype;
     }
 
-
+    @Override
+    public String toString() {
+        return getId()+":"+getPosition();
+    }
 }

@@ -7,6 +7,7 @@ import entities.PlayersEntity;
 import entities.PositionsEntity;
 import entities.TeamsEntity;
 import org.hibernate.Session;
+import utils.DBUtil;
 import utils.Utils;
 
 import java.util.List;
@@ -63,6 +64,7 @@ public class Team {
         Utils.logger.debug(
                 "Team: "+getTeamName()+
                 " Best Formation: "+btf.getBestTeamSheet().getFormation().getFormation()+
+                " Rating: "+btf.getBestTeamSheet().getRating() +
                 " Atk: "+ attackRating +
                 " Def: "+ defenceRating);
     }
@@ -70,10 +72,11 @@ public class Team {
     public void printFormation(){
         Utils.logger.info(getTeamName()+": Formation");
         Utils.logger.info("---------------------");
+        DBUtil db = new DBUtil();
         for(Map.Entry<PlayersEntity,PositionsEntity> entry : ts.getPlayerPositions().entrySet()){
             PlayersEntity player = entry.getKey();
             PositionsEntity pos = entry.getValue();
-            Utils.logger.info(player.getName()+" at "+pos.getPosition());
+            Utils.logger.info(player.getName()+" at "+pos.getPosition()+" rating: "+db.getPositionRating(player.getId(),pos.getId()));
         }
     }
 

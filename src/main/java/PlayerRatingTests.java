@@ -1,3 +1,4 @@
+import Exceptions.NoDatabaseSelectedException;
 import entities.PlayerRatingsEntity;
 import org.hibernate.Session;
 import utils.SessionStore;
@@ -11,7 +12,7 @@ public class PlayerRatingTests {
     static long startTime;
     static long endTime;
 
-    public static void main(String[] args) throws InterruptedException, ExecutionException, IllegalAccessException, NoSuchFieldException {
+    public static void main(String[] args) throws InterruptedException, ExecutionException, IllegalAccessException, NoSuchFieldException, NoDatabaseSelectedException {
 
         startTime = System.currentTimeMillis();
 

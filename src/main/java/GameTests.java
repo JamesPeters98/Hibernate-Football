@@ -1,3 +1,4 @@
+import Exceptions.NoDatabaseSelectedException;
 import entities.TeamsEntity;
 import frameworks.Team;
 import frameworks.VersusGame;
@@ -12,12 +13,13 @@ public class GameTests {
 
     static long startTime;
 
-    public static void main(String[] args) throws InterruptedException, ExecutionException, IllegalAccessException, NoSuchFieldException {
+    public static void main(String[] args) throws InterruptedException, ExecutionException, IllegalAccessException, NoSuchFieldException, NoDatabaseSelectedException {
         startTime = System.currentTimeMillis();
+        SessionStore.setDB("TEST");
         Session session = SessionStore.getSession();
 
-        int team1id = 5;
-        int team2id = 11;
+        int team1id = 9;
+        int team2id = 10;
 
         TeamsEntity team1ent = session.createQuery("from TeamsEntity where id = "+team1id,TeamsEntity.class).getSingleResult();
         TeamsEntity team2ent = session.createQuery("from TeamsEntity where id = "+team2id,TeamsEntity.class).getSingleResult();

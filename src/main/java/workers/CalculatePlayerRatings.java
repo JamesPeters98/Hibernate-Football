@@ -1,8 +1,10 @@
 package workers;
 
+import Exceptions.NoDatabaseSelectedException;
 import entities.PlayerRatingsEntity;
 import entities.PlayersEntity;
 import entities.PositionsEntity;
+import org.hibernate.NonUniqueObjectException;
 import org.hibernate.Session;
 import utils.PlayerRatingsUtil;
 import utils.SessionStore;
@@ -25,7 +27,7 @@ public class CalculatePlayerRatings {
 
     static int n = 0;
 
-    public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException, InterruptedException, ExecutionException {
+    public static void main(String[] args) throws InterruptedException, ExecutionException, NoDatabaseSelectedException {
         startTime = System.currentTimeMillis();
 
         SessionStore.setDB("TEST");
@@ -86,6 +88,9 @@ public class CalculatePlayerRatings {
             } catch(NoResultException e){
                 e.printStackTrace();
                 Utils.logger.error("Rating: "+rating.get().getId());
+            } catch (NonUniqueObjectException e){
+                e.printStackTrace();
+                Utils.logger.error("Non Unique Player Rating: "+rating.get().getId());
             }
         }
         session.getTransaction().commit();

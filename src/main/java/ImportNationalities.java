@@ -1,3 +1,4 @@
+import Exceptions.NoDatabaseSelectedException;
 import entities.NationalityEntity;
 import org.h2.tools.Csv;
 import org.hibernate.Session;
@@ -8,11 +9,11 @@ import java.sql.SQLException;
 
 public class ImportNationalities {
 
-    public static void main(final String[] args) throws SQLException {
+    public static void main(final String[] args) throws SQLException, NoDatabaseSelectedException {
         new ImportNationalities();
     }
 
-    public ImportNationalities() throws SQLException {
+    public ImportNationalities() throws SQLException, NoDatabaseSelectedException {
         final Session session = SessionStore.getSession();
 
         session.beginTransaction();

@@ -1,3 +1,4 @@
+import Exceptions.NoDatabaseSelectedException;
 import entities.PlayerStatsEntity;
 import entities.PlayersEntity;
 import org.h2.tools.Csv;
@@ -9,11 +10,11 @@ import java.sql.SQLException;
 
 public class ImportPlayers {
 
-    public static void main(final String[] args) throws SQLException {
+    public static void main(final String[] args) throws SQLException, NoDatabaseSelectedException {
         new ImportPlayers();
     }
 
-    public ImportPlayers() throws SQLException {
+    public ImportPlayers() throws SQLException, NoDatabaseSelectedException {
         final Session session = SessionStore.getSession();
 
         ResultSet rs = new Csv().read(getClass().getResource("players.csv").getFile(), null, null);

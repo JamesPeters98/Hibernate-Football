@@ -1,9 +1,7 @@
 package utils;
 
-import entities.AttackWeightsEntity;
-import entities.DefenceWeightsEntity;
-import entities.PositionsEntity;
-import entities.PositiontypeEntity;
+import Exceptions.NoDatabaseSelectedException;
+import entities.*;
 import org.hibernate.Session;
 
 import java.util.List;
@@ -12,11 +10,15 @@ public class DBUtil {
 
     private Session session;
 
-    public DBUtil(){
-        createSession();
+    public DBUtil() {
+        try {
+            createSession();
+        } catch (NoDatabaseSelectedException e){
+            e.printStackTrace();
+        }
     }
 
-    private void createSession(){
+    private void createSession() throws NoDatabaseSelectedException {
         session = SessionStore.getSession();
     }
 
@@ -55,6 +57,15 @@ public class DBUtil {
     }
     }
 
+    public PositionsEntity getPosition(String name){
+        try {
+            name = "\'"+name+"\'";
+            return session.createQuery("from PositionsEntity where position = "+name+" ",PositionsEntity.class).getSingleResult();
+        } finally {
+            session.clear();
+        }
+    }
+
     public List<PositiontypeEntity> getPositiontypes(){
         try {
 //            createSession();
@@ -86,6 +97,15 @@ public class DBUtil {
         } finally {
             session.clear();
 //            closeConnection();
+        }
+    }
+
+    //Returns defensive weight for player based on their playing position in a certain positionType
+    public PlayerRatingsEntity getPositionRating(int playerId, int posId){
+        try {
+            return session.createQuery("from PlayerRatingsEntity where id = "+playerId+" and positionId = "+posId,PlayerRatingsEntity.class).getSingleResult();
+        } finally {
+            session.clear();
         }
     }
 

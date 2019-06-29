@@ -1,10 +1,11 @@
 package scraper;
 
+import Exceptions.NoDatabaseSelectedException;
 import utils.SessionStore;
 
 public class Scrape {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoDatabaseSelectedException {
         SessionStore.setDB("TEST");
         LeagueScraper leagueScraper = new LeagueScraper(SessionStore.getSession());
         leagueScraper.execute();

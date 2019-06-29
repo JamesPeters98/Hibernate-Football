@@ -36,7 +36,7 @@ public class BestTeamFormation {
         double bestWeight = 0;
 
         //GK pos
-        PositionsEntity GK = db.getPosition(11);
+        PositionsEntity GK = db.getPosition("GK");
 
         for(FormationsEntity formation : formations){
             List<PositionsEntity> pos = db.getPositions(formation.getPositions());

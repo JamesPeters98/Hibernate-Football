@@ -1,4 +1,6 @@
+import Exceptions.NoDatabaseSelectedException;
 import entities.NationalityEntity;
+import entities.TeamsEntity;
 import frameworks.Team;
 import org.hibernate.Session;
 import utils.SessionStore;
@@ -18,14 +20,16 @@ public class Tests {
 
     private static ExecutorService executor;
 
-    public static void main(String[] args) throws InterruptedException, ExecutionException, NoSuchFieldException, IllegalAccessException {
+    public static void main(String[] args) throws InterruptedException, ExecutionException, NoSuchFieldException, IllegalAccessException, NoDatabaseSelectedException {
 
         startTime = System.currentTimeMillis();
 
         executor = Executors.newSingleThreadExecutor();
 
+        SessionStore.setDB("TEST");
         Session session = SessionStore.getSession();
-        List<NationalityEntity> teamsEntities = session.createQuery("from NationalityEntity where id < 40 and id > 0",NationalityEntity.class).setMaxResults(200).list();
+//        List<NationalityEntity> teamsEntities = session.createQuery("from NationalityEntity where id < 40 and id > 0",NationalityEntity.class).setMaxResults(200).list();
+        List<TeamsEntity> teamsEntities = session.createQuery("from TeamsEntity",TeamsEntity.class).list();
 
         Utils.logger.debug("Teams: "+teamsEntities.size());
 
@@ -69,12 +73,13 @@ public class Tests {
 //            team1.printInfo();
 //            team1.printFormation();
 
-        for(NationalityEntity nationalityEntity : teamsEntities){
+        for(TeamsEntity teamsEntity : teamsEntities){
         //for(TeamsEntity teamsEntity : teamsEntities){
             //Utils.logger.debug("Adding "+teamsEntity.getName());
             Callable run = (Callable<Team>) () -> {
                 //Utils.logger.debug("Creating team "+teamsEntity.getName());
-                NationalTeam team = new NationalTeam(session,nationalityEntity);
+//                NationalTeam team = new NationalTeam(session,nationalityEntity);
+                Team team = new Team(session,teamsEntity);
                 try{
                     team.init();
                 } catch (Exception e){

@@ -33,6 +33,7 @@ public class BestTeamSheet implements Callable<BestTeamSheet> {
      * @param potentialFactor how much potential should be considered, e.g a factor of 0.5 will add 50% of a players growth to their overall.
      */
     public BestTeamSheet(FormationsEntity formation, List<PlayersEntity> players, List<PositionsEntity> posistions, double potentialFactor) throws NoSuchFieldException, IllegalAccessException {
+        //System.out.println("New BestTeamSheet: "+formation.getFormation()+" - pos: "+posistions.toString());
         this.players = players;
         this.positions = posistions;
         this.potentialFactor = potentialFactor;
