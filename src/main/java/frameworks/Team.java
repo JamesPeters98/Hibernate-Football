@@ -51,8 +51,9 @@ public class Team {
         return team.getName();
     }
 
-    public void init() throws InterruptedException, ExecutionException, NoSuchFieldException, IllegalAccessException {
+    public boolean init() throws InterruptedException, ExecutionException, NoSuchFieldException, IllegalAccessException {
         players = getPlayers();
+        if(players.size() < 11) return false;
         //double startTime = System.currentTimeMillis();
         calculateBestTeam();
         //Utils.logger.debug(team.getName()+" calculated best team in "+(System.currentTimeMillis()-startTime)+" ms");
@@ -60,6 +61,8 @@ public class Team {
         calculateCoeffs();
         //Utils.logger.debug(team.getName()+" calculated coeffs in "+(System.currentTimeMillis()-startTime)+" ms");
         //printInfo();
+
+        return true;
     }
 
     public void printInfo(){
@@ -85,8 +88,13 @@ public class Team {
 
     public void calculateBestTeam() throws InterruptedException, ExecutionException, IllegalAccessException, NoSuchFieldException {
         //Utils.logger.info("Player base: "+players.size());
-        btf = new BestTeamFormation(session,players,POTENTIAL_FACTOR);
-        ts = btf.getBestTeamSheet();
+        try{
+            btf = new BestTeamFormation(session,players,POTENTIAL_FACTOR);
+            ts = btf.getBestTeamSheet();
+        } catch(ExecutionException e){
+            Utils.logger.error("Array out of bound for team: "+team.getName());
+            e.printStackTrace();
+        }
         //Utils.logger.info("Best Formation: "+ts.getFormation().getFormation()+" - Rated: "+ts.getRating()+" - Weight: "+ts.getWeight());
     }
 

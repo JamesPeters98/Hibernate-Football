@@ -58,7 +58,7 @@ public class PlayerScraper extends Scraper {
             try {
 
                 String photo = tdBody.get(0).getElementsByTag("img").get(0).attr("data-src");
-                //String nationality = tdBody.get(1).getElementsByTag("a").get(0).attr("title");
+                int nationality = Integer.parseInt(tdBody.get(1).getElementsByTag("a").get(0).attr("href").split("na=")[1]);
                 String name = tdBody.get(1).getElementsByTag("a").get(1).text();
                 int posId = Integer.parseInt(tdBody.get(1).getElementsByTag("a").get(2).attr("href").split("=")[1]);
                 int age = Integer.parseInt(tdBody.get(2).text());
@@ -79,6 +79,7 @@ public class PlayerScraper extends Scraper {
                 player.setPhoto(photo);
                 player.setTeamid(teamId);
                 player.setPositionId(posId);
+                player.setNationalityId(nationality);
 
 
             //System.out.println(name  + "," + age + "," + overall + "," + teamId + "," + growth);

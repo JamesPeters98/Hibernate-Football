@@ -1,6 +1,7 @@
 package entities;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -10,6 +11,7 @@ public class LeaguesEntity {
     private String leaguename;
     private Integer division;
     private NationalityEntity country;
+    private List<TeamsEntity> teams;
 
     @Id
     @Column(name = "ID")
@@ -64,5 +66,14 @@ public class LeaguesEntity {
 
     public void setCountry(NationalityEntity country) {
         this.country = country;
+    }
+
+    @OneToMany(mappedBy = "league", fetch = FetchType.EAGER)
+    public List<TeamsEntity> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(List<TeamsEntity> teams) {
+        this.teams = teams;
     }
 }

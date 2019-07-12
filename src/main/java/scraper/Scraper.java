@@ -63,14 +63,6 @@ public abstract class Scraper {
             callables.add(callable);
         }
 
-//        for(Callable callable : callables){
-//            try {
-//                callable.call();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-
         try {
             executor.invokeAll(callables);
         } catch (InterruptedException e) {

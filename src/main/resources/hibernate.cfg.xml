@@ -24,6 +24,7 @@
         <mapping class="entities.AttackWeightsEntity"/>
         <mapping class="entities.DefenceWeightsEntity"/>
         <mapping class="entities.PlayerRatingsEntity"/>
+        <mapping class="entities.RegionsEntity"/>
 
         <!--        <property name="hibernate.hbm2ddl.auto">create</property>-->
         <!-- <property name="connection.username"/> -->

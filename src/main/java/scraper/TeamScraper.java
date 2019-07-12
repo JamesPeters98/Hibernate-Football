@@ -50,7 +50,7 @@ public class TeamScraper extends Scraper {
                 int attack = Integer.parseInt(tdBody.get(4).text());
                 int mid = Integer.parseInt(tdBody.get(5).text());
                 int def = Integer.parseInt(tdBody.get(6).text());
-                Utils.logger.debug(overall+","+attack+","+mid+","+def);
+                //Utils.logger.debug(overall+","+attack+","+mid+","+def);
                 csv.addRow(teamName,overall,attack,mid,def);
 
                 TeamsEntity team = new TeamsEntity();

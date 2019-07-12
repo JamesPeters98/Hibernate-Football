@@ -12,6 +12,8 @@ public class NationalityEntity {
     private List<PlayersEntity> players;
     private String nationality;
     private Map<Integer, LeaguesEntity> leagues;
+    private Integer regionId;
+    private RegionsEntity region;
 
     @Id
     @Basic
@@ -81,5 +83,25 @@ public class NationalityEntity {
 
     public void setLeagues(Map<Integer, LeaguesEntity> leagues) {
         this.leagues = leagues;
+    }
+
+    @Basic
+    @Column(name = "REGION")
+    public Integer getRegionId() {
+        return regionId;
+    }
+
+    public void setRegionId(Integer regionId) {
+        this.regionId = regionId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "REGION", referencedColumnName = "ID", insertable = false, updatable = false)
+    public RegionsEntity getRegion() {
+        return region;
+    }
+
+    public void setRegion(RegionsEntity region) {
+        this.region = region;
     }
 }
