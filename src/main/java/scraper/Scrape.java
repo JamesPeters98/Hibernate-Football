@@ -24,6 +24,6 @@ public class Scrape {
         PlayerScraper playerScraper = new PlayerScraper(SessionStore.getSession());
         playerScraper.execute();
 
-        //new CalculatePlayerRatings();
+        new CalculatePlayerRatings();
     }
 }

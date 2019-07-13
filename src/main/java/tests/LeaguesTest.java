@@ -20,7 +20,7 @@ public class LeaguesTest {
         long start = System.currentTimeMillis();
         SessionStore.setDB("TEST");
         Session session = SessionStore.getSession();
-        List<LeaguesEntity> leaguesEntities = session.createQuery("from LeaguesEntity", LeaguesEntity.class).list();
+        List<LeaguesEntity> leaguesEntities = session.createQuery("from LeaguesEntity where id = 13", LeaguesEntity.class).list();
 
         System.out.println(leaguesEntities.size());
 
@@ -46,6 +46,8 @@ public class LeaguesTest {
 
         for(Future<League> leagueFuture : leagueFutures){
             System.out.println("League: "+leagueFuture.get().getLeaguesEntity().getLeaguename());
+            leagueFuture.get().printFixtures();
+
         }
 
         Utils.logger.info("Time taken: "+(System.currentTimeMillis()-start)+" ms");

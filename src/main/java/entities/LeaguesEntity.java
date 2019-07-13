@@ -12,6 +12,7 @@ public class LeaguesEntity {
     private Integer division;
     private NationalityEntity country;
     private List<TeamsEntity> teams;
+    private List<FixturesEntity> fixtures;
 
     @Id
     @Column(name = "ID")
@@ -75,5 +76,14 @@ public class LeaguesEntity {
 
     public void setTeams(List<TeamsEntity> teams) {
         this.teams = teams;
+    }
+
+    @OneToMany(mappedBy = "league")
+    public List<FixturesEntity> getFixtures() {
+        return fixtures;
+    }
+
+    public void setFixtures(List<FixturesEntity> fixtures) {
+        this.fixtures = fixtures;
     }
 }

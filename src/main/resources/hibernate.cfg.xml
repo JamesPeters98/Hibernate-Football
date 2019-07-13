@@ -4,7 +4,6 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-<!--        <property name="connection.url">jdbc:h2:file:./db/save</property>-->
         <property name="connection.driver_class">org.h2.Driver</property>
         <property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>
         <property name="connection.pool_size">100000</property>
@@ -25,6 +24,7 @@
         <mapping class="entities.DefenceWeightsEntity"/>
         <mapping class="entities.PlayerRatingsEntity"/>
         <mapping class="entities.RegionsEntity"/>
+        <mapping class="entities.FixturesEntity"/>
 
         <!--        <property name="hibernate.hbm2ddl.auto">create</property>-->
         <!-- <property name="connection.username"/> -->
