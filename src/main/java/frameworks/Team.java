@@ -147,4 +147,8 @@ public class Team {
     public void setPotentialFactor(double potentialFactor){
         POTENTIAL_FACTOR = potentialFactor;
     }
+
+    public TeamsEntity getTeam() {
+        return team;
+    }
 }

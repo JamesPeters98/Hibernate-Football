@@ -25,6 +25,10 @@
         <mapping class="entities.PlayerRatingsEntity"/>
         <mapping class="entities.RegionsEntity"/>
         <mapping class="entities.FixturesEntity"/>
+        <mapping class="entities.SeasonsEntity"/>
+        <mapping class="entities.GameInfoEntity"/>
+        <mapping class="entities.FixtureResultEntity"/>
+        <mapping class="entities.LeagueTableEntity"/>
 
         <!--        <property name="hibernate.hbm2ddl.auto">create</property>-->
         <!-- <property name="connection.username"/> -->

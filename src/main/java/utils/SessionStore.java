@@ -37,8 +37,12 @@ public class SessionStore {
         }
     }
 
-    public static Session getSession() throws NoDatabaseSelectedException {
-        if(DB_NAME == null) throw new NoDatabaseSelectedException();
+    public static Session getSession() {
+        if(DB_NAME == null) try {
+            throw new NoDatabaseSelectedException();
+        } catch (NoDatabaseSelectedException e) {
+            e.printStackTrace();
+        }
         Session session = ourSessionFactory.openSession();
 //        try {
 //            Utils.logger.debug("Opening DB connection: "+ourSessionFactory.getSessionFactoryOptions().getServiceRegistry().getService(ConnectionProvider.class).getConnection().getMetaData().getURL());

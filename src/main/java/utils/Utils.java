@@ -1,9 +1,8 @@
 package utils;
 
-import entities.PlayerStatsEntity;
-import entities.PlayersEntity;
-import entities.PositionsEntity;
-import entities.PositiontypeEntity;
+import entities.*;
+import frameworks.Team;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,6 +10,8 @@ import org.apache.logging.log4j.core.config.Configurator;
 import org.hibernate.Session;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -35,5 +36,23 @@ public class Utils {
         return n;
     }
 
+    public static <T> String toCommaList(T[] a){
+        StringBuilder list = new StringBuilder();
+        for(T o : a) list.append(o).append(",");
+        list.deleteCharAt(list.length()-1);
+        return list.toString();
+    }
 
+    public static <T> String toCommaList(List<T> a){
+        StringBuilder list = new StringBuilder();
+        for(T o : a) list.append(o).append(",");
+        list.deleteCharAt(list.length()-1);
+        return list.toString();
+    }
+
+    public static void printPaddedMatchResult(TeamsEntity home, TeamsEntity away, int homeGoals, int awayGoals, int padding){
+        String left = StringUtils.leftPad(home.getName()+" "+homeGoals,padding);
+        String right = StringUtils.rightPad(awayGoals+" "+away.getName(), padding);
+        System.out.println(left+" - "+right);
+    }
 }

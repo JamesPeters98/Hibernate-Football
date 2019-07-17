@@ -15,9 +15,9 @@ public class GameTests {
 
     static long startTime;
 
-    public static void main(String[] args) throws InterruptedException, ExecutionException, IllegalAccessException, NoSuchFieldException, NoDatabaseSelectedException {
+    public static void main(String[] args) throws InterruptedException, ExecutionException, IllegalAccessException, NoSuchFieldException {
         startTime = System.currentTimeMillis();
-        SessionStore.setDB("TEST");
+        SessionStore.setDB("GameSave");
         Session session = SessionStore.getSession();
 
         int team1id = 9;
@@ -41,8 +41,8 @@ public class GameTests {
 
         double LIMIT = 500;
         for(int i = 0; i <= LIMIT; i++){
-            int homeGoals = Utils.poisson(game.getHomeGoals());
-            int awayGoals = Utils.poisson(game.getAwayGoals());
+            int homeGoals = game.generateHomeGoals();
+            int awayGoals = game.generateAwayGoals();
 
             totalHome += homeGoals;
             totalAway += awayGoals;

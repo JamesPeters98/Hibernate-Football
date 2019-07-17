@@ -13,9 +13,13 @@ public class FixturesEntity {
     private LeaguesEntity league;
     private TeamsEntity awayteam;
     private TeamsEntity hometeam;
+    private int seasonId;
+    private SeasonsEntity season;
+    private FixtureResultEntity fixtureResult;
 
     @Id
     @Column(name = "ID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -87,11 +91,12 @@ public class FixturesEntity {
         result = 31 * result + awayteamid;
         result = 31 * result + gameweek;
         result = 31 * result + leagueid;
+        result = 31 * result + seasonId;
         return result;
     }
 
     @ManyToOne
-    @JoinColumn(name = "LEAGUEID", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "LEAGUEID", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     public LeaguesEntity getLeague() {
         return league;
     }
@@ -101,7 +106,7 @@ public class FixturesEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "AWAYTEAMID", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "AWAYTEAMID", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     public TeamsEntity getAwayteam() {
         return awayteam;
     }
@@ -111,12 +116,41 @@ public class FixturesEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "HOMETEAMID", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "HOMETEAMID", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     public TeamsEntity getHometeam() {
         return hometeam;
     }
 
     public void setHometeam(TeamsEntity hometeam) {
         this.hometeam = hometeam;
+    }
+
+    @Basic
+    @Column(name = "SEASON")
+    public int getSeasonId() {
+        return seasonId;
+    }
+
+    public void setSeasonId(int seasonId) {
+        this.seasonId = seasonId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "SEASON", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
+    public SeasonsEntity getSeason() {
+        return season;
+    }
+
+    public void setSeason(SeasonsEntity season) {
+        this.season = season;
+    }
+
+    @OneToOne(mappedBy = "fixture")
+    public FixtureResultEntity getFixtureResult() {
+        return fixtureResult;
+    }
+
+    public void setFixtureResult(FixtureResultEntity fixtureResult) {
+        this.fixtureResult = fixtureResult;
     }
 }

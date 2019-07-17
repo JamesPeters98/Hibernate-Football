@@ -10,18 +10,26 @@ public class VersusGame {
     public VersusGame(Team home, Team away){
         this.home = home;
         this.away = away;
-        Utils.logger.debug(home.getTeamName()+" atk: "+home.getAtkCoeff()+" def: "+home.getDefCoeff());
-        Utils.logger.debug(home.getTeamName()+" atk: "+home.getAttackRating()+" def: "+home.getDefenceRating());
-        Utils.logger.debug(away.getTeamName()+" atk: "+away.getAtkCoeff()+" def: "+away.getDefCoeff());
-        Utils.logger.debug(away.getTeamName()+" atk: "+away.getAttackRating()+" def: "+away.getDefenceRating());
+//        Utils.logger.debug(home.getTeamName()+" atk: "+home.getAtkCoeff()+" def: "+home.getDefCoeff());
+//        Utils.logger.debug(home.getTeamName()+" atk: "+home.getAttackRating()+" def: "+home.getDefenceRating());
+//        Utils.logger.debug(away.getTeamName()+" atk: "+away.getAtkCoeff()+" def: "+away.getDefCoeff());
+//        Utils.logger.debug(away.getTeamName()+" atk: "+away.getAttackRating()+" def: "+away.getDefenceRating());
     }
 
-    public double getHomeGoals(){
+    private double getHomeGoals(){
         return Math.exp(home.getAtkCoeff()+away.getDefCoeff()+0.2);
     }
 
-    public double getAwayGoals(){
+    private double getAwayGoals(){
         return Math.exp(away.getAtkCoeff()+home.getDefCoeff());
+    }
+
+    public int generateHomeGoals(){
+        return Utils.poisson(getHomeGoals());
+    }
+
+    public int generateAwayGoals(){
+        return Utils.poisson(getAwayGoals());
     }
 
     public void printInfo(){

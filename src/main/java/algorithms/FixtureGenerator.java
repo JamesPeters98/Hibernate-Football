@@ -3,12 +3,15 @@ package algorithms;
 import frameworks.Fixture;
 import frameworks.Team;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 public class FixtureGenerator {
 
-    public static List<List<Fixture>> getFixtures(List<Team> teams, boolean includeReverseFixtures) {
+    public static List<List<Fixture>> getFixtures(List<Team> teams, boolean includeReverseFixtures, boolean randomise) {
+
+        if(randomise) Collections.shuffle(teams);
 
         int numberOfTeams = teams.size();
 

@@ -34,7 +34,7 @@ public class CalculatePlayerRatings {
     public CalculatePlayerRatings() throws InterruptedException, ExecutionException, NoDatabaseSelectedException {
         startTime = System.currentTimeMillis();
 
-        SessionStore.setDB("TEST");
+        SessionStore.setDB("GameSave");
         session = SessionStore.getSession();
 
         executor = Executors.newFixedThreadPool(8);

@@ -14,7 +14,7 @@ public class ImportPlayers {
         new ImportPlayers();
     }
 
-    public ImportPlayers() throws SQLException, NoDatabaseSelectedException {
+    public ImportPlayers() throws SQLException {
         final Session session = SessionStore.getSession();
 
         ResultSet rs = new Csv().read(getClass().getResource("players.csv").getFile(), null, null);

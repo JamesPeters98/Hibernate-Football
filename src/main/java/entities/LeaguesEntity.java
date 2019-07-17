@@ -1,5 +1,7 @@
 package entities;
 
+import frameworks.Fixture;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -86,4 +88,14 @@ public class LeaguesEntity {
     public void setFixtures(List<FixturesEntity> fixtures) {
         this.fixtures = fixtures;
     }
+
+
+    /**
+     * @return Total matches played in this league.
+     */
+    @Transient
+    public int getTotalMatches(){
+        return (getTeams().size()*2)-2;
+    }
+
 }

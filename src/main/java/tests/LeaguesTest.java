@@ -1,7 +1,9 @@
 package tests;
 
 import Exceptions.NoDatabaseSelectedException;
+import entities.FixturesEntity;
 import entities.LeaguesEntity;
+import entities.TeamsEntity;
 import frameworks.League;
 import org.hibernate.Session;
 import utils.SessionStore;
@@ -20,6 +22,11 @@ public class LeaguesTest {
         long start = System.currentTimeMillis();
         SessionStore.setDB("TEST");
         Session session = SessionStore.getSession();
+
+        session.beginTransaction();
+        session.createQuery("delete from FixturesEntity").executeUpdate();
+        session.getTransaction().commit();
+
         List<LeaguesEntity> leaguesEntities = session.createQuery("from LeaguesEntity where id = 13", LeaguesEntity.class).list();
 
         System.out.println(leaguesEntities.size());
@@ -29,12 +36,8 @@ public class LeaguesTest {
         ExecutorService executorService = Executors.newCachedThreadPool();
 
         leaguesEntities.forEach(leaguesEntity -> {
-            try {
-                League league = new League(SessionStore.getSession(),leaguesEntity);
-                leagues.add(league);
-            } catch (NoDatabaseSelectedException e) {
-                e.printStackTrace();
-            }
+            League league = new League(SessionStore.getSession(),leaguesEntity,1);
+            leagues.add(league);
         });
 
         List<Future<League>> leagueFutures = null;
@@ -44,11 +47,21 @@ public class LeaguesTest {
             e.printStackTrace();
         }
 
-        for(Future<League> leagueFuture : leagueFutures){
-            System.out.println("League: "+leagueFuture.get().getLeaguesEntity().getLeaguename());
-            leagueFuture.get().printFixtures();
+//        for(Future<League> leagueFuture : leagueFutures){
+//            System.out.println("League: "+leagueFuture.get().getLeaguesEntity().getLeaguename());
+//            leagueFuture.get().printFixtures();
+//
+//        }
 
+        int teamId = leaguesEntities.get(0).getTeams().get(0).getId();
+
+        TeamsEntity team = session.createQuery("from TeamsEntity where id = "+teamId,TeamsEntity.class).getSingleResult();
+        List<FixturesEntity> fixturesEntities = session.createQuery("from FixturesEntity where hometeamid  = "+teamId+" or awayteamid = "+teamId+" order by gameweek asc ", FixturesEntity.class).list();
+        System.out.println("Fixture list for: "+team.getName());
+        for(FixturesEntity fixturesEntity : fixturesEntities){
+            System.out.println(fixturesEntity.getGameweek()+": "+fixturesEntity.getHometeam().getName()+" vs "+fixturesEntity.getAwayteam().getName());
         }
+
 
         Utils.logger.info("Time taken: "+(System.currentTimeMillis()-start)+" ms");
 

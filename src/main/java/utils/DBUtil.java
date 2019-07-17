@@ -11,14 +11,10 @@ public class DBUtil {
     private Session session;
 
     public DBUtil() {
-        try {
-            createSession();
-        } catch (NoDatabaseSelectedException e){
-            e.printStackTrace();
-        }
+        createSession();
     }
 
-    private void createSession() throws NoDatabaseSelectedException {
+    private void createSession() {
         session = SessionStore.getSession();
     }
 
@@ -98,6 +94,10 @@ public class DBUtil {
             session.clear();
 //            closeConnection();
         }
+    }
+
+    public List<LeaguesEntity> getLeagues(List<Integer> leagueIds){
+        return session.createQuery("from LeaguesEntity where id in("+Utils.toCommaList(leagueIds)+")",LeaguesEntity.class).list();
     }
 
 }
