@@ -2,7 +2,7 @@ language: java
 
 script:
   # This command generates a release.zip file.
-  - make dist
+  - mvn package
 
 deploy:
   provider: releases
