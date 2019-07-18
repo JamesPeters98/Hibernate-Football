@@ -18,7 +18,11 @@ public abstract class Menu {
 
     public abstract ArrayList<Option> getOptions();
 
+    public abstract ArrayList<Menu> getSubMenus();
+
     public abstract String getMenuName();
+
+    public abstract Menu getParentMenu();
 
 
     /**
@@ -29,9 +33,24 @@ public abstract class Menu {
         System.out.println(getMenuName());
         System.out.println("------------");
 
-        for(int i = 0; i < getOptions().size(); i++){
-            Option option = getOptions().get(i);
-            System.out.println((i+1)+". "+option.getTitle()+" - "+option.getDescription());
+        int options = 0;
+        if(getOptions() != null) {
+            for (int i = 0; i < getOptions().size(); i++) {
+                Option option = getOptions().get(i);
+                System.out.println((options + 1) + ". " + option.getTitle() + " - " + option.getDescription());
+                options++;
+            }
+        }
+        if(getSubMenus() != null) {
+            for (int i = 0; i < getSubMenus().size(); i++) {
+                Menu subMenu = getSubMenus().get(i);
+                System.out.println((options + 1) + ". " + subMenu.getMenuName());
+                options++;
+            }
+        }
+        if(getParentMenu() != null){
+            Menu menu = getParentMenu();
+            System.out.println((options + 1) + ". Return to " + menu.getMenuName());
         }
 
         int menuChoice = scanner.nextInt();
@@ -41,13 +60,37 @@ public abstract class Menu {
             menuChoice = scanner.nextInt();
         }
 
-        Option option = getOptions().get(menuChoice-1);
-        option.display();
+        displayMenu(menuChoice);
+
+//        Option option = getOptions().get(menuChoice-1);
+//        option.display();
     }
 
     private boolean isValidMenuChoice(int i){
-        if((i > 0) && (i <= getOptions().size())) return true;
+        int size = 0;
+        if(getOptions() != null) size += getOptions().size();
+        if(getSubMenus() != null) size += getSubMenus().size();
+        if(getParentMenu() != null) size++;
+
+        if((i > 0) && (i <= size)) return true;
         return false;
+    }
+
+    private void displayMenu(int menuChoice){
+        //Menu sizes
+        int optionSize = 0, subMenuSize = 0;
+        if(getOptions() != null) optionSize = getOptions().size();
+        if(getSubMenus() != null) subMenuSize = getSubMenus().size();
+
+        if(menuChoice <= optionSize){
+            getOptions().get(menuChoice-1).display();
+        }
+        if(menuChoice <= (optionSize+subMenuSize)){
+            getSubMenus().get(menuChoice-getOptions().size()-1).open();
+        }
+        else {
+            getParentMenu().open();
+        }
     }
 
     public Season getSeason(){

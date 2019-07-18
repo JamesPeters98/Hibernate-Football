@@ -101,7 +101,8 @@ public class Season {
     public void simulateGameWeek(){
         int gameweek = GameInfoStore.getGameInfo().getCurrentGameWeek();
         for(LeaguesEntity league : getLeagues()){
-            if(league.getTotalMatches() <= gameweek) {
+            System.out.println("League Matches: "+league.getTotalMatches()+" gameweek: "+gameweek);
+            if(gameweek <= league.getTotalMatches()) {
                 List<FixturesEntity> weekFixtures = session.createQuery("from FixturesEntity " +
                                 "where leagueid = " + league.getId() + " " +
                                 "and gameweek = " + gameweek + " " +

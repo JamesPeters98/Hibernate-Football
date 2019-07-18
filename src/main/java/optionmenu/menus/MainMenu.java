@@ -8,16 +8,17 @@ import java.util.ArrayList;
 public class MainMenu extends Menu {
 
     private ArrayList<Option> options;
+    private ArrayList<Menu> menus;
 
     public MainMenu(Season season){
         super(season);
         options = new ArrayList<>();
-        options.add(new FixtureListOption(this));
-        options.add(new TeamFixtureListOption(this));
-        options.add(new FixtureResultsListOption(this));
         options.add(new SimulateMatchOption(this));
-        options.add(new WeeklyFixtureResultsListOption(this));
         options.add(new ShowLeagueTableOption(this));
+        options.add(new ResetGameOption(this));
+
+        menus = new ArrayList<>();
+        menus.add(new FixtureMenu(season,this));
     }
 
     @Override
@@ -26,8 +27,18 @@ public class MainMenu extends Menu {
     }
 
     @Override
+    public ArrayList<Menu> getSubMenus() {
+        return menus;
+    }
+
+    @Override
     public String getMenuName() {
         return "Main Menu";
+    }
+
+    @Override
+    public Menu getParentMenu() {
+        return null;
     }
 
 }

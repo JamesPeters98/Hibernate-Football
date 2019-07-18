@@ -10,7 +10,8 @@ import java.util.concurrent.ExecutionException;
 public class DownloadData {
 
     public static void main(String[] args) throws NoDatabaseSelectedException, ExecutionException, InterruptedException {
-        SessionStore.setDB("GameSave");
+        SessionStore.useEmptyDefault();
+        SessionStore.setDB("default-filled");
         scrape();
     }
 

@@ -27,14 +27,13 @@ public class CalculatePlayerRatings {
 
     static int n = 0;
 
-    public static void main(String[] args) throws InterruptedException, ExecutionException, NoDatabaseSelectedException {
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
         new CalculatePlayerRatings();
     }
 
-    public CalculatePlayerRatings() throws InterruptedException, ExecutionException, NoDatabaseSelectedException {
+    public CalculatePlayerRatings() throws InterruptedException, ExecutionException {
         startTime = System.currentTimeMillis();
 
-        SessionStore.setDB("GameSave");
         session = SessionStore.getSession();
 
         executor = Executors.newFixedThreadPool(8);

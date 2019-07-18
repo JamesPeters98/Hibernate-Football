@@ -1,6 +1,8 @@
 package utils;
 
 import Exceptions.NoDatabaseSelectedException;
+import net.harawata.appdirs.AppDirs;
+import net.harawata.appdirs.AppDirsFactory;
 import org.apache.commons.io.FileUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -19,6 +21,8 @@ public class SessionStore {
     private static String DB_NAME;
     private static Configuration configuration;
 
+    private static boolean USE_FILLED = true;
+
     public static void setDB(String dbName){
         DB_NAME = dbName;
         configure();
@@ -28,7 +32,10 @@ public class SessionStore {
         checkDbFile(DB_NAME);
         try {
             configuration = new Configuration();
-            configuration.setProperty("hibernate.connection.url","jdbc:h2:file:./db/"+DB_NAME);
+
+            String dbPath = getDbPath(DB_NAME);
+            System.out.println(dbPath);
+            configuration.setProperty("hibernate.connection.url","jdbc:h2:file:"+dbPath);
             configuration.configure();
 
             ourSessionFactory = configuration.buildSessionFactory();
@@ -57,16 +64,38 @@ public class SessionStore {
     }
 
     private static void checkDbFile(String dbName){
-        File dbFile = new File("db/"+dbName+".mv.db");
+        File dbFile = new File(getDbPath(DB_NAME)+".mv.db");
         if(!dbFile.isFile()){
             Utils.logger.info("DB: "+dbName+" did not exist! Copying default DB!");
-            File defaultFile = new File("db/default.mv.db");
+            File defaultFile = new File(getDefaultDbPath());
             try {
                 FileUtils.copyFile(defaultFile,dbFile);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private static String getDbPath(String dbname){
+        AppDirs dir = AppDirsFactory.getInstance();
+        String saveDir = dir.getUserDataDir("FootballSim","1.0","James");
+        return saveDir+"/"+dbname;
+    }
+
+    private static String getDefaultDbPath(){
+        if(USE_FILLED){
+            return "db/default-filled.mv.db";
+        } else {
+            return "db/default.mv.db";
+        }
+    }
+
+    public static void useEmptyDefault(){
+        USE_FILLED = false;
+    }
+
+    public static void useFilledDefault(){
+        USE_FILLED = true;
     }
 
 }
