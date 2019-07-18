@@ -4,6 +4,7 @@ import Exceptions.NoDatabaseSelectedException;
 import entities.GameInfoEntity;
 import frameworks.Season;
 import optionmenu.menus.MainMenu;
+import utils.ASCII;
 import utils.GameInfoStore;
 import utils.SessionStore;
 import workers.SetupGame;
@@ -34,6 +35,8 @@ public class StartGame {
         GameInfoEntity gameInfo = GameInfoStore.getGameInfo();
 
         System.out.println("gameinfo - gamestarted: "+gameInfo.getGameStarted());
+        System.out.println(ASCII.title);
+
 
         if(!gameInfo.getGameStarted()) {
             SetupGame.consoleSetup();
