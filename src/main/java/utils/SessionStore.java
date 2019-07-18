@@ -12,6 +12,7 @@ import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 
 public class SessionStore {
@@ -67,9 +68,10 @@ public class SessionStore {
         File dbFile = new File(getDbPath(DB_NAME)+".mv.db");
         if(!dbFile.isFile()){
             Utils.logger.info("DB: "+dbName+" did not exist! Copying default DB!");
-            File defaultFile = new File(getDefaultDbPath());
+            InputStream defaultFile = getDefaultDb();
             try {
-                FileUtils.copyFile(defaultFile,dbFile);
+                FileUtils.copyInputStreamToFile(defaultFile,dbFile);
+                //FileUtils.copyFile(defaultFile,dbFile);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -82,12 +84,16 @@ public class SessionStore {
         return saveDir+"/"+dbname;
     }
 
-    private static String getDefaultDbPath(){
+    private static InputStream getDefaultDb(){
+        String fileName;
+
         if(USE_FILLED){
-            return "db/default-filled.mv.db";
+            fileName = "db/default-filled.mv.db";
         } else {
-            return "db/default.mv.db";
+            fileName = "db/default.mv.db";
         }
+
+        return SessionStore.class.getClassLoader().getResourceAsStream(fileName);
     }
 
     public static void useEmptyDefault(){
