@@ -8,6 +8,9 @@
     <artifactId>FootballSim</artifactId>
     <version>1.0-SNAPSHOT</version>
     <build>
+
+        <finalName>${project.artifactId}</finalName>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
