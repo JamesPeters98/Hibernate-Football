@@ -1,14 +1,10 @@
 language: java
 
-script:
-  # This command generates a release.zip file.
-  - mvn package
-
 deploy:
   provider: releases
   api_key:
     secure: V78t+vwnv7sEh4RGYv+DVBchZKEvIwh5Xwlx76yeyS6XoGkpC115lsYqVIzCtrfhmdmViOx4ZXLDCgW/H4+Rx7FsTkrY6poCZqrSpBgNqMWE2GFwAOCchI16OWn8RPmVTqAHUy+6lUcGdCb46nYmcNtIqQsnKQwyFh19xQTgMtuwW5pBMtffh/x6/QWf+ohPU3nYgfpxdx8rHRCyfFni8T7DISNHFqPX1UYKX/BEhS47lCyWLJmIotTtfqdUw4/pRk3cBRV9OMuboz/fl3Dqtg4bkMGq08WlYHMMxRtilZE67fOZ8MskwLFfpzufmJN1KspvtuR9NrUeq64h9R2M2o2DPS3oXbG47otlKc0nmlhg3jUG+nu6gsH+bpUXWy/EmvEcA25uWnjMWvBAb8Z4WCS9KiUbeCgUfLpYoBq029cjZWFrSF04BCFdUCcKLyFEuOxJZuEXgvXhJ6oZ+WOvPo4/WZUa3u3h4iTon60nItQVelJnJxnzPosEROlrnY6CLiofOxfuSrvBXyvbDP2++JhtuAH9Tt1b/d1QYhVKNXR6rr19NmLj+JTU1tuC12kgbSRpRi6GMIhlXU+h6iSeho+Iwz3tCIB/7VTqzuRK5tBCfqfP0fyZMI8rsSPEOYjSx8qSYDFDQ0qCOjZBOFmx8QJeeAvpdt9ITBaG7Q6vLjM=
-  file: "release.zip"
+  file: "FootballSim.jar"
   skip_cleanup: true
   on:
     tags: true
