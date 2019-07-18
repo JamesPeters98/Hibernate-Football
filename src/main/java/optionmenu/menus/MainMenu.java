@@ -19,6 +19,7 @@ public class MainMenu extends Menu {
 
         menus = new ArrayList<>();
         menus.add(new FixtureMenu(season,this));
+        menus.add(new TeamInfoMenu(season, this));
     }
 
     @Override

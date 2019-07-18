@@ -8,11 +8,9 @@ import java.util.ArrayList;
 public class FixtureMenu extends Menu {
 
     private ArrayList<Option> options;
-    private Menu parentMenu;
 
     public FixtureMenu(Season season, Menu parentMenu) {
-        super(season);
-        this.parentMenu = parentMenu;
+        super(season,parentMenu);
         options = new ArrayList<>();
         options.add(new FixtureListOption(this));
         options.add(new TeamFixtureListOption(this));
@@ -36,8 +34,4 @@ public class FixtureMenu extends Menu {
         return "Fixture Lists & Results";
     }
 
-    @Override
-    public Menu getParentMenu() {
-        return parentMenu;
-    }
 }

@@ -77,7 +77,6 @@ public class Team {
     public void printFormation(){
         Utils.logger.info(getTeamName()+": Formation");
         Utils.logger.info("---------------------");
-        DBUtil db = new DBUtil();
         for(Map.Entry<PlayersEntity,PositionsEntity> entry : ts.getPlayerPositions().entrySet()){
             PlayersEntity player = entry.getKey();
             PositionsEntity pos = entry.getValue();
@@ -86,7 +85,7 @@ public class Team {
         }
     }
 
-    public void calculateBestTeam() throws InterruptedException, ExecutionException, IllegalAccessException, NoSuchFieldException {
+    public void calculateBestTeam() throws InterruptedException, IllegalAccessException, NoSuchFieldException {
         //Utils.logger.info("Player base: "+players.size());
         try{
             btf = new BestTeamFormation(session,players,POTENTIAL_FACTOR);
@@ -150,5 +149,13 @@ public class Team {
 
     public TeamsEntity getTeam() {
         return team;
+    }
+
+    public BestTeamFormation getBestTeamFormation() {
+        return btf;
+    }
+
+    public BestTeamSheet getBestTeamSheet() {
+        return ts;
     }
 }

@@ -10,10 +10,16 @@ public abstract class Menu {
 
     private Scanner scanner;
     private Season season;
+    private Menu parentMenu;
 
     public Menu(Season season){
         this.season = season;
         scanner = new Scanner(System.in);
+    }
+
+    public Menu(Season season, Menu parentMenu){
+        this(season);
+        this.parentMenu = parentMenu;
     }
 
     public abstract ArrayList<Option> getOptions();
@@ -22,7 +28,9 @@ public abstract class Menu {
 
     public abstract String getMenuName();
 
-    public abstract Menu getParentMenu();
+    public Menu getParentMenu(){
+        return parentMenu;
+    }
 
 
     /**
@@ -72,8 +80,7 @@ public abstract class Menu {
         if(getSubMenus() != null) size += getSubMenus().size();
         if(getParentMenu() != null) size++;
 
-        if((i > 0) && (i <= size)) return true;
-        return false;
+        return (i > 0) && (i <= size);
     }
 
     private void displayMenu(int menuChoice){
