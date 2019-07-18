@@ -1,5 +1,7 @@
 # Hibernate-Football
 
+[![Build Status](https://travis-ci.com/jameslfc19/Hibernate-Football.svg?branch=master)](https://travis-ci.com/jameslfc19/Hibernate-Football)
+
 A database driven football simulation currently using 18,000 different players from leagues all around the world.
 
 Currently run as a console program with the end goal being a GUI driven simulation.
