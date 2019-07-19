@@ -7,10 +7,8 @@ import frameworks.Team;
 import optionmenu.menus.Menu;
 import utils.GameInfoStore;
 import utils.SessionStore;
-import utils.Utils;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -26,7 +24,7 @@ public class TeamSheetOption extends Option {
 
     @Override
     public String getDescription() {
-        return "View your teams players";
+        return "View your current starting 11.";
     }
 
     @Override
@@ -45,8 +43,16 @@ public class TeamSheetOption extends Option {
                 PlayersEntity player = entry.getKey();
                 PositionsEntity pos = entry.getValue();
                 PlayerRatingsEntity rating = player.getRating(pos.getId());
-                System.out.println(pos.getPosition()+": "+player.getName()+" rating: "+rating.getRating());
+                System.out.println(pos.getPosition()+": "+player.getName()+" rating: "+Math.round(rating.getRating()));
             }
+
+            System.out.println();
+            System.out.println(
+                    "Best Formation: "+team.getBestTeamSheet().getFormation().getFormation()+
+                    " Rating: "+team.getBestTeamSheet().getRating() +
+                    " Atk: "+ team.getAttackRating() +
+                    " Def: "+ team.getDefenceRating());
+
         } catch (InterruptedException | ExecutionException | NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }

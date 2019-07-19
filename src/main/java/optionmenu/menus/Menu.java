@@ -1,20 +1,23 @@
 package optionmenu.menus;
 
 import frameworks.Season;
+import gui.InputField;
+import gui.Output;
 import optionmenu.options.Option;
+import utils.ASCII;
+import utils.InputUtil;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public abstract class Menu {
 
-    private Scanner scanner;
+    private InputField inputField;
     private Season season;
     private Menu parentMenu;
 
     public Menu(Season season){
         this.season = season;
-        scanner = new Scanner(System.in);
+        inputField = InputUtil.getInputField();
     }
 
     public Menu(Season season, Menu parentMenu){
@@ -37,6 +40,9 @@ public abstract class Menu {
      * Displays menu to console and waits for selection.
      */
     public void open(){
+        Output.clear();
+        System.out.println(ASCII.title);
+
         System.out.println("------------");
         System.out.println(getMenuName());
         System.out.println("------------");
@@ -61,11 +67,11 @@ public abstract class Menu {
             System.out.println((options + 1) + ". Return to " + menu.getMenuName());
         }
 
-        int menuChoice = scanner.nextInt();
+        int menuChoice = inputField.nextInt();
 
         while(!isValidMenuChoice(menuChoice)){
             System.out.println("Invalid menu choice! Try again.");
-            menuChoice = scanner.nextInt();
+            menuChoice = inputField.nextInt();
         }
 
         displayMenu(menuChoice);

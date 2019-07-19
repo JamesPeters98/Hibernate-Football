@@ -15,6 +15,7 @@ public class LeaguesEntity {
     private NationalityEntity country;
     private List<TeamsEntity> teams;
     private List<FixturesEntity> fixtures;
+    private Integer countryId;
 
     @Id
     @Column(name = "ID")
@@ -90,6 +91,16 @@ public class LeaguesEntity {
     }
 
 
+    @Basic
+    @Column(name = "COUNTRY")
+    public Integer getCountryId() {
+        return countryId;
+    }
+
+    public void setCountryId(Integer countryId) {
+        this.countryId = countryId;
+    }
+
     /**
      * @return Total matches played in this league.
      */
@@ -97,5 +108,4 @@ public class LeaguesEntity {
     public int getTotalMatches(){
         return (getTeams().size()*2)-2;
     }
-
 }

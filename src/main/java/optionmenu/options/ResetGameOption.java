@@ -39,7 +39,7 @@ public class ResetGameOption extends Option {
         //Start new game.
         try {
             new StartGame();
-        } catch (NoDatabaseSelectedException | InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }

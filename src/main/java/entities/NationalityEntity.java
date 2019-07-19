@@ -11,9 +11,9 @@ public class NationalityEntity {
     private String name;
     private List<PlayersEntity> players;
     private String nationality;
-    private Map<Integer, LeaguesEntity> leagues;
     private Integer regionId;
     private RegionsEntity region;
+    private Map<Object, LeaguesEntity> leagues;
 
     @Id
     @Basic
@@ -75,16 +75,6 @@ public class NationalityEntity {
         this.nationality = nationality;
     }
 
-    @MapKey(name = "division")
-    @OneToMany(mappedBy = "country")
-    public Map<Integer, LeaguesEntity> getLeagues() {
-        return leagues;
-    }
-
-    public void setLeagues(Map<Integer, LeaguesEntity> leagues) {
-        this.leagues = leagues;
-    }
-
     @Basic
     @Column(name = "REGION")
     public Integer getRegionId() {
@@ -103,5 +93,15 @@ public class NationalityEntity {
 
     public void setRegion(RegionsEntity region) {
         this.region = region;
+    }
+
+    @MapKey(name = "division")
+    @OneToMany(mappedBy = "country", fetch = FetchType.EAGER)
+    public Map<Object, LeaguesEntity> getLeagues() {
+        return leagues;
+    }
+
+    public void setLeagues(Map<Object, LeaguesEntity> leagues) {
+        this.leagues = leagues;
     }
 }

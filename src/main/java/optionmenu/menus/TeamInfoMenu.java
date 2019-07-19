@@ -2,6 +2,7 @@ package optionmenu.menus;
 
 import frameworks.Season;
 import optionmenu.options.Option;
+import optionmenu.options.ShowPlayersOption;
 import optionmenu.options.TeamSheetOption;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class TeamInfoMenu extends Menu {
         super(season, parentMenu);
         optionList = new ArrayList<>();
         optionList.add(new TeamSheetOption(this));
+        optionList.add(new ShowPlayersOption(this));
     }
 
     @Override

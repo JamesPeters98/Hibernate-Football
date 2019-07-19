@@ -16,6 +16,7 @@ public class MainMenu extends Menu {
         options.add(new SimulateMatchOption(this));
         options.add(new ShowLeagueTableOption(this));
         options.add(new ResetGameOption(this));
+        options.add(new ExitOption(this));
 
         menus = new ArrayList<>();
         menus.add(new FixtureMenu(season,this));

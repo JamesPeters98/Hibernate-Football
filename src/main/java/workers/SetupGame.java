@@ -1,17 +1,15 @@
 package workers;
 
-import Exceptions.NoDatabaseSelectedException;
-import entities.GameInfoEntity;
-import entities.LeaguesEntity;
-import entities.TeamsEntity;
-import frameworks.Team;
+import entities.*;
+import gui.InputField;
+import gui.Output;
 import org.hibernate.Session;
+import utils.ASCII;
 import utils.GameInfoStore;
+import utils.InputUtil;
 import utils.SessionStore;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class SetupGame {
 
@@ -30,24 +28,38 @@ public class SetupGame {
     /**
      * Sets up a game from the console.
      */
-    public static void consoleSetup() throws NoDatabaseSelectedException {
-        Scanner scanner = new Scanner(System.in);
+    public static void consoleSetup() {
+        Output.clear();
+        System.out.println(ASCII.title);
+
+        InputField inputField = InputUtil.getInputField();
         Session session = SessionStore.getSession();
 
-        List<LeaguesEntity> leaguesEntities = session.createQuery("from LeaguesEntity", LeaguesEntity.class).list();
+        List<RegionsEntity> regions = session.createQuery("from RegionsEntity ", RegionsEntity.class).list();
+        System.out.println("Chose what region you would like to play in: [Enter]");
+        inputField.nextLine();
+
+        for(RegionsEntity regionsEntity : regions){
+            System.out.println(regionsEntity.getId()+": "+regionsEntity.getName());
+        }
+
+        System.out.println("Enter the id of the region you would like to chose: ");
+        int regionId = inputField.nextInt();
+
+        List<LeaguesEntity> leaguesEntities = session.createQuery("from LeaguesEntity where country.regionId = "+regionId, LeaguesEntity.class).list();
 
         System.out.println("Chose what league you would like to play in: [Enter]");
-        scanner.nextLine();
+        inputField.nextLine();
 
         for(LeaguesEntity leaguesEntity : leaguesEntities){
             System.out.println(leaguesEntity.getId()+": "+leaguesEntity.getLeaguename());
         }
 
         System.out.println("Enter the id of the league you would like to chose: ");
-        int league = scanner.nextInt();
+        int league = inputField.nextInt();
 
         System.out.println("Chose what team you would like to play with: [Enter]");
-        scanner.nextLine();
+        inputField.nextLine();
 
         List<TeamsEntity> teams = session.createQuery("from TeamsEntity where leagueid = "+league, TeamsEntity.class).list();
 
@@ -56,11 +68,16 @@ public class SetupGame {
         }
 
         System.out.println("Enter the id of the team you would like to chose: ");
-        int teamid = scanner.nextInt();
-        List<Integer> leagues = new ArrayList<>();
-        leagues.add(league);
+        int teamid = inputField.nextInt();
 
-        setup(teamid,leagues);
+        //Add all leagues from chosen league country to Season.
+        LeaguesEntity leaguesEntity = session.createQuery("from LeaguesEntity where id = "+league, LeaguesEntity.class).getSingleResult();
+        List<Integer> leagueIds = new ArrayList<>();
+        for(LeaguesEntity leagueEnt : leaguesEntity.getCountry().getLeagues().values()){
+            leagueIds.add(leagueEnt.getId());
+        }
+
+        setup(teamid,leagueIds);
 
     }
 }

@@ -51,16 +51,20 @@ public class BestTeamSheet implements Callable<BestTeamSheet> {
 
 
 
-    private double getWeight(PlayersEntity player, PositionsEntity position) throws NoSuchFieldException, IllegalAccessException {
-        double preferredPos = -1;
-        double potentialWeight = player.getGrowth()*potentialFactor;
-        if(RelatedPositions.isRelatedPos(player,position)) preferredPos = 1;
+    private double getWeight(PlayersEntity player, PositionsEntity position) {
         PlayerRatingsEntity ratingsEntity = player.getRating(position.getId());
-        return -ratingsEntity.getAttackrating()-ratingsEntity.getDefencerating()-preferredPos-potentialWeight;
+
+        double preferredPos = 0.9; //If not preferred position only 90% as effective.
+        double potentialWeight = (ratingsEntity.getRating()+(potentialFactor*player.getGrowth()))/(ratingsEntity.getRating());
+        double attackingPref = 1;
+        double defensivePref = 1;
+        if(RelatedPositions.isRelatedPos(player,position)) preferredPos = 1;
+
+        return (-ratingsEntity.getAttackrating()*attackingPref-ratingsEntity.getDefencerating()*defensivePref)*potentialWeight*preferredPos;
     }
 
     @Override
-    public BestTeamSheet call() throws Exception {
+    public BestTeamSheet call() {
         //startTime = System.currentTimeMillis();
         HashMap<Integer,PlayersEntity> playerMap = new HashMap<>();
         HashMap<Integer,PositionsEntity> positionMap = new HashMap<>();

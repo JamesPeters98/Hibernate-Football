@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Entity
-@Table(name = "PLAYERS", schema = "PUBLIC")
+@Table(name = "PLAYERS")
 public class PlayersEntity {
     private int id;
     private Integer age;

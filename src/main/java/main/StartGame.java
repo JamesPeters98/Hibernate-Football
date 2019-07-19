@@ -3,23 +3,33 @@ package main;
 import Exceptions.NoDatabaseSelectedException;
 import entities.GameInfoEntity;
 import frameworks.Season;
+import gui.Gui;
+import gui.InputField;
+import gui.Output;
 import optionmenu.menus.MainMenu;
 import utils.ASCII;
 import utils.GameInfoStore;
+import utils.InputUtil;
 import utils.SessionStore;
+import gui.TextAreaOutputStream;
 import workers.SetupGame;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.PrintStream;
 
 public class StartGame {
 
     public static void main(String[] args) {
         try {
+            new Gui();
             new StartGame();
-        } catch (NoDatabaseSelectedException | InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    public StartGame() throws NoDatabaseSelectedException, InterruptedException {
+    public StartGame() throws InterruptedException {
         SessionStore.setDB("GameSave");
 
         if(!GameInfoStore.readGameInfo()){
@@ -35,7 +45,6 @@ public class StartGame {
         GameInfoEntity gameInfo = GameInfoStore.getGameInfo();
 
         System.out.println("gameinfo - gamestarted: "+gameInfo.getGameStarted());
-        System.out.println(ASCII.title);
 
 
         if(!gameInfo.getGameStarted()) {

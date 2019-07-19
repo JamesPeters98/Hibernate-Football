@@ -12,10 +12,10 @@ import java.util.List;
 public class LeagueTableHelper {
 
     public static void calculate(int season, int leagueID, int gameweek){
-        System.out.println("Calculating league positions...");
+        System.err.println("Calculating league positions... League: "+leagueID);
         Session session = SessionStore.getSession();
 
-        List<FixtureResultEntity> results = session.createQuery("from FixtureResultEntity where fixture.seasonId = "+season+" and fixture.gameweek = "+gameweek, FixtureResultEntity.class).list();
+        List<FixtureResultEntity> results = session.createQuery("from FixtureResultEntity where fixture.seasonId = "+season+" and fixture.gameweek = "+gameweek+" and fixture.leagueid = "+leagueID, FixtureResultEntity.class).list();
         List<LeagueTableEntity> tableEntities = new ArrayList<>();
 
         for(FixtureResultEntity result : results){
@@ -38,7 +38,7 @@ public class LeagueTableHelper {
             home.addGoalsScored(result.getAwayGoals());
 
             away.addGoalsScored(result.getAwayGoals());
-            away.addGoalsConceeded(result.getAwayGoals());
+            away.addGoalsConceeded(result.getHomeGoals());
 
             tableEntities.add(home);
             tableEntities.add(away);
@@ -66,6 +66,6 @@ public class LeagueTableHelper {
     }
 
     public static List<LeagueTableEntity>  getLeagueTable(int season, int leagueId){
-        return SessionStore.getSession().createQuery("from LeagueTableEntity where season = "+season+" and leagueId = "+leagueId+" order by (3*wins+draws) desc, goalsScored desc , goalsConceeded asc ", LeagueTableEntity.class).list();
+        return SessionStore.getSession().createQuery("from LeagueTableEntity where season = "+season+" and leagueId = "+leagueId+" order by (3*wins+draws) desc, (goalsScored-goalsConceeded) desc, goalsScored desc , goalsConceeded asc ", LeagueTableEntity.class).list();
     }
 }

@@ -55,4 +55,9 @@ public class Utils {
         String right = StringUtils.rightPad(awayGoals+" "+away.getName(), padding);
         System.out.println(left+" - "+right);
     }
+
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
 }
