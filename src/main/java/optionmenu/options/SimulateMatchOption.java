@@ -1,13 +1,13 @@
 package optionmenu.options;
 
-import entities.FixtureResultEntity;
-import entities.TeamsEntity;
+import optionmenu.frames.PlayMatchPanel;
 import optionmenu.menus.Menu;
-import utils.GameInfoStore;
 
-import javax.persistence.NoResultException;
+import javax.swing.*;
 
 public class SimulateMatchOption extends Option {
+
+    PlayMatchPanel panel;
 
     public SimulateMatchOption(Menu menu) {
         super(menu);
@@ -30,28 +30,16 @@ public class SimulateMatchOption extends Option {
 
     @Override
     protected void run() {
-        System.out.println("Simulating Games...");
-        getParentMenu().getSeason().simulateGameWeek();
+        panel = new PlayMatchPanel(this,getParentMenu().getFrame(),getParentMenu().getSeason());
+    }
 
-        int teamId = GameInfoStore.getGameInfo().getTeamId();
-        int gameweek = GameInfoStore.getGameInfo().getCurrentGameWeek() - 1;
-        int season = GameInfoStore.getGameInfo().getCurrentSeason();
+    @Override
+    protected void consoleInfo() {
+        //System.out.println(home.getName()+" "+homeGoals+" - "+awayGoals+" "+away.getName());
+    }
 
-        FixtureResultEntity resultEntity;
-
-        try {
-            resultEntity = session.createQuery("from FixtureResultEntity where fixture.seasonId = " + season + " and fixture.gameweek = " + gameweek + " and (fixture.hometeamid = " + teamId + " or fixture.awayteamid = " + teamId + ")", FixtureResultEntity.class).getSingleResult();
-
-            int homeGoals = resultEntity.getHomeGoals();
-            int awayGoals = resultEntity.getAwayGoals();
-            TeamsEntity home = resultEntity.getFixture().getHometeam();
-            TeamsEntity away =  resultEntity.getFixture().getAwayteam();
-
-            System.out.println(home.getName()+" "+homeGoals+" - "+awayGoals+" "+away.getName());
-        } catch (NoResultException e){
-
-        }
-
-
+    @Override
+    public JComponent getPanel() {
+        return panel.getPanel();
     }
 }

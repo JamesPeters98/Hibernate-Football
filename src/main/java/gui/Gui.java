@@ -1,63 +1,29 @@
 package gui;
 
-import utils.InputUtil;
+import frameworks.Season;
+import optionmenu.menus.MainMenu;
+import optionmenu.menus.Menu;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.PrintStream;
 
 public class Gui {
 
-    public Gui(){
-        JFrame frame = new JFrame();
-        frame.add( new JLabel(" Output" ), BorderLayout.NORTH );
+    public Gui(Season season){
 
-        JTextArea ta = new JTextArea();
-        Font font = new Font(Font.MONOSPACED, Font.PLAIN, 14);
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
 
-        ta.setFont(font);
-        ta.setForeground(Color.WHITE);
-        ta.setBackground(Color.BLACK);
+        JFrame frame = new JFrame("Football Simulator");
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        TextAreaOutputStream taos = new TextAreaOutputStream( ta, 100 );
-        Output.setOutputStream(taos);
-        PrintStream ps = new PrintStream(taos);
-        System.setOut(ps);
-        //System.setErr( ps );
 
-        JTextField textField = new JTextField();
-        textField.setFont(font);
-        frame.add(textField, BorderLayout.SOUTH);
+        Menu mainMenu = new MainMenu(frame,season);
+        mainMenu.setupGuiElements();
+        mainMenu.display();
 
-        ta.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                textField.grabFocus();
-                super.mouseClicked(e);
-            }
-        });
 
-        ta.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                textField.setText(textField.getText()+e.getKeyChar());
-                textField.grabFocus();
-            }
-        });
-
-        JScrollPane scrollPane = new JScrollPane(ta);
-        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        frame.add( scrollPane );
-        frame.pack();
-        frame.setVisible( true );
-        frame.setSize(1280,720);
-
-        InputField inputField = new InputField(textField);
-        InputUtil.setInputField(inputField);
     }
 }

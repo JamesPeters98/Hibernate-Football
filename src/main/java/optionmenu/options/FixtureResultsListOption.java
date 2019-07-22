@@ -1,20 +1,18 @@
 package optionmenu.options;
 
 import entities.FixtureResultEntity;
-import entities.FixturesEntity;
-import entities.LeaguesEntity;
 import entities.TeamsEntity;
-import optionmenu.menus.MainMenu;
 import optionmenu.menus.Menu;
-import org.apache.commons.lang3.StringUtils;
 import utils.GameInfoStore;
 import utils.Utils;
 
+import javax.swing.*;
 import java.util.List;
 
 public class FixtureResultsListOption extends Option {
 
     private static final int FIXTURE_AMOUNT = 8;
+    private List<FixtureResultEntity> fixtures;
 
     public FixtureResultsListOption(Menu menu) {
         super(menu);
@@ -40,7 +38,11 @@ public class FixtureResultsListOption extends Option {
         int teamId = GameInfoStore.getGameInfo().getTeam().getId();
         int gameweek = GameInfoStore.getGameInfo().getCurrentGameWeek();
 
-        List<FixtureResultEntity> fixtures = session.createQuery("from FixtureResultEntity  where (fixture.hometeamid = "+teamId+" or fixture.awayteamid = "+teamId+") and fixture.gameweek <= "+gameweek+" and fixture.gameweek > "+(gameweek-FIXTURE_AMOUNT), FixtureResultEntity.class).list();
+        fixtures = session.createQuery("from FixtureResultEntity  where (fixture.hometeamid = "+teamId+" or fixture.awayteamid = "+teamId+") and fixture.gameweek <= "+gameweek+" and fixture.gameweek > "+(gameweek-FIXTURE_AMOUNT), FixtureResultEntity.class).list();
+    }
+
+    @Override
+    protected void consoleInfo() {
         if(fixtures.size() == 0) System.out.println("No previous results to show.");
         for(FixtureResultEntity fixturesEntity : fixtures){
             TeamsEntity home = fixturesEntity.getFixture().getHometeam();
@@ -48,5 +50,10 @@ public class FixtureResultsListOption extends Option {
 
             Utils.printPaddedMatchResult(home,away,fixturesEntity.getHomeGoals(),fixturesEntity.getAwayGoals(),30);
         }
+    }
+
+    @Override
+    public JComponent getPanel() {
+        return null;
     }
 }

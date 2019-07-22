@@ -2,6 +2,8 @@ package optionmenu.options;
 
 import optionmenu.menus.Menu;
 
+import javax.swing.*;
+
 public class ExitOption extends Option {
     public ExitOption(Menu menu) {
         super(menu);
@@ -25,5 +27,15 @@ public class ExitOption extends Option {
     @Override
     protected void run() {
         System.exit(0);
+    }
+
+    @Override
+    protected void consoleInfo() {
+
+    }
+
+    @Override
+    public JComponent getPanel() {
+        return null;
     }
 }

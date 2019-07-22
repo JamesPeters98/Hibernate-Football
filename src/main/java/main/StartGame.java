@@ -1,28 +1,21 @@
 package main;
 
-import Exceptions.NoDatabaseSelectedException;
 import entities.GameInfoEntity;
 import frameworks.Season;
+import gui.ConsoleGui;
 import gui.Gui;
 import gui.InputField;
-import gui.Output;
 import optionmenu.menus.MainMenu;
-import utils.ASCII;
 import utils.GameInfoStore;
 import utils.InputUtil;
 import utils.SessionStore;
-import gui.TextAreaOutputStream;
 import workers.SetupGame;
-
-import javax.swing.*;
-import java.awt.*;
-import java.io.PrintStream;
 
 public class StartGame {
 
     public static void main(String[] args) {
         try {
-            new Gui();
+            new ConsoleGui();
             new StartGame();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -62,8 +55,10 @@ public class StartGame {
         System.out.println(GameInfoStore.getGameInfo().toString());
         GameInfoStore.updateGameInfo();
 
-        MainMenu menu = new MainMenu(season);
-        menu.open();
+
+        new Gui(season);
+//        MainMenu menu = new MainMenu(season);
+//        menu.consoleOpen();
     }
 
 

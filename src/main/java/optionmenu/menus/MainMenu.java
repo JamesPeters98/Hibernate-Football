@@ -3,6 +3,7 @@ package optionmenu.menus;
 import frameworks.Season;
 import optionmenu.options.*;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class MainMenu extends Menu {
@@ -10,8 +11,8 @@ public class MainMenu extends Menu {
     private ArrayList<Option> options;
     private ArrayList<Menu> menus;
 
-    public MainMenu(Season season){
-        super(season);
+    public MainMenu(JFrame frame, Season season){
+        super(frame, season);
         options = new ArrayList<>();
         options.add(new SimulateMatchOption(this));
         options.add(new ShowLeagueTableOption(this));
@@ -19,8 +20,8 @@ public class MainMenu extends Menu {
         options.add(new ExitOption(this));
 
         menus = new ArrayList<>();
-        menus.add(new FixtureMenu(season,this));
-        menus.add(new TeamInfoMenu(season, this));
+        menus.add(new FixtureMenu(frame, season,this));
+        menus.add(new TeamInfoMenu(frame, season, this));
     }
 
     @Override

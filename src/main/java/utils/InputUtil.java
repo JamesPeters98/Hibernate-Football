@@ -8,7 +8,7 @@ public class InputUtil {
 
     public static InputField getInputField(){
         if(inputField == null) {
-            throw new NullPointerException("Input Field was not set up!!!");
+            //throw new NullPointerException("Input Field was not set up!!!");
         }
         return inputField;
     }

@@ -5,9 +5,12 @@ import entities.LeaguesEntity;
 import optionmenu.menus.Menu;
 import utils.GameInfoStore;
 
+import javax.swing.*;
 import java.util.List;
 
 public class FixtureListOption extends Option {
+
+    List<FixturesEntity> fixtures;
 
     public FixtureListOption(Menu menu) {
         super(menu);
@@ -31,10 +34,18 @@ public class FixtureListOption extends Option {
     @Override
     protected void run() {
         LeaguesEntity league = GameInfoStore.getGameInfo().getTeam().getLeague();
+        fixtures = session.createQuery("from FixturesEntity where leagueid = "+league.getId()+" and gameweek = "+GameInfoStore.getGameInfo().getCurrentGameWeek(), FixturesEntity.class).list();
+    }
 
-        List<FixturesEntity> fixtures = session.createQuery("from FixturesEntity where leagueid = "+league.getId()+" and gameweek = "+GameInfoStore.getGameInfo().getCurrentGameWeek(), FixturesEntity.class).list();
+    @Override
+    protected void consoleInfo() {
         for(FixturesEntity fixturesEntity : fixtures){
             System.out.println(fixturesEntity.getHometeam().getName()+" vs "+fixturesEntity.getAwayteam().getName());
         }
+    }
+
+    @Override
+    public JComponent getPanel() {
+        return null;
     }
 }

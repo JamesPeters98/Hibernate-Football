@@ -1,8 +1,9 @@
 package optionmenu.options;
 
-import Exceptions.NoDatabaseSelectedException;
 import main.StartGame;
 import optionmenu.menus.Menu;
+
+import javax.swing.*;
 
 public class ResetGameOption extends Option {
     public ResetGameOption(Menu menu) {
@@ -42,5 +43,15 @@ public class ResetGameOption extends Option {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void consoleInfo() {
+
+    }
+
+    @Override
+    public JComponent getPanel() {
+        return null;
     }
 }

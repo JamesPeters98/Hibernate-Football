@@ -7,6 +7,12 @@ import optionmenu.options.Option;
 import utils.ASCII;
 import utils.InputUtil;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 
 public abstract class Menu {
@@ -14,14 +20,18 @@ public abstract class Menu {
     private InputField inputField;
     private Season season;
     private Menu parentMenu;
+    private JFrame frame;
+    private JPanel panel;
 
-    public Menu(Season season){
+    public Menu(JFrame frame, Season season){
         this.season = season;
-        inputField = InputUtil.getInputField();
+        this.frame = frame;
+        //inputField = InputUtil.getInputField();
+        panel = new JPanel(new GridLayout(3,2,3,3));
     }
 
-    public Menu(Season season, Menu parentMenu){
-        this(season);
+    public Menu(JFrame frame, Season season, Menu parentMenu){
+        this(frame, season);
         this.parentMenu = parentMenu;
     }
 
@@ -39,7 +49,7 @@ public abstract class Menu {
     /**
      * Displays menu to console and waits for selection.
      */
-    public void open(){
+    public void consoleOpen(){
         Output.clear();
         System.out.println(ASCII.title);
 
@@ -74,7 +84,7 @@ public abstract class Menu {
             menuChoice = inputField.nextInt();
         }
 
-        displayMenu(menuChoice);
+        displayConsoleMenu(menuChoice);
 
 //        Option option = getOptions().get(menuChoice-1);
 //        option.display();
@@ -89,7 +99,7 @@ public abstract class Menu {
         return (i > 0) && (i <= size);
     }
 
-    private void displayMenu(int menuChoice){
+    private void displayConsoleMenu(int menuChoice){
         //Menu sizes
         int optionSize = 0, subMenuSize = 0;
         if(getOptions() != null) optionSize = getOptions().size();
@@ -99,14 +109,59 @@ public abstract class Menu {
             getOptions().get(menuChoice-1).display();
         }
         if(menuChoice <= (optionSize+subMenuSize)){
-            getSubMenus().get(menuChoice-getOptions().size()-1).open();
+            getSubMenus().get(menuChoice-getOptions().size()-1).consoleOpen();
         }
         else {
-            getParentMenu().open();
+            getParentMenu().consoleOpen();
         }
+    }
+
+    public void setupGuiElements(){
+        if(getOptions() != null)
+            for(Option option : getOptions()){
+                JButton button = getButton(option.getTitle());
+                button.addActionListener(e -> option.guiDisplay());
+                panel.add(button, BorderLayout.CENTER);
+            }
+        if(getSubMenus() != null)
+            for(Menu menu : getSubMenus()){
+                JButton button = getButton(menu.getMenuName());
+                button.addActionListener(e -> {
+                    menu.setupGuiElements();
+                    menu.display();
+                    });
+                panel.add(button, BorderLayout.CENTER);
+            }
+
+        if(getParentMenu() != null){
+            JButton button = getButton("Back");
+            button.addActionListener(e -> {
+                getParentMenu().display();
+            });
+            panel.add(button, BorderLayout.CENTER);
+        }
+    }
+
+    public void display(){
+        frame.getContentPane().removeAll();
+        frame.repaint();
+        frame.add(panel);
+        frame.pack();
+        frame.setVisible( true );
+        frame.setSize(500,500);
     }
 
     public Season getSeason(){
         return season;
+    }
+
+    private JButton getButton(String text){
+        JButton button = new JButton(text);
+        button.setHorizontalAlignment(SwingConstants.CENTER);
+        return button;
+    }
+
+    public JFrame getFrame() {
+        return frame;
     }
 }

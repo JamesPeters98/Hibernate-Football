@@ -1,18 +1,16 @@
 package optionmenu.options;
 
 import entities.FixturesEntity;
-import entities.LeaguesEntity;
-import optionmenu.menus.MainMenu;
 import optionmenu.menus.Menu;
-import org.hibernate.Session;
 import utils.GameInfoStore;
-import utils.SessionStore;
 
+import javax.swing.*;
 import java.util.List;
 
 public class TeamFixtureListOption extends Option {
 
     private static final int FIXTURE_AMOUNT = 8;
+    private List<FixturesEntity> fixtures;
 
     public TeamFixtureListOption(Menu menu) {
         super(menu);
@@ -38,9 +36,18 @@ public class TeamFixtureListOption extends Option {
         int teamId = GameInfoStore.getGameInfo().getTeam().getId();
         int gameweek = GameInfoStore.getGameInfo().getCurrentGameWeek();
 
-        List<FixturesEntity> fixtures = session.createQuery("from FixturesEntity where (hometeamid = "+teamId+" or awayteamid = "+teamId+") and gameweek >= "+gameweek+" and gameweek < "+(gameweek+FIXTURE_AMOUNT), FixturesEntity.class).list();
+        fixtures = session.createQuery("from FixturesEntity where (hometeamid = "+teamId+" or awayteamid = "+teamId+") and gameweek >= "+gameweek+" and gameweek < "+(gameweek+FIXTURE_AMOUNT), FixturesEntity.class).list();
+    }
+
+    @Override
+    protected void consoleInfo() {
         for(FixturesEntity fixturesEntity : fixtures){
             System.out.println(fixturesEntity.getHometeam().getName()+" vs "+fixturesEntity.getAwayteam().getName());
         }
+    }
+
+    @Override
+    public JComponent getPanel() {
+        return null;
     }
 }

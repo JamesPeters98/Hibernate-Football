@@ -4,9 +4,12 @@ import entities.PlayersEntity;
 import optionmenu.menus.Menu;
 import utils.GameInfoStore;
 
+import javax.swing.*;
 import java.util.List;
 
 public class ShowPlayersOption extends Option {
+
+    private List<PlayersEntity> players;
 
     public ShowPlayersOption(Menu menu) {
         super(menu);
@@ -30,9 +33,18 @@ public class ShowPlayersOption extends Option {
     @Override
     protected void run() {
         int teamId = GameInfoStore.getGameInfo().getTeamId();
-        List<PlayersEntity> players = session.createQuery("from PlayersEntity where teamid = "+teamId+" order by positionId desc, overall desc",PlayersEntity.class).list();
+        players = session.createQuery("from PlayersEntity where teamid = "+teamId+" order by positionId desc, overall desc",PlayersEntity.class).list();
+    }
+
+    @Override
+    protected void consoleInfo() {
         for(PlayersEntity player : players){
             System.out.println(player.getPosition().getPosition()+": "+player.getName()+" - "+Math.round(player.getRating(player.getPositionId()).getRating()));
         }
+    }
+
+    @Override
+    public JComponent getPanel() {
+        return null;
     }
 }

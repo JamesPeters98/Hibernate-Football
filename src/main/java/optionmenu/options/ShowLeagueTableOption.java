@@ -1,13 +1,13 @@
 package optionmenu.options;
 
-import entities.LeagueTableEntity;
-import helpers.LeagueTableHelper;
+import optionmenu.frames.LeagueTablePanel;
 import optionmenu.menus.Menu;
-import utils.GameInfoStore;
 
-import java.util.List;
+import javax.swing.*;
 
 public class ShowLeagueTableOption extends Option {
+
+    LeagueTablePanel panel;
 
     public ShowLeagueTableOption(Menu menu) {
         super(menu);
@@ -30,21 +30,17 @@ public class ShowLeagueTableOption extends Option {
 
     @Override
     protected void run() {
-        List<LeagueTableEntity> leagueTable = LeagueTableHelper
-                .getLeagueTable(
-                        GameInfoStore
-                                .getGameInfo()
-                                .getCurrentSeason(),
-                        GameInfoStore
-                                .getGameInfo()
-                                .getTeam()
-                                .getLeagueid());
+        panel = new LeagueTablePanel(this,getParentMenu().getFrame());
+        panel.run();
+    }
 
-        if(leagueTable.size() == 0) System.out.println("Season hasn't begun! ");
+    @Override
+    protected void consoleInfo() {
 
-        for(int i = 0; i < leagueTable.size(); i++){
-            LeagueTableEntity team = leagueTable.get(i);
-            System.out.println((i+1)+". "+team.getTeam().getName()+" - P:"+team.getPoints()+" W:"+team.getWins()+" D:"+team.getDraws()+" L:"+team.getLosses()+" GF:"+team.getGoalsScored()+" GC:"+team.getGoalsConceeded());
-        }
+    }
+
+    @Override
+    public JComponent getPanel() {
+        return panel.getPanel();
     }
 }
