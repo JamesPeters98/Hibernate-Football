@@ -5,6 +5,7 @@ import entities.FixturesEntity;
 import entities.TeamsEntity;
 import frameworks.Team;
 import frameworks.VersusGame;
+import listeners.ProgressListener;
 import org.hibernate.Session;
 import utils.SessionStore;
 
@@ -14,7 +15,7 @@ import java.util.concurrent.ExecutionException;
 
 public class SimulateMatchHelper {
 
-    public static void simulate(List<FixturesEntity> fixtures){
+    public static void simulate(List<FixturesEntity> fixtures, List<ProgressListener> progressListeners){
         List<FixtureResultEntity> results = new ArrayList<>();
 
         for(FixturesEntity fixture : fixtures) {
@@ -36,6 +37,10 @@ public class SimulateMatchHelper {
             result.setAwayGoals(game.generateAwayGoals());
 
             results.add(result);
+
+            for(ProgressListener progressListener : progressListeners){
+                progressListener.progress(1);
+            }
         }
 
         Session session = SessionStore.getSession();

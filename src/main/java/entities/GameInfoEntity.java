@@ -128,4 +128,11 @@ public class GameInfoEntity {
                 ", teamId=" + teamId +
                 '}';
     }
+
+    //Adds +1 to current season variable.
+    @Transient
+    public void nextSeason(){
+        setCurrentSeason(getCurrentSeason()+1);
+        setCurrentGameWeek(0);
+    }
 }

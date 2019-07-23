@@ -9,6 +9,10 @@ public class InputField {
     private volatile boolean waiting = true;
     private String input;
 
+    public InputField(){
+
+    }
+
     public InputField(JTextField textField){
         textField.addKeyListener(new KeyAdapter() {
             @Override

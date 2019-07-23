@@ -39,6 +39,8 @@ public class ResetGameOption extends Option {
 
         //Start new game.
         try {
+            getParentMenu().getFrame().setVisible(false);
+            getParentMenu().getFrame().dispose();
             new StartGame();
         } catch (InterruptedException e) {
             e.printStackTrace();

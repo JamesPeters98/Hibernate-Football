@@ -4,6 +4,7 @@ import entities.LeagueTableEntity;
 import helpers.LeagueTableHelper;
 import optionmenu.options.Option;
 import utils.GameInfoStore;
+import utils.TableColumnAdjuster;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +20,7 @@ public class LeagueTablePanel extends Panel {
         super(option,frame);
 
         //Create panel.
-        panel = new JPanel();
+        panel = new JPanel(new FlowLayout());
     }
 
     @Override
@@ -28,27 +29,34 @@ public class LeagueTablePanel extends Panel {
                 GameInfoStore.getGameInfo().getCurrentSeason(),
                 GameInfoStore.getGameInfo().getTeam().getLeagueid());
 
-        rowData = new Object[leagueTable.size()][6];
+        columnNames = new String[]{
+                "#",
+                "Team",
+                "Played",
+                "Wins",
+                "Draws",
+                "Losses",
+                "GS",
+                "GC",
+                "Points"
+        };
+
+        rowData = new Object[leagueTable.size()][columnNames.length];
         int pos = 0;
         for(LeagueTableEntity team : leagueTable){
             rowData[pos][0] = pos+1;
             rowData[pos][1] = team.getTeam().getName();
-            rowData[pos][2] = team.getPoints();
+            rowData[pos][2] = team.getGamesPlayed();
             rowData[pos][3] = team.getWins();
             rowData[pos][4] = team.getDraws();
             rowData[pos][5] = team.getLosses();
+            rowData[pos][6] = team.getGoalsScored();
+            rowData[pos][7] = team.getGoalsConceeded();
+            rowData[pos][8] = team.getPoints();
+
             pos++;
         }
 
-
-        columnNames = new String[]{
-                "#",
-                "Team",
-                "Points",
-                "Wins",
-                "Draws",
-                "Losses"
-        };
 
         return null;
     }
@@ -59,6 +67,8 @@ public class LeagueTablePanel extends Panel {
 
         JTable table = new JTable(rowData,columnNames);
         table.setFillsViewportHeight(true);
+        TableColumnAdjuster tca = new TableColumnAdjuster(table);
+        tca.adjustColumns();
 
         JScrollPane scrollPane = new JScrollPane(table);
 

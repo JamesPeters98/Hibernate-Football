@@ -5,6 +5,7 @@ import frameworks.Season;
 import gui.ConsoleGui;
 import gui.Gui;
 import gui.InputField;
+import gui.ScannerInputField;
 import optionmenu.menus.MainMenu;
 import utils.GameInfoStore;
 import utils.InputUtil;
@@ -15,7 +16,7 @@ public class StartGame {
 
     public static void main(String[] args) {
         try {
-            new ConsoleGui();
+            //new ConsoleGui();
             new StartGame();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -24,6 +25,8 @@ public class StartGame {
 
     public StartGame() throws InterruptedException {
         SessionStore.setDB("GameSave");
+
+        InputUtil.setInputField(new ScannerInputField());
 
         if(!GameInfoStore.readGameInfo()){
 

@@ -27,7 +27,7 @@ public abstract class Menu {
         this.season = season;
         this.frame = frame;
         //inputField = InputUtil.getInputField();
-        panel = new JPanel(new GridLayout(3,2,3,3));
+        panel = new JPanel(new FlowLayout());
     }
 
     public Menu(JFrame frame, Season season, Menu parentMenu){

@@ -179,4 +179,9 @@ public class LeagueTableEntity {
         return 3*wins+draws;
     }
 
+    @Transient
+    public int getGamesPlayed(){
+        return wins+draws+losses;
+    }
+
 }

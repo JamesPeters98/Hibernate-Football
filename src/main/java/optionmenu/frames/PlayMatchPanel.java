@@ -3,6 +3,7 @@ package optionmenu.frames;
 import entities.FixtureResultEntity;
 import entities.TeamsEntity;
 import frameworks.Season;
+import listeners.ProgressListener;
 import optionmenu.options.SimulateMatchOption;
 import org.hibernate.Session;
 import utils.GameInfoStore;
@@ -19,15 +20,32 @@ public class PlayMatchPanel extends Panel {
     private TeamsEntity home;
     private TeamsEntity away;
     private JPanel panel;
+    private JProgressBar bar;
     private Season season;
+    private ProgressListener progressListener;
 
     public PlayMatchPanel(SimulateMatchOption option, JFrame frame, Season season){
         super(option,frame);
         this.season = season;
 
         //Create panel.
-        panel = new JPanel(new GridLayout(9,9));
+        panel = new JPanel(new FlowLayout());
         panel.add(getStartButton(), BorderLayout.CENTER );
+
+        bar = new JProgressBar();
+        bar.setMaximum(100);
+        panel.add(bar);
+
+        //Check Simulation progress.
+        progressListener = new ProgressListener() {
+            @Override
+            public void onProgressUpdate(int progress, int totalSize) {
+                int percentage = 100*progress/totalSize;
+                bar.setValue(percentage);
+            }
+        };
+
+        season.addProgressListener(progressListener);
 
     }
 
@@ -53,7 +71,11 @@ public class PlayMatchPanel extends Panel {
 
     private JButton getStartButton(){
         JButton button = new JButton("Start Game");
-        button.addActionListener(e -> run());
+        button.addActionListener(e -> {
+            execute();
+            panel.add(new JLabel("Simulating!"));
+            frame.validate();
+        });
         return button;
     }
 
@@ -61,8 +83,9 @@ public class PlayMatchPanel extends Panel {
     protected void done() {
         super.done();
         panel.removeAll();
-        panel.add(new JLabel(home.getName()+" "+homeGoals+" - "+awayGoals+" "+away.getName()), BorderLayout.CENTER);
         panel.add(getBackbutton(), BorderLayout.CENTER);
+        panel.add(bar);
+        if((home != null) && (away != null)) panel.add(new JLabel(home.getName()+" "+homeGoals+" - "+awayGoals+" "+away.getName()), BorderLayout.CENTER);
         frame.validate();
     }
 
