@@ -27,7 +27,8 @@ public abstract class Menu {
         this.season = season;
         this.frame = frame;
         //inputField = InputUtil.getInputField();
-        panel = new JPanel(new FlowLayout());
+        panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
     }
 
     public Menu(JFrame frame, Season season, Menu parentMenu){
@@ -121,7 +122,7 @@ public abstract class Menu {
             for(Option option : getOptions()){
                 JButton button = getButton(option.getTitle());
                 button.addActionListener(e -> option.guiDisplay());
-                panel.add(button, BorderLayout.CENTER);
+                panel.add(button);
             }
         if(getSubMenus() != null)
             for(Menu menu : getSubMenus()){
@@ -130,7 +131,7 @@ public abstract class Menu {
                     menu.setupGuiElements();
                     menu.display();
                     });
-                panel.add(button, BorderLayout.CENTER);
+                panel.add(button);
             }
 
         if(getParentMenu() != null){
@@ -138,7 +139,7 @@ public abstract class Menu {
             button.addActionListener(e -> {
                 getParentMenu().display();
             });
-            panel.add(button, BorderLayout.CENTER);
+            panel.add(button);
         }
     }
 

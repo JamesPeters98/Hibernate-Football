@@ -36,14 +36,15 @@ public class Utils {
         return n;
     }
 
-    public static <T> String toCommaList(T[] a){
-        StringBuilder list = new StringBuilder();
-        for(T o : a) list.append(o).append(",");
-        list.deleteCharAt(list.length()-1);
-        return list.toString();
-    }
+//    public static <T> String toCommaList(T[] a){
+//        StringBuilder list = new StringBuilder();
+//        for(T o : a) list.append(o).append(",");
+//        list.deleteCharAt(list.length()-1);
+//        return list.toString();
+//    }
 
     public static <T> String toCommaList(List<T> a){
+        if(a.size() == 1) return a.get(0).toString();
         StringBuilder list = new StringBuilder();
         for(T o : a) list.append(o).append(",");
         list.deleteCharAt(list.length()-1);

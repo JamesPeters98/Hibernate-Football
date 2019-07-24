@@ -71,7 +71,9 @@ public class PlayMatchPanel extends Panel {
 
     private JButton getStartButton(){
         JButton button = new JButton("Start Game");
+        button.setEnabled(true);
         button.addActionListener(e -> {
+            button.setEnabled(false);
             execute();
             panel.add(new JLabel("Simulating!"));
             frame.validate();
