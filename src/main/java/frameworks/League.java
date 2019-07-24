@@ -29,6 +29,11 @@ public class League implements Callable<League> {
         fixtures = new ArrayList<>();
     }
 
+    public void nextSeason(){
+        season++;
+        generateFixtures();
+    }
+
     private void generateFixtures(){
         List<FixturesEntity> fixturesEntities = new ArrayList<>();
 

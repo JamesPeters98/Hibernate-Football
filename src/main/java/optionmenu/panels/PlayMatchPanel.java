@@ -1,4 +1,4 @@
-package optionmenu.frames;
+package optionmenu.panels;
 
 import entities.FixtureResultEntity;
 import entities.TeamsEntity;
@@ -30,7 +30,7 @@ public class PlayMatchPanel extends Panel {
 
         //Create panel.
         panel = new JPanel(new FlowLayout());
-        panel.add(getStartButton(), BorderLayout.CENTER );
+        if(!isEndSeason()) panel.add(getStartButton(), BorderLayout.CENTER );
 
         bar = new JProgressBar();
         bar.setMaximum(100);
@@ -47,11 +47,18 @@ public class PlayMatchPanel extends Panel {
 
         season.addProgressListener(progressListener);
 
+        if(isEndSeason()) execute();
+    }
+
+    private boolean isEndSeason(){
+        return (GameInfoStore.getGameInfo().getCurrentGameWeek() > GameInfoStore.getGameInfo().getTeam().getLeague().getTotalMatches());
     }
 
     @Override
     protected Object doInBackground() {
+        //Simulate the game week.
         season.simulateGameWeek();
+
         Session session = SessionStore.getSession();
         int teamId = GameInfoStore.getGameInfo().getTeamId();
         int gameweek = GameInfoStore.getGameInfo().getCurrentGameWeek() - 1;

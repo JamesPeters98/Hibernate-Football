@@ -1,6 +1,7 @@
 package main;
 
 import entities.GameInfoEntity;
+import entities.SeasonsEntity;
 import frameworks.Season;
 import gui.ConsoleGui;
 import gui.Gui;
@@ -46,8 +47,13 @@ public class StartGame {
         if(!gameInfo.getGameStarted()) {
             SetupGame.consoleSetup();
 
+            SeasonsEntity seasonsEntity = new SeasonsEntity();
+            seasonsEntity.setId(1);
+            seasonsEntity.setGenerated(false);
+
             gameInfo = GameInfoStore.getGameInfo();
             gameInfo.setCurrentSeason(1);
+            gameInfo.setCurrentSeasonEntity(seasonsEntity);
             gameInfo.setCurrentGameWeek(1);
         }
 

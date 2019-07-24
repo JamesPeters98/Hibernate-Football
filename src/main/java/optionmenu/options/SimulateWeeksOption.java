@@ -2,27 +2,26 @@ package optionmenu.options;
 
 import optionmenu.panels.PlayMatchPanel;
 import optionmenu.menus.Menu;
-import utils.GameInfoStore;
+import optionmenu.panels.SimulateWeeksPanel;
 
 import javax.swing.*;
 
-public class SimulateMatchOption extends Option {
+public class SimulateWeeksOption extends Option {
 
-    PlayMatchPanel panel;
+    SimulateWeeksPanel panel;
 
-    public SimulateMatchOption(Menu menu) {
+    public SimulateWeeksOption(Menu menu) {
         super(menu);
     }
 
     @Override
     public String getTitle() {
-        if(GameInfoStore.getGameInfo().getCurrentGameWeek() > GameInfoStore.getGameInfo().getTeam().getLeague().getTotalMatches()) return "End Season";
-        return "Play match";
+        return "Simulate season";
     }
 
     @Override
     public String getDescription() {
-        return "Play your match for this week.";
+        return "Simulate a set amount of weeks.";
     }
 
     @Override
@@ -32,7 +31,8 @@ public class SimulateMatchOption extends Option {
 
     @Override
     protected void run() {
-        panel = new PlayMatchPanel(this,getParentMenu().getFrame(),getParentMenu().getSeason());
+        panel = new SimulateWeeksPanel(this, getParentMenu().getFrame(),getParentMenu().getSeason());
+        //panel = new PlayMatchPanel(this,getParentMenu().getFrame(),getParentMenu().getSeason());
     }
 
     @Override

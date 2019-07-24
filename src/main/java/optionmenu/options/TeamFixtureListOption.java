@@ -35,8 +35,9 @@ public class TeamFixtureListOption extends Option {
     protected void run() {
         int teamId = GameInfoStore.getGameInfo().getTeam().getId();
         int gameweek = GameInfoStore.getGameInfo().getCurrentGameWeek();
+        int season = GameInfoStore.getGameInfo().getCurrentSeason();
 
-        fixtures = session.createQuery("from FixturesEntity where (hometeamid = "+teamId+" or awayteamid = "+teamId+") and gameweek >= "+gameweek+" and gameweek < "+(gameweek+FIXTURE_AMOUNT), FixturesEntity.class).list();
+        fixtures = session.createQuery("from FixturesEntity where (hometeamid = "+teamId+" or awayteamid = "+teamId+") and gameweek >= "+gameweek+" and gameweek < "+(gameweek+FIXTURE_AMOUNT)+" and seasonId="+season, FixturesEntity.class).list();
     }
 
     @Override

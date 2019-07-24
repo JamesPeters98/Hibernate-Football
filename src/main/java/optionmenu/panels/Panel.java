@@ -1,4 +1,4 @@
-package optionmenu.frames;
+package optionmenu.panels;
 
 import optionmenu.options.Option;
 

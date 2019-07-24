@@ -1,5 +1,7 @@
 package entities;
 
+import utils.GameInfoStore;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -39,7 +41,7 @@ public class GameInfoEntity {
     }
 
     @Basic
-    @Column(name = "CURRENT_SEASON")
+    @Column(name = "CURRENT_SEASON", insertable = false, updatable = false)
     public Integer getCurrentSeason() {
         return currentSeason;
     }
@@ -84,7 +86,7 @@ public class GameInfoEntity {
     }
 
     @OneToOne
-    @JoinColumn(name = "CURRENT_SEASON", referencedColumnName = "ID", insertable = false, updatable = false)
+    @JoinColumn(name = "CURRENT_SEASON", referencedColumnName = "ID")
     public SeasonsEntity getCurrentSeasonEntity() {
         return currentSeasonEntity;
     }
@@ -132,7 +134,14 @@ public class GameInfoEntity {
     //Adds +1 to current season variable.
     @Transient
     public void nextSeason(){
-        setCurrentSeason(getCurrentSeason()+1);
-        setCurrentGameWeek(0);
+        int nextSeasonId = getCurrentSeason()+1;
+
+        SeasonsEntity seasonsEntity = new SeasonsEntity();
+        seasonsEntity.setId(nextSeasonId);
+        seasonsEntity.setGenerated(false);
+
+        setCurrentSeason(nextSeasonId);
+        setCurrentSeasonEntity(seasonsEntity);
+        setCurrentGameWeek(1);
     }
 }

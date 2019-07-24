@@ -75,16 +75,20 @@ public class Season {
         //Load all leagues from DB.
         List<LeaguesEntity> leaguesEntities = getLeagues();
 
-        //Multithreading league initialisations.
-        executorService = Executors.newCachedThreadPool();
+        if(leagues.size() == 0) {
+            //Multithreading league initialisations.
+            executorService = Executors.newCachedThreadPool();
 
-        leaguesEntities.forEach(leaguesEntity -> {
-            League league = new League(SessionStore.getSession(),leaguesEntity,1);
-            leagues.add(league);
-        });
+            leaguesEntities.forEach(leaguesEntity -> {
+                League league = new League(SessionStore.getSession(), leaguesEntity, GameInfoStore.getGameInfo().getCurrentSeason());
+                leagues.add(league);
+            });
 
-        executorService.invokeAll(leagues);
-        executorService.shutdown();
+            executorService.invokeAll(leagues);
+            executorService.shutdown();
+        } else {
+            leagues.forEach(League::nextSeason);
+        }
         setGenerated();
     }
 
@@ -102,9 +106,23 @@ public class Season {
         return session.createQuery("from LeaguesEntity where id IN("+ Utils.toCommaList(leagueIds) +")", LeaguesEntity.class).list();
     }
 
+
+    /**
+     * Simulates one game week.
+     */
     public void simulateGameWeek(){
+        simulateGameWeek(1);
+    }
+
+    /**
+     * Simulates a week of a season.
+     * @param weeks - number of weeks to simulate.
+     */
+    public void simulateGameWeek(int weeks){
+        System.out.println("Simulating for "+weeks+" weeks");
         long startTime = System.currentTimeMillis();
         int gameweek = GameInfoStore.getGameInfo().getCurrentGameWeek();
+        List<Integer> weeksList = new ArrayList<>();
 
         //Multithreading league initialisations.
         executorService = Executors.newCachedThreadPool();
@@ -113,15 +131,24 @@ public class Season {
 
         boolean simRest = false; //Whether to simulate the rest of the season for other leagues.
 
-        for(LeaguesEntity league : getLeagues()){
-            if(gameweek <= league.getTotalMatches()) {
-                futures.add(executorService.submit(simulateWeek(league.getId(),gameweek)));
-            } else if(league.getId() == GameInfoStore.getGameInfo().getTeam().getLeagueid()) {
-                //Players Season has finished.
-                simRest = true;
-                System.out.println(league.getLeaguename()+" has finished! ");
+        for(int offset = 0; offset < weeks; offset++) {
+            weeksList.add(gameweek);
+            for(LeaguesEntity league : getLeagues()){
+                if (gameweek <= league.getTotalMatches()) {
+                    futures.add(executorService.submit(simulateWeek(league.getId(), gameweek)));
+                }
+                if(gameweek > GameInfoStore.getGameInfo().getTeam().getLeague().getTotalMatches()) {
+                        //Players Season has finished.
+                        simRest = true;
+                        System.out.println(league.getLeaguename() + " has finished! ");
+                }
             }
+            gameweek++;
         }
+
+        GameInfoStore.getGameInfo().setCurrentGameWeek(gameweek);
+        GameInfoStore.updateGameInfo();
+        System.out.println("Gameweek: "+GameInfoStore.getGameInfo().getCurrentGameWeek());
 
         if(simRest) {
             finishSeasonsGames();
@@ -140,18 +167,20 @@ public class Season {
             complete = tempComplete;
         }
 
+        for(LeaguesEntity league : getLeagues()){
+            LeagueTableHelper.calculate(GameInfoStore.getGameInfo().getCurrentSeason(), league.getId(), weeksList);
+        }
+
         if(simRest){
-            GameInfoStore.getGameInfo().nextSeason();
-            GameInfoStore.updateGameInfo();
             System.out.println("Starting next season");
+            GameInfoStore.getGameInfo().nextSeason();
+            System.out.println(GameInfoStore.getGameInfo().toString());
+
             try {
                 init();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        } else {
-            GameInfoStore.getGameInfo().setCurrentGameWeek(gameweek+1);
-            GameInfoStore.updateGameInfo();
         }
 
 
@@ -191,7 +220,7 @@ public class Season {
 
             for(ProgressListener progressListener : progressListeners) progressListener.addToTotal(weekFixtures.size());
             SimulateMatchHelper.simulate(weekFixtures,progressListeners);
-            LeagueTableHelper.calculate(GameInfoStore.getGameInfo().getCurrentSeason(), leagueId, gameweek);
+//            LeagueTableHelper.calculate(GameInfoStore.getGameInfo().getCurrentSeason(), leagueId, gameweek);
             return null;
         };
     }

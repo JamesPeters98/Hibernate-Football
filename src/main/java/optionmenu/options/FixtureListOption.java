@@ -34,7 +34,7 @@ public class FixtureListOption extends Option {
     @Override
     protected void run() {
         LeaguesEntity league = GameInfoStore.getGameInfo().getTeam().getLeague();
-        fixtures = session.createQuery("from FixturesEntity where leagueid = "+league.getId()+" and gameweek = "+GameInfoStore.getGameInfo().getCurrentGameWeek(), FixturesEntity.class).list();
+        fixtures = session.createQuery("from FixturesEntity where leagueid = "+league.getId()+" and gameweek = "+GameInfoStore.getGameInfo().getCurrentGameWeek()+" and seasonId = "+GameInfoStore.getGameInfo().getCurrentSeason(), FixturesEntity.class).list();
     }
 
     @Override

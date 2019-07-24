@@ -1,4 +1,4 @@
-package optionmenu.frames;
+package optionmenu.panels;
 
 import entities.LeagueTableEntity;
 import helpers.LeagueTableHelper;

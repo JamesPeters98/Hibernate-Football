@@ -15,6 +15,7 @@ public class MainMenu extends Menu {
         super(frame, season);
         options = new ArrayList<>();
         options.add(new SimulateMatchOption(this));
+        options.add(new SimulateWeeksOption(this));
         options.add(new ShowLeagueTableOption(this));
         options.add(new ResetGameOption(this));
         options.add(new ExitOption(this));

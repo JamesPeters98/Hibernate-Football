@@ -118,10 +118,12 @@ public abstract class Menu {
     }
 
     public void setupGuiElements(){
+        panel.removeAll();
         if(getOptions() != null)
             for(Option option : getOptions()){
                 JButton button = getButton(option.getTitle());
                 button.addActionListener(e -> option.guiDisplay());
+                button.setToolTipText(option.getDescription());
                 panel.add(button);
             }
         if(getSubMenus() != null)
@@ -146,6 +148,7 @@ public abstract class Menu {
     public void display(){
         frame.getContentPane().removeAll();
         frame.repaint();
+        setupGuiElements();
         frame.add(panel);
         frame.pack();
         frame.setVisible( true );

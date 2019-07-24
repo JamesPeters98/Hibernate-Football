@@ -36,8 +36,9 @@ public class WeeklyFixtureResultsListOption extends Option {
     protected void run() {
         int leagueId = GameInfoStore.getGameInfo().getTeam().getLeagueid();
         int gameweek = GameInfoStore.getGameInfo().getCurrentGameWeek();
+        int season = GameInfoStore.getGameInfo().getCurrentSeason();
 
-        fixtures = session.createQuery("from FixtureResultEntity  where fixture.leagueid = "+leagueId+" and fixture.gameweek = "+(gameweek-1), FixtureResultEntity.class).list();
+        fixtures = session.createQuery("from FixtureResultEntity  where fixture.leagueid = "+leagueId+" and fixture.gameweek = "+(gameweek-1)+" and fixture.seasonId="+season, FixtureResultEntity.class).list();
 
     }
 

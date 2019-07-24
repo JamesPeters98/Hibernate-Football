@@ -1,6 +1,6 @@
 package optionmenu.options;
 
-import optionmenu.frames.LeagueTablePanel;
+import optionmenu.panels.LeagueTablePanel;
 import optionmenu.menus.Menu;
 
 import javax.swing.*;
