@@ -21,6 +21,7 @@ Download a jar from the releases page and then run it with:
 ```
 java -jar FootballSim.jar
 ```
+Or download the .exe from the Files tab.
 
 # Discord
 https://discord.gg/YVRJ2EF
