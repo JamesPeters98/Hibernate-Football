@@ -1,4 +1,4 @@
-package com.jamesdpeters.scraper;
+package com.jamesdpeters;
 
 import com.jamesdpeters.entities.LeaguesEntity;
 import org.hibernate.Session;
@@ -6,7 +6,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import com.jamesdpeters.utils.SessionStore;
-import com.jamesdpeters.utils.Utils;
 
 import java.io.IOException;
 import java.util.List;

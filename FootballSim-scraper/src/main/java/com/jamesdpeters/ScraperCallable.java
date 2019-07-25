@@ -1,6 +1,4 @@
-package com.jamesdpeters.scraper;
-
-import com.jamesdpeters.utils.Utils;
+package com.jamesdpeters;
 
 import java.io.IOException;
 import java.util.concurrent.Callable;

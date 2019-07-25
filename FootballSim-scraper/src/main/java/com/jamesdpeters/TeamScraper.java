@@ -1,4 +1,4 @@
-package com.jamesdpeters.scraper;
+package com.jamesdpeters;
 
 import com.jamesdpeters.entities.TeamsEntity;
 import org.hibernate.Session;

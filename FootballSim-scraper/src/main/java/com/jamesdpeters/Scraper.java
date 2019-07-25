@@ -1,7 +1,6 @@
-package com.jamesdpeters.scraper;
+package com.jamesdpeters;
 
 import org.hibernate.Session;
-import com.jamesdpeters.utils.Utils;
 
 import java.io.IOException;
 import java.util.ArrayList;

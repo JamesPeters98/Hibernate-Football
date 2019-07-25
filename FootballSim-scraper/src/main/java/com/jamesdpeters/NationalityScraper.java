@@ -1,4 +1,4 @@
-package com.jamesdpeters.scraper;
+package com.jamesdpeters;
 
 import com.jamesdpeters.entities.NationalityEntity;
 import com.jamesdpeters.entities.RegionsEntity;
@@ -8,7 +8,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import com.jamesdpeters.utils.CSVWriter;
-import com.jamesdpeters.utils.Utils;
 
 import java.io.IOException;
 import java.util.HashMap;

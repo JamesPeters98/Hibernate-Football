@@ -1,4 +1,4 @@
-package com.jamesdpeters.scraper;
+package com.jamesdpeters;
 
 import com.jamesdpeters.exceptions.NoDatabaseSelectedException;
 import com.jamesdpeters.utils.SessionStore;

@@ -1,4 +1,4 @@
-package com.jamesdpeters.scraper;
+package com.jamesdpeters;
 
 import com.jamesdpeters.entities.PlayerStatsEntity;
 import com.jamesdpeters.entities.PlayersEntity;
@@ -7,7 +7,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import com.jamesdpeters.utils.Utils;
 
 import java.io.IOException;
 import java.util.HashMap;
