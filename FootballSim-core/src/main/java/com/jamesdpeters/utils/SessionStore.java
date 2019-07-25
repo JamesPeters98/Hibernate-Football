@@ -11,6 +11,7 @@ import org.hibernate.cfg.Configuration;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,17 +51,14 @@ public class SessionStore {
         return listOfSessions;
     }
 
-    public static void closeAllRemainingSessions(){
+    public static void closeAllRemainingSessions() {
         listOfSessions.forEach(Session::close);
         ourSessionFactory.close();
     }
 
     public static Session getSession() {
         listOfSessions.removeIf(session -> !session.isOpen());
-        //listOfSessions.forEach(session -> session.getStatistics().getCollectionKeys().forEach(o -> System.out.println(o.toString())));
-        //listOfSessions.forEach(session -> session.get);
-        System.out.println("Open Sessions: "+listOfSessions.size());
-
+        //System.out.println("Open Sessions: "+listOfSessions.size());
 
         if(DB_NAME == null) try {
             throw new NoDatabaseSelectedException();
@@ -78,47 +76,62 @@ public class SessionStore {
 
     public static void resetDB(){
         closeAllRemainingSessions();
-        copyDefaultDB(DB_NAME);
+        copyDefaultDB();
     }
 
     private static void checkDbFile(String dbName){
         File dbFile = new File(getDbPath(DB_NAME)+".mv.db");
         if(!dbFile.isFile()){
             Utils.logger.info("DB: "+dbName+" did not exist! Copying default DB!");
-            copyDefaultDB(dbFile);
+            InputStream defaultFile = getDefaultDb();
+            try {
+                FileUtils.copyInputStreamToFile(defaultFile,dbFile);
+                //FileUtils.copyFile(defaultFile,dbFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            copyDefaultDB();
         }
     }
 
-    private static void copyDefaultDB(String dbFileName){
-        copyDefaultDB(new File(getDbPath(DB_NAME)+".mv.db"));
-    }
-
-    private static void copyDefaultDB(File dbFile){
-        InputStream defaultFile = getDefaultDb();
+    private static void copyDefaultDB(){
+        InputStream defaultZipFile = getDefaultDb();
         try {
-            FileUtils.copyInputStreamToFile(defaultFile,dbFile);
-            //FileUtils.copyFile(defaultFile,dbFile);
+            ZipUtil.unzipDB(new File(getDbPath("")),defaultZipFile, getDefaultDbName(),DB_NAME+".mv.db");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    protected static String getDbPath(String dbname){
+
+    public static String getDbPath(String dbname){
         AppDirs dir = AppDirsFactory.getInstance();
         String saveDir = dir.getUserDataDir("FootballSim","1.0","James");
         return saveDir+"/"+dbname;
     }
 
-    private static InputStream getDefaultDb(){
+    private static String getDefaultDbZipName(){
         String fileName;
-
         if(USE_FILLED){
-            fileName = "db/default-filled.mv.db";
+            fileName = "default-filled.mv.zip";
         } else {
-            fileName = "db/default.mv.db";
+            fileName = "default.mv.zip";
         }
+        return fileName;
+    }
 
-        return SessionStore.class.getClassLoader().getResourceAsStream(fileName);
+    private static String getDefaultDbName(){
+        String fileName;
+        if(USE_FILLED){
+            fileName = "default-filled.mv.db";
+        } else {
+            fileName = "default.mv.db";
+        }
+        return fileName;
+    }
+
+    private static InputStream getDefaultDb(){
+        return SessionStore.class.getClassLoader().getResourceAsStream("db/"+ getDefaultDbZipName());
     }
 
     public static void useEmptyDefault(){
