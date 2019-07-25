@@ -1,7 +1,7 @@
 package com.jamesdpeters;
 
-import com.jamesdpeters.Exceptions.NoDatabaseSelectedException;
 import com.jamesdpeters.entities.*;
+import com.jamesdpeters.exceptions.NoDatabaseSelectedException;
 import org.hibernate.Session;
 import com.jamesdpeters.utils.SessionStore;
 

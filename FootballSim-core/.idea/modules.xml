@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FootballSim-core/FootballSim-core.iml" filepath="$PROJECT_DIR$/FootballSim-core/FootballSim-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FootballSim.iml" filepath="$PROJECT_DIR$/FootballSim.iml" />
     </modules>
   </component>
 </project>

@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+com.jamesdpeters.Main-Class: com.jamesdpeters.main.StartGame
+

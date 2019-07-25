@@ -1,10 +1,10 @@
 package com.jamesdpeters;
 
-import com.jamesdpeters.Exceptions.NoDatabaseSelectedException;
 import com.jamesdpeters.entities.NationalityEntity;
+import com.jamesdpeters.exceptions.NoDatabaseSelectedException;
+import com.jamesdpeters.utils.SessionStore;
 import org.h2.tools.Csv;
 import org.hibernate.Session;
-import com.jamesdpeters.utils.SessionStore;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +15,7 @@ public class ImportNationalities {
         new ImportNationalities();
     }
 
-    public ImportNationalities() throws SQLException, NoDatabaseSelectedException {
+    public ImportNationalities() throws SQLException {
         final Session session = SessionStore.getSession();
 
         session.beginTransaction();

@@ -1,6 +1,6 @@
 package com.jamesdpeters.utils;
 
-import com.jamesdpeters.Exceptions.NoDatabaseSelectedException;
+import com.jamesdpeters.exceptions.NoDatabaseSelectedException;
 import net.harawata.appdirs.AppDirs;
 import net.harawata.appdirs.AppDirsFactory;
 import org.apache.commons.io.FileUtils;
@@ -103,7 +103,7 @@ public class SessionStore {
         }
     }
 
-    private static String getDbPath(String dbname){
+    protected static String getDbPath(String dbname){
         AppDirs dir = AppDirsFactory.getInstance();
         String saveDir = dir.getUserDataDir("FootballSim","1.0","James");
         return saveDir+"/"+dbname;

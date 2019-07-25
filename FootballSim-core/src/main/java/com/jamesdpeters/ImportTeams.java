@@ -1,7 +1,7 @@
 package com.jamesdpeters;
 
-import com.jamesdpeters.Exceptions.NoDatabaseSelectedException;
 import com.jamesdpeters.entities.TeamsEntity;
+import com.jamesdpeters.exceptions.NoDatabaseSelectedException;
 import org.h2.tools.Csv;
 import org.hibernate.Session;
 import com.jamesdpeters.utils.SessionStore;
@@ -15,7 +15,7 @@ public class ImportTeams {
         new ImportTeams();
     }
 
-    public ImportTeams() throws SQLException, NoDatabaseSelectedException {
+    public ImportTeams() throws SQLException {
         final Session session = SessionStore.getSession();
 
         ResultSet rs = new Csv().read(getClass().getResource("teams.csv").getFile(), null, null);

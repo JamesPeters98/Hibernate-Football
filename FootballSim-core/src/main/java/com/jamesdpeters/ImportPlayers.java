@@ -1,18 +1,17 @@
 package com.jamesdpeters;
 
-import com.jamesdpeters.Exceptions.NoDatabaseSelectedException;
 import com.jamesdpeters.entities.PlayerStatsEntity;
 import com.jamesdpeters.entities.PlayersEntity;
+import com.jamesdpeters.utils.SessionStore;
 import org.h2.tools.Csv;
 import org.hibernate.Session;
-import com.jamesdpeters.utils.SessionStore;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ImportPlayers {
 
-    public static void main(final String[] args) throws SQLException, NoDatabaseSelectedException {
+    public static void main(final String[] args) throws SQLException {
         new ImportPlayers();
     }
 
