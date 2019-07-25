@@ -38,7 +38,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>main.StartGame</mainClass>
+                            <mainClass>com.jamesdpeters.main.StartGame</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -53,12 +53,12 @@
                         <phase>package</phase>
                         <goals><goal>launch4j</goal></goals>
                         <configuration>
-                            <headerType>gui</headerType>
+                            <headerType>com.jamesdpeters.gui</headerType>
                             <outfile>target/FootballSim.exe</outfile>
                             <jar>target/FootballSim.jar</jar>
                             <errTitle>encc</errTitle>
                             <classPath>
-                                <mainClass>main.StartGame</mainClass>
+                                <mainClass>com.jamesdpeters.main.StartGame</mainClass>
                                 <addDependencies>true</addDependencies>
                                 <preCp>anything</preCp>
                             </classPath>
@@ -89,7 +89,7 @@
                 <artifactId>appbundle-maven-plugin</artifactId>
                 <version>1.2.0</version>
                 <configuration>
-                    <mainClass>main.StartGame</mainClass>
+                    <mainClass>com.jamesdpeters.main.StartGame</mainClass>
                 </configuration>
                 <executions>
                     <execution>
@@ -125,7 +125,7 @@
 <!--                <configuration>-->
 <!--                    <archive>-->
 <!--                        <manifest>-->
-<!--                            <mainClass>main.StartGame</mainClass>-->
+<!--                            <mainClass>com.jamesdpeters.main.StartGame</mainClass>-->
 <!--                        </manifest>-->
 <!--                    </archive>-->
 <!--                </configuration>-->

@@ -11,24 +11,24 @@
 
             <!--        <property name="hibernate.hbm2ddl.auto">update</property>-->
 
-        <mapping class="entities.PlayersEntity"/>
-        <mapping class="entities.TeamsEntity"/>
-        <mapping class="entities.NationalityEntity"/>
-        <mapping class="entities.PlayerStatsEntity"/>
-        <mapping class="entities.PositionsEntity"/>
-        <mapping class="entities.FormationsEntity"/>
-        <mapping class="entities.LeaguesEntity"/>
-        <mapping class="entities.RatingWeightsEntity"/>
-        <mapping class="entities.PositiontypeEntity"/>
-        <mapping class="entities.AttackWeightsEntity"/>
-        <mapping class="entities.DefenceWeightsEntity"/>
-        <mapping class="entities.PlayerRatingsEntity"/>
-        <mapping class="entities.RegionsEntity"/>
-        <mapping class="entities.FixturesEntity"/>
-        <mapping class="entities.SeasonsEntity"/>
-        <mapping class="entities.GameInfoEntity"/>
-        <mapping class="entities.FixtureResultEntity"/>
-        <mapping class="entities.LeagueTableEntity"/>
+        <mapping class="com.jamesdpeters.entities.PlayersEntity"/>
+        <mapping class="com.jamesdpeters.entities.TeamsEntity"/>
+        <mapping class="com.jamesdpeters.entities.NationalityEntity"/>
+        <mapping class="com.jamesdpeters.entities.PlayerStatsEntity"/>
+        <mapping class="com.jamesdpeters.entities.PositionsEntity"/>
+        <mapping class="com.jamesdpeters.entities.FormationsEntity"/>
+        <mapping class="com.jamesdpeters.entities.LeaguesEntity"/>
+        <mapping class="com.jamesdpeters.entities.RatingWeightsEntity"/>
+        <mapping class="com.jamesdpeters.entities.PositiontypeEntity"/>
+        <mapping class="com.jamesdpeters.entities.AttackWeightsEntity"/>
+        <mapping class="com.jamesdpeters.entities.DefenceWeightsEntity"/>
+        <mapping class="com.jamesdpeters.entities.PlayerRatingsEntity"/>
+        <mapping class="com.jamesdpeters.entities.RegionsEntity"/>
+        <mapping class="com.jamesdpeters.entities.FixturesEntity"/>
+        <mapping class="com.jamesdpeters.entities.SeasonsEntity"/>
+        <mapping class="com.jamesdpeters.entities.GameInfoEntity"/>
+        <mapping class="com.jamesdpeters.entities.FixtureResultEntity"/>
+        <mapping class="com.jamesdpeters.entities.LeagueTableEntity"/>
 
         <!--        <property name="hibernate.hbm2ddl.auto">create</property>-->
         <!-- <property name="connection.username"/> -->
