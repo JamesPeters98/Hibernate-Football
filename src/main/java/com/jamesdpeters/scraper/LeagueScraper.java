@@ -24,7 +24,7 @@ public class LeagueScraper extends Scraper {
 
     @Override
     protected void scrape(int page) throws IOException {
-        Utils.logger.info("LeagueScraper: Scraping page: "+page);
+        System.out.println("LeagueScraper: Scraping page: "+page);
         Document doc = Jsoup.connect("https://sofifa.com/leagues").get();
         Element body = doc.getElementsByTag("tbody").get(0);
         Elements trBody = body.getElementsByTag("tr");

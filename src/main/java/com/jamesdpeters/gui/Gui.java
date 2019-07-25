@@ -19,6 +19,7 @@ public class Gui {
         JFrame frame = new JFrame("Football Simulator");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+
         Menu mainMenu = new MainMenu(frame,season);
         mainMenu.setupGuiElements();
         mainMenu.display();

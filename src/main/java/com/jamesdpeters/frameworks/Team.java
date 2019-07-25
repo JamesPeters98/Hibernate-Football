@@ -55,17 +55,17 @@ public class Team {
         if(players.size() < 11) return false;
         //double startTime = System.currentTimeMillis();
         calculateBestTeam();
-        //Utils.logger.debug(team.getName()+" calculated best team in "+(System.currentTimeMillis()-startTime)+" ms");
+        //System.out.println(team.getName()+" calculated best team in "+(System.currentTimeMillis()-startTime)+" ms");
         //startTime = System.currentTimeMillis();
         calculateCoeffs();
-        //Utils.logger.debug(team.getName()+" calculated coeffs in "+(System.currentTimeMillis()-startTime)+" ms");
+        //System.out.println(team.getName()+" calculated coeffs in "+(System.currentTimeMillis()-startTime)+" ms");
         //printInfo();
 
         return true;
     }
 
     public void printInfo(){
-        Utils.logger.debug(
+        System.out.println(
                 "Team: "+getTeamName()+
                 " Best Formation: "+btf.getBestTeamSheet().getFormation().getFormation()+
                 " Rating: "+btf.getBestTeamSheet().getRating() +
@@ -74,26 +74,26 @@ public class Team {
     }
 
     public void printFormation(){
-        Utils.logger.info(getTeamName()+": Formation");
-        Utils.logger.info("---------------------");
+        System.out.println(getTeamName()+": Formation");
+        System.out.println("---------------------");
         for(Map.Entry<PlayersEntity,PositionsEntity> entry : ts.getPlayerPositions().entrySet()){
             PlayersEntity player = entry.getKey();
             PositionsEntity pos = entry.getValue();
             PlayerRatingsEntity rating = player.getRating(pos.getId());
-            Utils.logger.info(player.getName()+" at "+pos.getPosition()+" rating: "+rating.getRating()+" atk: "+rating.getAttackrating()+" def: "+rating.getDefencerating());
+            System.out.println(player.getName()+" at "+pos.getPosition()+" rating: "+rating.getRating()+" atk: "+rating.getAttackrating()+" def: "+rating.getDefencerating());
         }
     }
 
     public void calculateBestTeam() throws InterruptedException, IllegalAccessException, NoSuchFieldException {
-        //Utils.logger.info("Player base: "+players.size());
+        //System.out.println("Player base: "+players.size());
         try{
             btf = new BestTeamFormation(session,players,POTENTIAL_FACTOR);
             ts = btf.getBestTeamSheet();
         } catch(ExecutionException e){
-            Utils.logger.error("Array out of bound for team: "+team.getName());
+            System.err.println("Array out of bound for team: "+team.getName());
             e.printStackTrace();
         }
-        //Utils.logger.info("Best Formation: "+ts.getFormation().getFormation()+" - Rated: "+ts.getRating()+" - Weight: "+ts.getWeight());
+        //System.out.println("Best Formation: "+ts.getFormation().getFormation()+" - Rated: "+ts.getRating()+" - Weight: "+ts.getWeight());
     }
 
     public void calculateCoeffs(){
@@ -111,7 +111,7 @@ public class Team {
             double def = rating.getDefencerating();
             attackWeight += atk;
             defenceWeight += def;
-            //Utils.logger.info(player.getName()+" at "+pos.getPosition()+" rated: "+ Utils.getPosRating(player,pos)+" pos type: "+pos.getPositiontype().getPosition()+" attack rating: "+atk+" def weight: "+def);
+            //System.out.println(player.getName()+" at "+pos.getPosition()+" rated: "+ Utils.getPosRating(player,pos)+" pos type: "+pos.getPositiontype().getPosition()+" attack rating: "+atk+" def weight: "+def);
         }
 
         attackRating = attackWeight/11;

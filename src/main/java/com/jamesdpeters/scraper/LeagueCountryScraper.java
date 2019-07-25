@@ -25,12 +25,12 @@ public class LeagueCountryScraper extends Scraper {
     public LeagueCountryScraper(Session session) {
         super(session);
         leaguesEntities = session.createQuery("from LeaguesEntity", LeaguesEntity.class).list();
-        if(leaguesEntities.size() == 0) Utils.logger.error("League Entity Scraper class needs to be run first! ");
+        if(leaguesEntities.size() == 0) System.err.println("League Entity Scraper class needs to be run first! ");
     }
 
     @Override
     protected void scrape(int page) throws IOException {
-        Utils.logger.info("LeagueCountryScraper: Scraping page: "+page);
+        System.out.println("LeagueCountryScraper: Scraping page: "+page);
 
         LeaguesEntity league = leaguesEntities.get(page);
 

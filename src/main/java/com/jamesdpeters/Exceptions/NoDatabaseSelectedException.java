@@ -1,4 +1,4 @@
-package com.jamesdpeters.Exceptions;
+package com.jamesdpeters.exceptions;
 
 public class NoDatabaseSelectedException extends Exception {
 

@@ -1,6 +1,6 @@
 package com.jamesdpeters.scraper;
 
-import com.jamesdpeters.Exceptions.NoDatabaseSelectedException;
+import com.jamesdpeters.exceptions.NoDatabaseSelectedException;
 import com.jamesdpeters.utils.SessionStore;
 import com.jamesdpeters.workers.CalculatePlayerRatings;
 

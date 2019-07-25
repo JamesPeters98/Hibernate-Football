@@ -33,8 +33,8 @@ public class VersusGame {
     }
 
     public void printInfo(){
-        Utils.logger.debug(home.getTeamName()+" goals: "+getHomeGoals());
-        Utils.logger.debug(away.getTeamName()+" goals: "+getAwayGoals());
+        System.out.println(home.getTeamName()+" goals: "+getHomeGoals());
+        System.out.println(away.getTeamName()+" goals: "+getAwayGoals());
     }
 
     public Team getHome() {

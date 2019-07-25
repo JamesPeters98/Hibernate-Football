@@ -28,7 +28,7 @@ public class PlayerScraper extends Scraper {
 
     @Override
     protected void scrape(int page) {
-        //Utils.logger.debug("Scraping Players page: "+page);
+        //System.out.println("Scraping Players page: "+page);
         String url = "https://sofifa.com/players?col=oa&sort=desc&showCol%5B%5D=pi&showCol%5B%5D=ae&showCol%5B%5D=oa&showCol%5B%5D=gu&showCol%5B%5D=cr&showCol%5B%5D=fi&showCol%5B%5D=he&showCol%5B%5D=sh&showCol%5B%5D=vo&showCol%5B%5D=dr&showCol%5B%5D=cu&showCol%5B%5D=fr&showCol%5B%5D=lo&showCol%5B%5D=bl&showCol%5B%5D=ac&showCol%5B%5D=sp&showCol%5B%5D=ag&showCol%5B%5D=re&showCol%5B%5D=ba&showCol%5B%5D=so&showCol%5B%5D=ju&showCol%5B%5D=st&showCol%5B%5D=sr&showCol%5B%5D=ln&showCol%5B%5D=ar&showCol%5B%5D=in&showCol%5B%5D=po&showCol%5B%5D=vi&showCol%5B%5D=pe&showCol%5B%5D=cm&showCol%5B%5D=ma&showCol%5B%5D=sa&showCol%5B%5D=sl&showCol%5B%5D=gd&showCol%5B%5D=gh&showCol%5B%5D=gk&showCol%5B%5D=gp&showCol%5B%5D=gr&showCol%5B%5D=tt&showCol%5B%5D=sk&offset="+offset(page);
         Document doc = null;
         try {
@@ -164,7 +164,7 @@ public class PlayerScraper extends Scraper {
 //            if(oldPlayer!=null){
 //                Utils.logger.error("Player already in Map! "+player.getId()+":"+player.getName()+" ovr: "+player.getOverall());
 //                Utils.logger.error("Old player: "+player.getId()+":"+oldPlayer.getName()+" ovr: "+oldPlayer.getOverall());
-//                Utils.logger.debug("page: "+page+": "+url);
+//                System.out.println("page: "+page+": "+url);
 //            }
         }
 
@@ -183,7 +183,7 @@ public class PlayerScraper extends Scraper {
 
     @Override
     protected void insertToDatabase() {
-        Utils.logger.debug("Player size: "+playerMap.size());
+        System.out.println("Player size: "+playerMap.size());
 
         session.beginTransaction();
         playerStatsMap.forEach((key,entity)-> {

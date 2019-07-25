@@ -45,7 +45,7 @@ public abstract class Scraper {
         //System.out.println("Limit: "+limit);
 
         System.out.println("----------------------------------");
-        Utils.logger.info("Loading - "+getClass().getName());
+        System.out.println("Loading - "+getClass().getName());
         List<Callable<Object>> callables = new ArrayList<>();
         for(int n=0; n<limit; n++){
             ScraperCallable callable = new ScraperCallable(this,n) {

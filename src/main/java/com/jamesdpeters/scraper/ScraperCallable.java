@@ -27,7 +27,7 @@ public abstract class ScraperCallable implements Callable {
             e.printStackTrace();
         }
         scraper.addToExecutedPages();
-        Utils.logger.info(scraper.getClass().getName()+": Scraped page: "+pageNumber+" "+getPercentage()+"% ("+scraper.getExecutions()+"/"+scraper.getLimit()+")");
+        System.out.println(scraper.getClass().getName()+": Scraped page: "+pageNumber+" "+getPercentage()+"% ("+scraper.getExecutions()+"/"+scraper.getLimit()+")");
         return null;
     }
 

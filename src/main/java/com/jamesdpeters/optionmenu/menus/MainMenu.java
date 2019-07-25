@@ -37,7 +37,7 @@ public class MainMenu extends Menu {
 
     @Override
     public String getMenuName() {
-        return "com.jamesdpeters.Main Menu";
+        return "Main Menu";
     }
 
     @Override

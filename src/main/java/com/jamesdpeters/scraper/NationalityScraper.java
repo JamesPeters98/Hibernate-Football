@@ -61,7 +61,7 @@ public class NationalityScraper extends Scraper {
     @Override
     public void execute() {
         System.out.println("----------------------------------");
-        Utils.logger.info("Loading - "+getClass().getName());
+        System.out.println("Loading - "+getClass().getName());
         try {
             scrape(0);
         } catch (IOException e) {

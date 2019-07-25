@@ -196,7 +196,7 @@ public class PlayersEntity {
 //    }
 
     public PlayerRatingsEntity getRating(int positionId){
-        if(ratings.size() == 0) Utils.logger.error("Player ratings size = 0, player rating needs to be calculated");
+        if(ratings.size() == 0) System.err.println("Player ratings size = 0, player rating needs to be calculated");
         return ratings.get(positionId);
     }
 
