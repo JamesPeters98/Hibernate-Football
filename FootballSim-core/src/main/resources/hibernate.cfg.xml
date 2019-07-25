@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.driver_class">org.h2.Driver</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>
+        <property name="connection.pool_size">100000</property>
+        <!--        <property name="connection.url">jdbc:h2:/Users/james/IdeaProjects/Hibernate-Football/db/default</property>-->
+
+            <!--        <property name="hibernate.hbm2ddl.auto">update</property>-->
+
+        <mapping class="com.jamesdpeters.entities.PlayersEntity"/>
+        <mapping class="com.jamesdpeters.entities.TeamsEntity"/>
+        <mapping class="com.jamesdpeters.entities.NationalityEntity"/>
+        <mapping class="com.jamesdpeters.entities.PlayerStatsEntity"/>
+        <mapping class="com.jamesdpeters.entities.PositionsEntity"/>
+        <mapping class="com.jamesdpeters.entities.FormationsEntity"/>
+        <mapping class="com.jamesdpeters.entities.LeaguesEntity"/>
+        <mapping class="com.jamesdpeters.entities.RatingWeightsEntity"/>
+        <mapping class="com.jamesdpeters.entities.PositiontypeEntity"/>
+        <mapping class="com.jamesdpeters.entities.AttackWeightsEntity"/>
+        <mapping class="com.jamesdpeters.entities.DefenceWeightsEntity"/>
+        <mapping class="com.jamesdpeters.entities.PlayerRatingsEntity"/>
+        <mapping class="com.jamesdpeters.entities.RegionsEntity"/>
+        <mapping class="com.jamesdpeters.entities.FixturesEntity"/>
+        <mapping class="com.jamesdpeters.entities.SeasonsEntity"/>
+        <mapping class="com.jamesdpeters.entities.GameInfoEntity"/>
+        <mapping class="com.jamesdpeters.entities.FixtureResultEntity"/>
+        <mapping class="com.jamesdpeters.entities.LeagueTableEntity"/>
+
+        <!--        <property name="hibernate.hbm2ddl.auto">create</property>-->
+        <!-- <property name="connection.username"/> -->
+        <!-- <property name="connection.password"/> -->
+
+        <!-- DB schema will be updated if needed -->
+
+    </session-factory>
+</hibernate-configuration>
