@@ -73,6 +73,7 @@ public class PlayMatchPanel extends Panel {
             away =  resultEntity.getFixture().getAwayteam();
 
         } catch (NoResultException e){};
+        session.close();
         return null;
     }
 

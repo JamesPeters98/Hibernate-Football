@@ -3,10 +3,7 @@ package main;
 import entities.GameInfoEntity;
 import entities.SeasonsEntity;
 import frameworks.Season;
-import gui.ConsoleGui;
-import gui.Gui;
-import gui.InputField;
-import gui.ScannerInputField;
+import gui.*;
 import optionmenu.menus.MainMenu;
 import utils.GameInfoStore;
 import utils.InputUtil;
@@ -29,24 +26,35 @@ public class StartGame {
 
         InputUtil.setInputField(new ScannerInputField());
 
-        if(!GameInfoStore.readGameInfo()){
-
-//            //TODO Default DB will include all player info, so will eliminate need to download data.
-//            //Download data
-//            try {
-//                DownloadData.scrape();
-//            } catch (ExecutionException ex) {
-//                ex.printStackTrace();
-//            }
-        }
+        GameInfoStore.readGameInfo();
         GameInfoEntity gameInfo = GameInfoStore.getGameInfo();
 
         System.out.println("gameinfo - gamestarted: "+gameInfo.getGameStarted());
 
 
         if(!gameInfo.getGameStarted()) {
-            SetupGame.consoleSetup();
+            //SetupGame.consoleSetup();
 
+            SetupGUI setupGUI = new SetupGUI();
+
+            System.out.println("Wait for UI to be setup!");
+            //Wait for UI to be setup!
+            synchronized (setupGUI.getSetupPanel()) {
+                System.out.println("In synchronized! ");
+                while (!setupGUI.getSetupPanel().isSETUP()) {
+                    try{
+                        System.out.println("Waiting!");
+                        setupGUI.getSetupPanel().wait();
+                    } catch (InterruptedException ignored){}
+                }
+            }
+
+            System.out.println("No longer waiting! ");
+
+            setupGUI.frame.setVisible(false);
+            //setupGUI.frame.dispose();
+
+            //Setup initial vars.
             SeasonsEntity seasonsEntity = new SeasonsEntity();
             seasonsEntity.setId(1);
             seasonsEntity.setGenerated(false);

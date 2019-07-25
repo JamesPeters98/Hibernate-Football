@@ -212,7 +212,9 @@ public class Season {
 
     private Callable<Void> simulateWeek(int leagueId, int gameweek){
         return () -> {
-            List<FixturesEntity> weekFixtures = SessionStore.getSession().createQuery("from FixturesEntity " +
+            Session session = SessionStore.getSession();
+
+            List<FixturesEntity> weekFixtures = session.createQuery("from FixturesEntity " +
                             "where leagueid = " + leagueId + " " +
                             "and gameweek = " + gameweek + " " +
                             "and seasonId = " + GameInfoStore.getGameInfo().getCurrentSeason(),
@@ -220,6 +222,7 @@ public class Season {
 
             for(ProgressListener progressListener : progressListeners) progressListener.addToTotal(weekFixtures.size());
             SimulateMatchHelper.simulate(weekFixtures,progressListeners);
+            session.close();
 //            LeagueTableHelper.calculate(GameInfoStore.getGameInfo().getCurrentSeason(), leagueId, gameweek);
             return null;
         };

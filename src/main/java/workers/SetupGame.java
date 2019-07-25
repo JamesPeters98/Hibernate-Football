@@ -24,6 +24,17 @@ public class SetupGame {
         GameInfoStore.updateGameInfo(gameInfoEntity);
     }
 
+    public static void setup(Session session, int chosenTeam, int leagueId){
+        //Add all leagues from chosen league country to Season.
+        LeaguesEntity leaguesEntity = session.createQuery("from LeaguesEntity where id = "+leagueId, LeaguesEntity.class).getSingleResult();
+        List<Integer> leagueIds = new ArrayList<>();
+        for(LeaguesEntity leagueEnt : leaguesEntity.getCountry().getLeagues().values()){
+            leagueIds.add(leagueEnt.getId());
+        }
+
+        setup(chosenTeam,leagueIds);
+    }
+
 
     /**
      * Sets up a game from the console.

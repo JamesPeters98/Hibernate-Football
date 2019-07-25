@@ -3,6 +3,7 @@ package utils;
 import Exceptions.NoDatabaseSelectedException;
 import entities.GameInfoEntity;
 import org.hibernate.Session;
+import org.hibernate.exception.SQLGrammarException;
 
 import javax.persistence.NoResultException;
 
@@ -16,7 +17,7 @@ public class GameInfoStore {
      * @return true if the GameInfo existed, false if a new game was created.
      */
     public static boolean readGameInfo() {
-        if(session == null) session = SessionStore.getSession();
+        if((session == null) || (!session.isOpen())) session = SessionStore.getSession();
         try {
             session.clear();
             gameInfoEntity = session.createQuery("from GameInfoEntity", GameInfoEntity.class).getSingleResult();
@@ -29,6 +30,9 @@ public class GameInfoStore {
             session.beginTransaction();
             session.save(gameInfoEntity);
             session.getTransaction().commit();
+            return false;
+        } catch (SQLGrammarException e){
+            SessionStore.resetDB();
             return false;
         }
     }

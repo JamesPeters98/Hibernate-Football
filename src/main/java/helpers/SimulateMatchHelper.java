@@ -18,9 +18,11 @@ public class SimulateMatchHelper {
     public static void simulate(List<FixturesEntity> fixtures, List<ProgressListener> progressListeners){
         List<FixtureResultEntity> results = new ArrayList<>();
 
+        Session session = SessionStore.getSession();
+
         for(FixturesEntity fixture : fixtures) {
-            Team home = new Team(SessionStore.getSession(), fixture.getHometeam());
-            Team away = new Team(SessionStore.getSession(), fixture.getAwayteam());
+            Team home = new Team(session, fixture.getHometeam());
+            Team away = new Team(session, fixture.getAwayteam());
 
             try {
                 home.init();
@@ -43,7 +45,6 @@ public class SimulateMatchHelper {
             }
         }
 
-        Session session = SessionStore.getSession();
         session.beginTransaction();
         results.forEach(session::saveOrUpdate);
         session.getTransaction().commit();

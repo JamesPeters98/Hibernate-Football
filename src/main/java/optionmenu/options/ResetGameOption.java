@@ -2,6 +2,7 @@ package optionmenu.options;
 
 import main.StartGame;
 import optionmenu.menus.Menu;
+import utils.SessionStore;
 
 import javax.swing.*;
 
@@ -28,23 +29,19 @@ public class ResetGameOption extends Option {
     @Override
     protected void run() {
 
-        session.beginTransaction();
-        session.createQuery("delete from FixturesEntity").executeUpdate();
-        session.createQuery("delete from FixtureResultEntity ").executeUpdate();
-        session.createQuery("delete from GameInfoEntity").executeUpdate();
-        session.createQuery("delete from LeagueTableEntity ").executeUpdate();
-        session.createQuery("delete from SeasonsEntity").executeUpdate();
-        session.getTransaction().commit();
-
+        SessionStore.resetDB();
+        getParentMenu().getFrame().setVisible(false);
+        getParentMenu().getFrame().dispose();
 
         //Start new game.
-        try {
-            getParentMenu().getFrame().setVisible(false);
-            getParentMenu().getFrame().dispose();
-            new StartGame();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        new Thread(() -> {
+            try {
+                new StartGame();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+
     }
 
     @Override

@@ -68,7 +68,10 @@ public class LeagueTableHelper {
     }
 
     public static List<LeagueTableEntity>  getLeagueTable(int season, int leagueId){
-        return SessionStore.getSession().createQuery("from LeagueTableEntity where season = "+season+" and leagueId = "+leagueId+" order by (3*wins+draws) desc, (goalsScored-goalsConceeded) desc, goalsScored desc , goalsConceeded asc ", LeagueTableEntity.class).list();
+        Session session = SessionStore.getSession();
+        List<LeagueTableEntity> table = session.createQuery("from LeagueTableEntity where season = "+season+" and leagueId = "+leagueId+" order by (3*wins+draws) desc, (goalsScored-goalsConceeded) desc, goalsScored desc , goalsConceeded asc ", LeagueTableEntity.class).list();
+        session.close();
+        return table;
     }
 
     public static HashMap<Integer, LeagueTableEntity> getLeagueTableMap(int season, int leagueId){

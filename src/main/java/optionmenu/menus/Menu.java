@@ -3,6 +3,7 @@ package optionmenu.menus;
 import frameworks.Season;
 import gui.InputField;
 import gui.Output;
+import net.miginfocom.swing.MigLayout;
 import optionmenu.options.Option;
 import utils.ASCII;
 import utils.InputUtil;
@@ -28,7 +29,11 @@ public abstract class Menu {
         this.frame = frame;
         //inputField = InputUtil.getInputField();
         panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+        panel.setLayout(new MigLayout(
+                "al center center",
+                "[center]",
+                "[center]"
+        ));
     }
 
     public Menu(JFrame frame, Season season, Menu parentMenu){
@@ -119,12 +124,13 @@ public abstract class Menu {
 
     public void setupGuiElements(){
         panel.removeAll();
+        String constraints = "wrap, width 200::";
         if(getOptions() != null)
             for(Option option : getOptions()){
                 JButton button = getButton(option.getTitle());
                 button.addActionListener(e -> option.guiDisplay());
                 button.setToolTipText(option.getDescription());
-                panel.add(button);
+                panel.add(button, constraints);
             }
         if(getSubMenus() != null)
             for(Menu menu : getSubMenus()){
@@ -133,7 +139,7 @@ public abstract class Menu {
                     menu.setupGuiElements();
                     menu.display();
                     });
-                panel.add(button);
+                panel.add(button, constraints);
             }
 
         if(getParentMenu() != null){
@@ -141,7 +147,7 @@ public abstract class Menu {
             button.addActionListener(e -> {
                 getParentMenu().display();
             });
-            panel.add(button);
+            panel.add(button,constraints);
         }
     }
 

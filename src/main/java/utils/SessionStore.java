@@ -7,6 +7,7 @@ import org.apache.commons.io.FileUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.SharedSessionContract;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 
@@ -14,6 +15,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class SessionStore {
 
@@ -23,6 +27,8 @@ public class SessionStore {
     private static Configuration configuration;
 
     private static boolean USE_FILLED = true;
+
+    private static List<Session> listOfSessions = new ArrayList<>();
 
     public static void setDB(String dbName){
         DB_NAME = dbName;
@@ -45,18 +51,29 @@ public class SessionStore {
         }
     }
 
+    public static List<Session> getListOfOpenSessions(){
+        return listOfSessions;
+    }
+
+    public static void closeAllRemainingSessions(){
+        listOfSessions.forEach(Session::close);
+        ourSessionFactory.close();
+    }
+
     public static Session getSession() {
+        listOfSessions.removeIf(session -> !session.isOpen());
+        //listOfSessions.forEach(session -> session.getStatistics().getCollectionKeys().forEach(o -> System.out.println(o.toString())));
+        //listOfSessions.forEach(session -> session.get);
+        System.out.println("Open Sessions: "+listOfSessions.size());
+
+
         if(DB_NAME == null) try {
             throw new NoDatabaseSelectedException();
         } catch (NoDatabaseSelectedException e) {
             e.printStackTrace();
         }
         Session session = ourSessionFactory.openSession();
-//        try {
-//            Utils.logger.debug("Opening DB connection: "+ourSessionFactory.getSessionFactoryOptions().getServiceRegistry().getService(ConnectionProvider.class).getConnection().getMetaData().getURL());
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
+        listOfSessions.add(session);
         return session;
     }
 
@@ -64,17 +81,30 @@ public class SessionStore {
         return configuration;
     }
 
+    public static void resetDB(){
+        closeAllRemainingSessions();
+        copyDefaultDB(DB_NAME);
+    }
+
     private static void checkDbFile(String dbName){
         File dbFile = new File(getDbPath(DB_NAME)+".mv.db");
         if(!dbFile.isFile()){
             Utils.logger.info("DB: "+dbName+" did not exist! Copying default DB!");
-            InputStream defaultFile = getDefaultDb();
-            try {
-                FileUtils.copyInputStreamToFile(defaultFile,dbFile);
-                //FileUtils.copyFile(defaultFile,dbFile);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            copyDefaultDB(dbFile);
+        }
+    }
+
+    private static void copyDefaultDB(String dbFileName){
+        copyDefaultDB(new File(getDbPath(DB_NAME)+".mv.db"));
+    }
+
+    private static void copyDefaultDB(File dbFile){
+        InputStream defaultFile = getDefaultDb();
+        try {
+            FileUtils.copyInputStreamToFile(defaultFile,dbFile);
+            //FileUtils.copyFile(defaultFile,dbFile);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
