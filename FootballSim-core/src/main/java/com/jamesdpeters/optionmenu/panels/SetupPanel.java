@@ -3,6 +3,7 @@ package com.jamesdpeters.optionmenu.panels;
 import com.jamesdpeters.entities.LeaguesEntity;
 import com.jamesdpeters.entities.RegionsEntity;
 import com.jamesdpeters.entities.TeamsEntity;
+import com.jamesdpeters.gui.FrameStore;
 import com.jamesdpeters.gui.combobox.ComboBox;
 import com.jamesdpeters.gui.combobox.ComboBoxUtils;
 import com.jamesdpeters.gui.combobox.ComboItem;
@@ -43,34 +44,40 @@ public class SetupPanel extends SwingWorker{
 
         //Create panel.
         panel = new JPanel();
-        panel.setLayout(new MigLayout());
+        panel.setLayout(new MigLayout(
+                "al center center",
+                "[center]",
+                "[center]"
+        ));
 
         //Add regions to panel.
         regions = getComboBox("Regions");
         regions.comboBox.addItemListener(regionsListener);
-        panel.add(regions.panel, "wrap");
+        addRow(regions);
 
         //Add leagues to panel.
         leagues = getComboBox("Leagues");
         leagues.comboBox.addItemListener(leagueListener);
-        panel.add(leagues.panel, "wrap");
+        addRow(leagues);
 
         //Add leagues to panel.
         teams = getComboBox("Teams");
-        panel.add(teams.panel, "wrap");
+        addRow(teams);
 
         //Setup button
         setupButton = new JButton("Setup Game");
         setupButton.addActionListener(setupListener);
-        panel.add(setupButton, "wrap");
+        panel.add(setupButton, "wrap, span 2");
 
         execute();
     }
 
+    //SETUP BUTTON LISTENER.
     private ActionListener setupListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Setting up game.");
+            showLoadingScreen();
             TeamsEntity teamsEntity = ComboBoxUtils.getSelectedItem(teams.comboBox);
             if(teamsEntity != null) teamId = teamsEntity.getId();
 
@@ -84,6 +91,7 @@ public class SetupPanel extends SwingWorker{
         }
     };
 
+    //REGION COMBOBOX LISTENER.
     private ItemListener regionsListener = new ItemListener() {
         @Override
         public void itemStateChanged(ItemEvent e) {
@@ -100,6 +108,7 @@ public class SetupPanel extends SwingWorker{
         }
     };
 
+    //LEAGUES COMBOBOX LISTENER.
     @SuppressWarnings(value = "unchecked")
     private ItemListener leagueListener = new ItemListener() {
         @Override
@@ -119,12 +128,22 @@ public class SetupPanel extends SwingWorker{
 
     private <T> ComboBox<ComboItem<T>> getComboBox(String title){
         ComboBox<ComboItem<T>> comboBox = new ComboBox<>();
-        comboBox.panel = new JPanel(new FlowLayout());
         comboBox.title = new JLabel(title);
         comboBox.comboBox = new JComboBox<>();
-        comboBox.panel.add(comboBox.title);
-        comboBox.panel.add(comboBox.comboBox);
         return comboBox;
+    }
+
+    private void addRow(ComboBox comboBox){
+        panel.add(comboBox.title);
+        panel.add(comboBox.comboBox, "wrap, growx");
+    }
+
+    private void showLoadingScreen(){
+        panel.removeAll();
+        panel.revalidate();
+        panel.repaint();
+        panel.add(new JLabel("Loading..."));
+        FrameStore.getFrame().validate();
     }
 
     @Override
@@ -136,17 +155,12 @@ public class SetupPanel extends SwingWorker{
         List<ComboItem<RegionsEntity>> regionItems = new ArrayList<>();
         regionsEntityList.forEach(regionsEntity -> regionItems.add(new ComboItem<>(regionsEntity,regionsEntity.getName())));
         ComboBoxUtils.updateFromList(regionItems,regions.comboBox);
-
-
-
         return null;
     }
 
     @Override
     protected void done() {
         super.done();
-
-        System.out.println(regions.comboBox.getItemAt(0).getTitle());
     }
 
     public JComponent getPanel() {

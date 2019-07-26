@@ -7,9 +7,25 @@
         <property name="connection.driver_class">org.h2.Driver</property>
         <property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>
         <property name="connection.pool_size">100000</property>
-        <!--        <property name="connection.url">jdbc:h2:/Users/james/IdeaProjects/Hibernate-Football/db/default</property>-->
 
-            <!--        <property name="hibernate.hbm2ddl.auto">update</property>-->
+        <property name="connection.username"/>
+        <property name="connection.password"/>
+
+        <!-- Vibur DBCP specific properties: -->
+        <property name="hibernate.connection.provider_class">
+            org.hibernate.vibur.internal.ViburDBCPConnectionProvider
+        </property>
+
+        <property name="hibernate.vibur.poolInitialSize">10</property>
+        <property name="hibernate.vibur.poolMaxSize">100000</property>
+
+        <property name="hibernate.vibur.connectionIdleLimitInSeconds">30</property>
+        <property name="hibernate.vibur.testConnectionQuery">isValid</property>
+
+        <property name="hibernate.vibur.logQueryExecutionLongerThanMs">500</property>
+        <property name="hibernate.vibur.logStackTraceForLongQueryExecution">true</property>
+
+        <property name="hibernate.vibur.statementCacheMaxSize">500</property>
 
         <mapping class="com.jamesdpeters.entities.PlayersEntity"/>
         <mapping class="com.jamesdpeters.entities.TeamsEntity"/>
@@ -31,8 +47,7 @@
         <mapping class="com.jamesdpeters.entities.LeagueTableEntity"/>
 
         <!--        <property name="hibernate.hbm2ddl.auto">create</property>-->
-        <!-- <property name="connection.username"/> -->
-        <!-- <property name="connection.password"/> -->
+
 
         <!-- DB schema will be updated if needed -->
 

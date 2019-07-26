@@ -3,6 +3,7 @@ package com.jamesdpeters.main;
 import com.jamesdpeters.entities.GameInfoEntity;
 import com.jamesdpeters.entities.SeasonsEntity;
 import com.jamesdpeters.frameworks.Season;
+import com.jamesdpeters.gui.FrameStore;
 import com.jamesdpeters.gui.Gui;
 import com.jamesdpeters.gui.ScannerInputField;
 import com.jamesdpeters.gui.SetupGUI;
@@ -24,17 +25,14 @@ public class StartGame {
     public StartGame() throws InterruptedException {
         SessionStore.setDB("GameSave");
 
-        InputUtil.setInputField(new ScannerInputField());
+        InputUtil.setInputField(new ScannerInputField()); //Setup console input.
 
         GameInfoStore.readGameInfo();
         GameInfoEntity gameInfo = GameInfoStore.getGameInfo();
 
-        System.out.println("gameinfo - gamestarted: "+gameInfo.getGameStarted());
-
+        FrameStore.setup();
 
         if(!gameInfo.getGameStarted()) {
-            //SetupGame.consoleSetup();
-
             SetupGUI setupGUI = new SetupGUI();
 
             System.out.println("Wait for UI to be setup!");
@@ -48,11 +46,6 @@ public class StartGame {
                     } catch (InterruptedException ignored){}
                 }
             }
-
-            System.out.println("No longer waiting! ");
-
-            setupGUI.frame.setVisible(false);
-            //setupGUI.frame.dispose();
 
             //Setup initial vars.
             SeasonsEntity seasonsEntity = new SeasonsEntity();

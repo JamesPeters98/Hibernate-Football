@@ -18,16 +18,14 @@ public class SetupGUI {
             e.printStackTrace();
         }
 
-        frame = new JFrame("Football Simulator Setup");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame = FrameStore.getFrame();
 
         setupPanel = new SetupPanel();
         frame.add(setupPanel.getPanel());
 
-        frame.setVisible(true);
-        frame.pack();
+        //frame.pack();
+        FrameStore.setSubTitle("Setup");
         frame.setVisible( true );
-        frame.setSize(500,500);
         frame.validate();
     }
 

@@ -50,8 +50,12 @@ public class SessionStore {
         ourSessionFactory.close();
     }
 
+    private static long getOpenSessions(){
+        return ourSessionFactory.getStatistics().getSessionOpenCount()-ourSessionFactory.getStatistics().getSessionCloseCount();
+    }
+
     public static Session getSession() {
-        System.out.println("Open Sessions: "+ourSessionFactory.getStatistics().getSessionOpenCount());
+        //System.out.println("Open Sessions: "+getOpenSessions());
 
         if(DB_NAME == null) try {
             throw new NoDatabaseSelectedException();

@@ -87,6 +87,7 @@ public class SimulateWeeksPanel extends Panel {
             panel.remove(slider);
             bar = new JProgressBar();
             bar.setMaximum(100);
+            bar.setStringPainted(true);
             panel.add(bar);
 
             execute();

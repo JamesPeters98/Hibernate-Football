@@ -16,14 +16,12 @@ public class Gui {
             e.printStackTrace();
         }
 
-        JFrame frame = new JFrame("Football Simulator");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
+        FrameStore.clear();
+        FrameStore.resetTitle();
+        JFrame frame = FrameStore.getFrame();
 
         Menu mainMenu = new MainMenu(frame,season);
         mainMenu.setupGuiElements();
         mainMenu.display();
-
-
     }
 }

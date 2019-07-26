@@ -150,9 +150,7 @@ public abstract class Menu {
         frame.repaint();
         setupGuiElements();
         frame.add(panel);
-        frame.pack();
         frame.setVisible( true );
-        frame.setSize(500,500);
     }
 
     public Season getSeason(){

@@ -34,6 +34,7 @@ public class PlayMatchPanel extends Panel {
 
         bar = new JProgressBar();
         bar.setMaximum(100);
+        bar.setStringPainted(true);
         panel.add(bar);
 
         //Check Simulation progress.
