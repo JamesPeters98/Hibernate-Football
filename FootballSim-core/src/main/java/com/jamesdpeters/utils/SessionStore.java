@@ -23,8 +23,6 @@ public class SessionStore {
 
     private static boolean USE_FILLED = true;
 
-    private static List<Session> listOfSessions = new ArrayList<>();
-
     public static void setDB(String dbName){
         DB_NAME = dbName;
         configure();
@@ -41,23 +39,19 @@ public class SessionStore {
             configuration.configure();
 
             ourSessionFactory = configuration.buildSessionFactory();
+            ourSessionFactory.getStatistics().setStatisticsEnabled(true);
         } catch (Throwable ex) {
             throw new ExceptionInInitializerError(ex);
         }
     }
 
-    public static List<Session> getListOfOpenSessions(){
-        return listOfSessions;
-    }
 
     public static void closeAllRemainingSessions() {
-        listOfSessions.forEach(Session::close);
         ourSessionFactory.close();
     }
 
     public static Session getSession() {
-        listOfSessions.removeIf(session -> !session.isOpen());
-        //System.out.println("Open Sessions: "+listOfSessions.size());
+        System.out.println("Open Sessions: "+ourSessionFactory.getStatistics().getSessionOpenCount());
 
         if(DB_NAME == null) try {
             throw new NoDatabaseSelectedException();
@@ -65,7 +59,6 @@ public class SessionStore {
             e.printStackTrace();
         }
         Session session = ourSessionFactory.openSession();
-        listOfSessions.add(session);
         return session;
     }
 
