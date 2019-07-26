@@ -6,16 +6,19 @@ import com.jamesdpeters.entities.SeasonsEntity;
 import com.jamesdpeters.helpers.LeagueTableHelper;
 import com.jamesdpeters.helpers.SimulateMatchHelper;
 import com.jamesdpeters.listeners.ProgressListener;
-import org.hibernate.Session;
 import com.jamesdpeters.utils.GameInfoStore;
 import com.jamesdpeters.utils.SessionStore;
 import com.jamesdpeters.utils.Utils;
+import org.hibernate.Session;
 
 import javax.persistence.NoResultException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class Season {
 

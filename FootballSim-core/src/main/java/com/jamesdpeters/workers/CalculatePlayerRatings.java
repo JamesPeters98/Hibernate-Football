@@ -3,11 +3,11 @@ package com.jamesdpeters.workers;
 import com.jamesdpeters.entities.PlayerRatingsEntity;
 import com.jamesdpeters.entities.PlayersEntity;
 import com.jamesdpeters.entities.PositionsEntity;
-import org.hibernate.NonUniqueObjectException;
-import org.hibernate.Session;
 import com.jamesdpeters.utils.PlayerRatingsUtil;
 import com.jamesdpeters.utils.SessionStore;
 import com.jamesdpeters.utils.Utils;
+import org.hibernate.NonUniqueObjectException;
+import org.hibernate.Session;
 
 import javax.persistence.NoResultException;
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ public class CalculatePlayerRatings {
         List<Callable<PlayerRatingsEntity>> callables = new ArrayList<>();
 
         //session.beginTransaction();
-        Utils.logger.debug("Player base: "+players.size());
+        System.out.println("Player base: "+players.size());
         for(PlayersEntity playersEntity : players){
             //Utils.logger.debug("Calculating ratings for "+playersEntity.getName());
             for(PositionsEntity positionsEntity : positionsEntities){
@@ -68,7 +68,7 @@ public class CalculatePlayerRatings {
 //                    session.saveOrUpdate(ratingsEntity);
 //                    session.getTransaction().commit();
 
-                    if((n % 500) == 0) Utils.logger.debug(n);
+                    if((n % 500) == 0) System.out.println(n);
                     //Utils.logger.debug("Ratings for "+playersEntity.getName()+" at pos: "+positionsEntity.getPosition()+" is A:"+atkRating+" D: "+defRating);
 
                     return ratingsEntity;
@@ -79,7 +79,7 @@ public class CalculatePlayerRatings {
 
         List<Future<PlayerRatingsEntity>> results = executor.invokeAll(callables);
 
-        Utils.logger.debug("Completed calculations: "+(System.currentTimeMillis()-startTime)/1000+"s");
+        System.out.println("Completed calculations: "+(System.currentTimeMillis()-startTime)/1000+"s");
 
 //        session = SessionStore.getSession();
         session.clear();
@@ -90,10 +90,10 @@ public class CalculatePlayerRatings {
                 session.saveOrUpdate(rating.get());
             } catch(NoResultException e){
                 e.printStackTrace();
-                Utils.logger.error("Rating: "+rating.get().getId());
+                System.err.println("Rating: "+rating.get().getId());
             } catch (NonUniqueObjectException e){
                 e.printStackTrace();
-                Utils.logger.error("Non Unique Player Rating: "+rating.get().getId());
+                System.err.println("Non Unique Player Rating: "+rating.get().getId());
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
@@ -104,7 +104,7 @@ public class CalculatePlayerRatings {
 
         endTime = System.currentTimeMillis();
 
-        Utils.logger.debug("Time taken: "+(endTime-startTime)/1000+"s");
+        System.out.println("Time taken: "+(endTime-startTime)/1000+"s");
     }
 
 

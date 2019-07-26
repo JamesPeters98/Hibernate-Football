@@ -1,9 +1,11 @@
 package com.jamesdpeters;
 
-import com.jamesdpeters.entities.*;
+import com.jamesdpeters.entities.FormationsEntity;
+import com.jamesdpeters.entities.PlayersEntity;
+import com.jamesdpeters.entities.PositionsEntity;
 import com.jamesdpeters.exceptions.NoDatabaseSelectedException;
-import org.hibernate.Session;
 import com.jamesdpeters.utils.SessionStore;
+import org.hibernate.Session;
 
 import java.util.List;
 

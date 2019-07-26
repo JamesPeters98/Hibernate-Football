@@ -1,6 +1,9 @@
 package com.jamesdpeters.utils;
 
-import com.jamesdpeters.entities.*;
+import com.jamesdpeters.entities.PlayerStatsEntity;
+import com.jamesdpeters.entities.PlayersEntity;
+import com.jamesdpeters.entities.PositionsEntity;
+import com.jamesdpeters.entities.PositiontypeEntity;
 
 import java.lang.reflect.Field;
 import java.util.List;

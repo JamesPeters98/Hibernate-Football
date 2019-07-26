@@ -7,7 +7,6 @@ import com.jamesdpeters.entities.PlayersEntity;
 import com.jamesdpeters.entities.PositionsEntity;
 import com.jamesdpeters.entities.TeamsEntity;
 import org.hibernate.Session;
-import com.jamesdpeters.utils.Utils;
 
 import java.util.List;
 import java.util.Map;

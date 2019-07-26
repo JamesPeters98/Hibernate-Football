@@ -8,13 +8,13 @@ import java.util.concurrent.ExecutionException;
 
 public class DownloadData {
 
-    public static void main(String[] args) throws NoDatabaseSelectedException, ExecutionException, InterruptedException {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
         SessionStore.useEmptyDefault();
         SessionStore.setDB("default-filled");
         scrape();
     }
 
-    public static void scrape() throws NoDatabaseSelectedException, ExecutionException, InterruptedException {
+    private static void scrape() throws ExecutionException, InterruptedException {
         NationalityScraper nationalityScraper = new NationalityScraper(SessionStore.getSession());
         nationalityScraper.execute();
 

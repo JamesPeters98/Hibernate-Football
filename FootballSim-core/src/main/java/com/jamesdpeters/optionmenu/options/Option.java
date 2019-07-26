@@ -3,9 +3,9 @@ package com.jamesdpeters.optionmenu.options;
 import com.jamesdpeters.gui.InputField;
 import com.jamesdpeters.gui.Output;
 import com.jamesdpeters.optionmenu.menus.Menu;
-import org.hibernate.Session;
 import com.jamesdpeters.utils.InputUtil;
 import com.jamesdpeters.utils.SessionStore;
+import org.hibernate.Session;
 
 import javax.swing.*;
 

@@ -5,8 +5,8 @@ import com.jamesdpeters.entities.FixturesEntity;
 import com.jamesdpeters.frameworks.Team;
 import com.jamesdpeters.frameworks.VersusGame;
 import com.jamesdpeters.listeners.ProgressListener;
-import org.hibernate.Session;
 import com.jamesdpeters.utils.SessionStore;
+import org.hibernate.Session;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -5,9 +5,9 @@ import com.jamesdpeters.entities.TeamsEntity;
 import com.jamesdpeters.frameworks.Season;
 import com.jamesdpeters.listeners.ProgressListener;
 import com.jamesdpeters.optionmenu.options.SimulateMatchOption;
-import org.hibernate.Session;
 import com.jamesdpeters.utils.GameInfoStore;
 import com.jamesdpeters.utils.SessionStore;
+import org.hibernate.Session;
 
 import javax.persistence.NoResultException;
 import javax.swing.*;

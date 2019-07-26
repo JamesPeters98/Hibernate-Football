@@ -1,7 +1,5 @@
 package com.jamesdpeters.entities;
 
-import com.jamesdpeters.utils.Utils;
-
 import javax.persistence.*;
 import java.util.Map;
 

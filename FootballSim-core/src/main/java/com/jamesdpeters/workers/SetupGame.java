@@ -1,15 +1,19 @@
 package com.jamesdpeters.workers;
 
-import com.jamesdpeters.entities.*;
+import com.jamesdpeters.entities.GameInfoEntity;
+import com.jamesdpeters.entities.LeaguesEntity;
+import com.jamesdpeters.entities.RegionsEntity;
+import com.jamesdpeters.entities.TeamsEntity;
 import com.jamesdpeters.gui.InputField;
 import com.jamesdpeters.gui.Output;
-import org.hibernate.Session;
 import com.jamesdpeters.utils.ASCII;
 import com.jamesdpeters.utils.GameInfoStore;
 import com.jamesdpeters.utils.InputUtil;
 import com.jamesdpeters.utils.SessionStore;
+import org.hibernate.Session;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SetupGame {
 

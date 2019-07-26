@@ -53,7 +53,7 @@
                         <phase>package</phase>
                         <goals><goal>launch4j</goal></goals>
                         <configuration>
-                            <headerType>com.jamesdpeters.gui</headerType>
+                            <headerType>gui</headerType>
                             <outfile>target/FootballSim.exe</outfile>
                             <jar>target/FootballSim.jar</jar>
                             <errTitle>encc</errTitle>
@@ -84,22 +84,22 @@
                 </executions>
             </plugin>
 
-            <plugin>
-                <groupId>sh.tak.appbundler</groupId>
-                <artifactId>appbundle-maven-plugin</artifactId>
-                <version>1.2.0</version>
-                <configuration>
-                    <mainClass>com.jamesdpeters.main.StartGame</mainClass>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>bundle</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>sh.tak.appbundler</groupId>-->
+<!--                <artifactId>appbundle-maven-plugin</artifactId>-->
+<!--                <version>1.2.0</version>-->
+<!--                <configuration>-->
+<!--                    <mainClass>com.jamesdpeters.main.StartGame</mainClass>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>bundle</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
 
 <!--            <plugin>-->
 <!--                <artifactId>maven-assembly-plugin</artifactId>-->
@@ -157,7 +157,6 @@
             <version>5.2</version>
         </dependency>
 
-
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -172,30 +171,10 @@
             <version>1.0.3</version>
         </dependency>
 
-
-
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>1.4.199</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>2.11.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.11.2</version>
-        </dependency>
-
-        <dependency>
-            <!-- jsoup HTML parser library @ https://jsoup.org/ -->
-            <groupId>org.jsoup</groupId>
-            <artifactId>jsoup</artifactId>
-            <version>1.12.1</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
@@ -204,10 +183,5 @@
             <artifactId>commons-io</artifactId>
             <version>2.6</version>
         </dependency>
-
-
     </dependencies>
-
-
-
 </project>

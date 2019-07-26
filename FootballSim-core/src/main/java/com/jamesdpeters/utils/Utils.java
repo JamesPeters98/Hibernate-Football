@@ -1,26 +1,22 @@
 package com.jamesdpeters.utils;
 
-import com.jamesdpeters.entities.*;
+import com.jamesdpeters.entities.TeamsEntity;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.config.Configurator;
 
 import java.util.List;
 import java.util.Random;
 
 public class Utils {
 
-    static {
-        setLoggerLevel(Level.DEBUG);
-    }
-
-    public static Logger logger = LogManager.getLogger(Utils.class);
-
-    public static void setLoggerLevel(Level level){
-        Configurator.setLevel(Utils.class.getCanonicalName(),level);
-    }
+//    static {
+//        setLoggerLevel(Level.DEBUG);
+//    }
+//
+//    public static Logger logger = LogManager.getLogger(Utils.class);
+//
+//    public static void setLoggerLevel(Level level){
+//        Configurator.setLevel(Utils.class.getCanonicalName(),level);
+//    }
 
     public static int poisson(double a) {
         Random random = new Random();

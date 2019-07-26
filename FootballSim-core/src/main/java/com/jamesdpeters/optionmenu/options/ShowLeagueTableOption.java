@@ -1,7 +1,7 @@
 package com.jamesdpeters.optionmenu.options;
 
-import com.jamesdpeters.optionmenu.panels.LeagueTablePanel;
 import com.jamesdpeters.optionmenu.menus.Menu;
+import com.jamesdpeters.optionmenu.panels.LeagueTablePanel;
 
 import javax.swing.*;
 

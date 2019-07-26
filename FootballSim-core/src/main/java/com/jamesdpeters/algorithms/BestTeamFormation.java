@@ -3,8 +3,8 @@ package com.jamesdpeters.algorithms;
 import com.jamesdpeters.entities.FormationsEntity;
 import com.jamesdpeters.entities.PlayersEntity;
 import com.jamesdpeters.entities.PositionsEntity;
-import org.hibernate.Session;
 import com.jamesdpeters.utils.DBUtil;
+import org.hibernate.Session;
 
 import java.util.ArrayList;
 import java.util.List;

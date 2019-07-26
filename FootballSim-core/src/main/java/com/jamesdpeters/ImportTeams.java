@@ -2,9 +2,9 @@ package com.jamesdpeters;
 
 import com.jamesdpeters.entities.TeamsEntity;
 import com.jamesdpeters.exceptions.NoDatabaseSelectedException;
+import com.jamesdpeters.utils.SessionStore;
 import org.h2.tools.Csv;
 import org.hibernate.Session;
-import com.jamesdpeters.utils.SessionStore;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

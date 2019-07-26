@@ -1,6 +1,9 @@
 package com.jamesdpeters.algorithms;
 
-import com.jamesdpeters.entities.*;
+import com.jamesdpeters.entities.FormationsEntity;
+import com.jamesdpeters.entities.PlayerRatingsEntity;
+import com.jamesdpeters.entities.PlayersEntity;
+import com.jamesdpeters.entities.PositionsEntity;
 import com.jamesdpeters.utils.RelatedPositions;
 
 import java.util.HashMap;

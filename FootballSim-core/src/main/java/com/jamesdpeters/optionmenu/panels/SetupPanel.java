@@ -6,10 +6,10 @@ import com.jamesdpeters.entities.TeamsEntity;
 import com.jamesdpeters.gui.combobox.ComboBox;
 import com.jamesdpeters.gui.combobox.ComboBoxUtils;
 import com.jamesdpeters.gui.combobox.ComboItem;
-import net.miginfocom.swing.MigLayout;
-import org.hibernate.Session;
 import com.jamesdpeters.utils.SessionStore;
 import com.jamesdpeters.workers.SetupGame;
+import net.miginfocom.swing.MigLayout;
+import org.hibernate.Session;
 
 import javax.swing.*;
 import java.awt.*;

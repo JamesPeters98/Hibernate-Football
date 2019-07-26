@@ -1,10 +1,12 @@
 package com.jamesdpeters.gui;
 
-import java.awt.*;
-import java.io.*;
-import java.util.*;
-import java.util.List;
 import javax.swing.*;
+import java.awt.*;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class TextAreaOutputStream
         extends OutputStream

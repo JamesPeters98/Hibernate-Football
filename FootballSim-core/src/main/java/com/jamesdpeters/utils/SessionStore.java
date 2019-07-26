@@ -11,7 +11,6 @@ import org.hibernate.cfg.Configuration;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,7 +81,7 @@ public class SessionStore {
     private static void checkDbFile(String dbName){
         File dbFile = new File(getDbPath(DB_NAME)+".mv.db");
         if(!dbFile.isFile()){
-            Utils.logger.info("DB: "+dbName+" did not exist! Copying default DB!");
+            System.err.println("DB: "+dbName+" did not exist! Copying default DB!");
             InputStream defaultFile = getDefaultDb();
             try {
                 FileUtils.copyInputStreamToFile(defaultFile,dbFile);

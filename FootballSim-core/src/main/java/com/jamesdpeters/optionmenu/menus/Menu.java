@@ -3,9 +3,9 @@ package com.jamesdpeters.optionmenu.menus;
 import com.jamesdpeters.frameworks.Season;
 import com.jamesdpeters.gui.InputField;
 import com.jamesdpeters.gui.Output;
-import net.miginfocom.swing.MigLayout;
 import com.jamesdpeters.optionmenu.options.Option;
 import com.jamesdpeters.utils.ASCII;
+import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.util.ArrayList;

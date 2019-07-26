@@ -1,7 +1,7 @@
 package com.jamesdpeters.optionmenu.options;
 
-import com.jamesdpeters.optionmenu.panels.PlayMatchPanel;
 import com.jamesdpeters.optionmenu.menus.Menu;
+import com.jamesdpeters.optionmenu.panels.PlayMatchPanel;
 import com.jamesdpeters.utils.GameInfoStore;
 
 import javax.swing.*;

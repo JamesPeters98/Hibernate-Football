@@ -2,12 +2,14 @@ package com.jamesdpeters.helpers;
 
 import com.jamesdpeters.entities.FixtureResultEntity;
 import com.jamesdpeters.entities.LeagueTableEntity;
-import org.hibernate.Session;
 import com.jamesdpeters.utils.SessionStore;
 import com.jamesdpeters.utils.Utils;
+import org.hibernate.Session;
 
 import javax.persistence.NoResultException;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
 public class LeagueTableHelper {
 

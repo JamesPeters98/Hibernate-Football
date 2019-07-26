@@ -1,11 +1,11 @@
 package com.jamesdpeters.workers;
 
+import com.jamesdpeters.utils.SessionStore;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.hibernate.tool.schema.TargetType;
-import com.jamesdpeters.utils.SessionStore;
 
 import java.io.File;
 import java.util.EnumSet;
