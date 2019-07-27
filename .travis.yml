@@ -1,6 +1,7 @@
 language: java
 
 script:
+  - cd /FootballSim-core
   - mvn package
 
 deploy:
