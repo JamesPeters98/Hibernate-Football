@@ -4,11 +4,13 @@
 
 A database driven football simulation currently using 18,000 different players from leagues all around the world.
 
-Currently run as a console program with the end goal being a GUI driven simulation.
+~~Currently run as a console program with the end goal being a GUI driven simulation.~~
+
+Now has UI support, with more coming.
 
 # Video in Action
 
-[![YouTube](https://img.youtube.com/vi/f7PBD0FOwLo/0.jpg)](https://www.youtube.com/watch?v=f7PBD0FOwLo)
+[![YouTube](https://img.youtube.com/vi/sa5dl1AiVEY/0.jpg)](https://www.youtube.com/watch?v=sa5dl1AiVEY)
 
 # TODO's
 * Add season implementations.
